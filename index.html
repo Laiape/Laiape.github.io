@@ -5,38 +5,335 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laia Peris | 3D Rigging TD Artist</title>
     
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        /* --- ESTILOS ESPECÍFICOS PARA LA PÁGINA DE INICIO (INDEX.HTML) --- */
+
+        /* Hero Section (Ahora con fondo liso y texto grande) */
+        .hero-main {
+            height: 100vh;
+            background-image: none; /* ELIMINADO: Fondo con Marte y la nave */
+            background-color: var(--background-color); /* Fondo liso negro */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        /* ELIMINADO: Overlay oscuro para mejorar la legibilidad del texto (ya no es necesario) */
+        .hero-main::before {
+            content: none; 
+        }
+
+        .hero-main .name {
+            /* MÁS GRANDE Y CON MENOS ESPACIADO QUE ANTES */
+            font-size: 14vw; /* Aún más grande */
+            font-weight: 700;
+            letter-spacing: -0.05em; /* Espaciado negativo para un efecto compacto */
+            line-height: 0.9em; /* Para que las líneas estén más juntas */
+            margin-bottom: 0.2em; /* Espacio entre nombre y apellido */
+            text-transform: uppercase;
+        }
+
+        /* AGREGADO: Estilo para la segunda línea del nombre (si lo dividimos) */
+        .hero-main .name span {
+            display: block; /* Cada parte del nombre en su propia línea */
+        }
+
+        .hero-main .title {
+            /* AJUSTADO: Más pequeño y con más espaciado como "FREELANCE 3D ARTIST" */
+            font-size: 1.8vw; /* Más pequeño que antes */
+            font-weight: 400;
+            letter-spacing: 5px; /* Más espaciado */
+            color: var(--secondary-color); /* Gris sutil */
+            margin-top: 30px; /* Espacio debajo del nombre */
+            margin-bottom: 0; /* No necesitamos margen inferior aquí */
+            text-transform: uppercase;
+        }
+
+        .hero-main .location {
+            content: none; /* ELIMINADO: Ya no necesitamos la ubicación */
+            display: none; /* Asegura que no se muestre */
+        }
+        
+        /* ELIMINADO: Ya no usamos este botón en el hero-main */
+        .hero-main .cta-button {
+            display: none;
+        }
+
+        /* --- NAVEGACIÓN (HEADER) - Estilo para el botón de Contacto --- */
+        /* Nuevo estilo para el botón de contacto en la navegación */
+        .nav-button-contact {
+            border: 1px solid var(--primary-color);
+            padding: 8px 20px; /* Más pequeño que el CTA principal */
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: var(--border-radius-sm); 
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            margin-left: 30px; /* Espacio del último enlace */
+            color: var(--primary-color); /* Color por defecto */
+        }
+
+        .nav-button-contact:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
+
+        /* Sección de proyectos destacados (Contenedor del Demo Reel y los iconos) */
+        .featured-projects {
+            background-color: var(--background-color);
+            padding: 80px 20px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* Contenedor del Separador */
+        .section-separator {
+            width: 90%;
+            max-width: 1400px; 
+            margin: 0 auto 50px auto;
+            color: var(--secondary-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-separator hr {
+            border: 0;
+            height: 1px;
+            background-color: #333;
+            margin-bottom: 15px;
+        }
+
+        .section-separator .separator-text {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-separator .sep-center {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        /* Contenedor del Vídeo */
+        .video-container {
+            margin: 0 auto;
+            max-width: 1400px; /* Mantén el ancho máximo */
+            width: 90%; /* Ocupa el 90% del ancho del padre */
+            height: 0; /* CAMBIO CLAVE: Altura inicial 0 */
+            position: relative;
+            padding-bottom: 30%; /* CAMBIO CLAVE: Relación de aspecto 16:9 (9 / 16 = 0.5625) */
+            overflow: hidden;
+            border: 1px solid #333;
+            margin-bottom: 50px; 
+            border-radius: var(--border-radius-sm); 
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* CAMBIO CLAVE: Ocupa el 100% del ancho del padre */
+            height: 100%; /* CAMBIO CLAVE: Ocupa el 100% de la altura del padre */
+            border: none;
+            border-radius: var(--border-radius-sm); 
+        }
+      
+
+        /* --- ESTILOS PARA LOS ICONOS DE HABILIDADES (Cuadrícula Actualizada) --- */
+        .skill-icons {
+            width: 90%;
+            max-width: 1400px; 
+            margin: 50px auto 80px auto; 
+            
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 20px; 
+            text-align: center;
+        }
+
+        .skill-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #0c0c0c; 
+            height: 160px; 
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: var(--border-radius-sm); 
+        }
+
+        .skill-box:hover {
+            border: 1px solid #333;
+        }
+
+        .skill-box img {
+            height: 80%;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.3; /* Desvanecido */
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-box:hover img {
+            opacity: 1; /* Iluminado al pasar el ratón */
+        }
+
+        /* --- ESTILOS DEL FOOTER --- */
+        footer {
+            /* Ahora el footer no es fijo para que aparezca después del contenido */
+            position: relative; 
+            bottom: auto; 
+            left: auto;
+            transform: none;
+            width: 100%;
+            text-align: center;
+            z-index: 5;
+            padding: 40px 0 20px 0; /* Agregamos padding para que no esté pegado */
+        }
+
+        footer .copyright {
+            font-size: 0.8em;
+            color: var(--secondary-color); 
+            letter-spacing: 1px;
+            text-transform: uppercase; 
+        }
+
+
+        /* Responsive para fuentes y márgenes */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .nav-links a {
+                margin-left: 15px;
+                font-size: 0.8em;
+            }
+            .nav-button-contact {
+                margin-left: 15px;
+                padding: 6px 15px;
+                font-size: 0.7em;
+            }
+
+            .hero-main .name { 
+                font-size: 15vw; /* Más grande en móvil */
+                letter-spacing: -0.03em;
+            }
+            .hero-main .title { 
+                font-size: 3.5vw; 
+                letter-spacing: 3px;
+                margin-top: 20px;
+            }
+            .featured-projects { padding: 50px 10px;}
+            
+            .section-separator .separator-text {
+                font-size: 0.8em;
+            }
+
+            .skill-icons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .skill-box {
+                height: 120px; 
+            }
+            
+            /* En móvil, el footer se vuelve relativo para no superponerse */
+            footer {
+                position: relative;
+                bottom: auto;
+                transform: none;
+                padding: 20px 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <div class="logo">
                 <a href="index.html">
-                    <img src="logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
+                    <img src="icons/logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
                 </a>
-            </div></a>
+            </div>
             <div class="nav-links">
-                <!-- <a href="about.html">SOBRE MÍ</a> -->
+                <a href="#featured-projects">PORTFOLIO</a> 
                 <a href="cv.html">CV</a>
-                <a href="contact.html">CONTACTO</a>
+                <a href="contact.html" class="nav-button-contact">CONTACTO</a>
             </div>
         </nav>
     </header>
 
-    <main class="hero">
-        <h1 class="name">LAIA PERIS</h1>
+    
+    <main class="hero-main">
+        <h1 class="name" data-aos="fade-up"><span>LAIA</span><span>PERIS</span></h1>
+        <p class="title" data-aos="fade-up" data-aos-delay="200">3D RIGGING TD ARTIST</p>
+        </main>
+
+    
+    <section id="featured-projects" class="featured-projects">
         
-        <p class="title">3d Rigging TD Artist</p>
-        
-        <p class="location">📍 Barcelona, España</p>
-        
-        <a href="#" class="cta-button">PORTFOLIO</a>
-    </main>
+        <div class="section-separator" style="margin-bottom: 30px;" data-aos="fade-up">
+            <hr>
+            <div class="separator-text">
+                <span class="sep-left">01</span>
+                <span class="sep-center">// STUDENT DEMO REEL</span>
+                <span class="sep-right">2025</span>
+            </div>
+        </div>
+
+        <div class="video-container" data-aos="zoom-in">
+            <iframe 
+                src="https://www.youtube.com/embed/swHJP3vklCY?autoplay=0&rel=0&modestbranding=1&color=white" 
+                title="YouTube video player" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="section-separator" data-aos="fade-up">
+            <hr>
+            <div class="separator-text">
+                <span class="sep-left">02</span>
+                <span class="sep-center">// SOFTWARE & TOOLS</span>
+                <span class="sep-right"></span> 
+            </div>
+        </div>
+
+        <div class="skill-icons" data-aos="fade-up">
+            <div class="skill-box"><img src="icons/maya.png" alt="Autodesk Maya Logo"></div>
+            <div class="skill-box"><img src="icons/visualstudio.png" alt="Visual Studio Code Logo"></div>
+            <div class="skill-box"><img src="icons/git.png" alt="Git Logo"></div>
+            <div class="skill-box"><img src="icons/python.png" alt="Python Logo"></div>
+        </div>
+
+    </section>
 
     <footer>
         <p class="copyright">© 2025 LAIA PERIS</p>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    </script>
 </body>
 </html>

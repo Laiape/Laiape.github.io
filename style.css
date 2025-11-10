@@ -4,6 +4,10 @@
     --secondary-color: #aaaaaa; /* Color de texto secundario (gris) */
     --background-color: #000000; /* Color de fondo (negro) */
     --font-family: 'Inter', sans-serif; /* Fuente moderna sans-serif */
+    
+    /* NUEVO: Variables para el diseño redondeado */
+    --border-radius-sm: 4px; 
+    --border-radius-md: 8px;
 }
 
 /* RESET Y ESTILOS BASE */
@@ -18,8 +22,11 @@ body, html {
     color: var(--primary-color);
     font-family: var(--font-family);
     /* El 100% de altura es clave para el efecto de pantalla completa */
-    background-image: url('bg.jpg');
+    background-image: url('bg.jpg'); /* Si no usas bg.jpg, la quitas */
     height: 100%;
+    
+    /* CAMBIO CLAVE: Cambiar el cursor en toda la página */
+    cursor: url('cursor.png'), auto;
 }
 
 a {
@@ -63,18 +70,18 @@ nav {
 }
 
 /* SECCIÓN PRINCIPAL (HERO) - El corazón del diseño */
-.hero {
+.hero-main {
+    /* Mantiene los estilos del hero de pantalla completa */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Altura total del viewport */
+    height: 100vh;
     text-align: center;
     padding: 0 20px;
 }
 
-.hero .name {
-    /* Tamaño de fuente grande y responsive (8% del ancho del viewport) */
+.hero-main .name {
     font-size: 8vw;
     font-weight: 700;
     letter-spacing: 5px;
@@ -82,8 +89,7 @@ nav {
     text-transform: uppercase;
 }
 
-.hero .title {
-    /* Título más pequeño, pero con mucho espaciado de letras */
+.hero-main .title {
     font-size: 2.5vw;
     font-weight: 400;
     letter-spacing: 10px; 
@@ -92,7 +98,7 @@ nav {
     text-transform: uppercase;
 }
 
-.hero .location {
+.hero-main .location {
     font-size: 1.5vw;
     font-weight: 400;
     letter-spacing: 2px;
@@ -109,6 +115,8 @@ nav {
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
+    border-radius: var(--border-radius-sm); /* Redondeado */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .cta-button:hover {
@@ -118,10 +126,14 @@ nav {
 
 /* FOOTER (Parte inferior de la página) */
 footer {
-    position: absolute;
-    bottom: 20px;
+    /* Ajustado para el index.html */
+    position: fixed; 
+    bottom: 20px; 
     left: 50%;
     transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    z-index: 5;
     font-size: 0.8em;
     color: var(--secondary-color);
     letter-spacing: 1px;
@@ -139,16 +151,24 @@ footer {
         font-size: 0.8em;
     }
 
-    .hero .name {
+    .hero-main .name {
         font-size: 10vw; 
     }
 
-    .hero .title {
+    .hero-main .title {
         font-size: 4vw;
         letter-spacing: 5px;
     }
     
-    .hero .location {
+    .hero-main .location {
         font-size: 3vw;
+    }
+    
+    /* El footer debe ser relativo en móvil si el contenido es largo */
+    footer {
+        position: relative;
+        bottom: auto;
+        transform: none;
+        padding: 20px 0;
     }
 }

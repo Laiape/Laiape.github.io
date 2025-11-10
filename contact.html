@@ -3,41 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laia Peris | Contacto</title>
+    <title>Contacto | Laia Peris</title>
     
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
-        .contact-container {
-            max-width: 700px;
-            margin: 120px auto 80px; /* Espacio superior, centrado y espacio inferior */
-            padding: 20px;
+        /* Contenedor principal para la página de contacto */
+        .contact-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px 80px 20px; /* Margen superior para el header */
+            background-color: var(--background-color);
         }
 
-        .contact-container h2 {
-            font-size: 2.5em;
+        /* Contenedor del formulario, centrado y con max-width */
+        .contact-container {
+            width: 100%;
+            max-width: 700px; 
+            text-align: left;
+        }
+
+        /* Título principal */
+        .contact-container h1 {
+            font-size: 3em;
             font-weight: 700;
-            letter-spacing: 3px;
             margin-bottom: 10px;
             text-transform: uppercase;
         }
 
-        .contact-container p {
+        /* Subtítulo */
+        .contact-container p.subtitle {
             color: var(--secondary-color);
-            margin-bottom: 40px;
-            line-height: 1.6;
+            margin-bottom: 50px;
+            font-size: 1.1em;
         }
 
-        /* ESTILOS DEL FORMULARIO */
+        /* Estilos del formulario (inputs y textarea) */
         .contact-form label {
             display: block;
-            font-weight: 700;
-            margin-bottom: 8px;
             font-size: 0.9em;
-            letter-spacing: 1px;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 5px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .contact-form input[type="text"],
@@ -45,19 +58,19 @@
         .contact-form textarea {
             width: 100%;
             padding: 15px;
-            margin-bottom: 25px;
-            border: 1px solid var(--secondary-color);
-            background-color: transparent; /* Fondo transparente */
+            background-color: #1a1a1a; /* Fondo oscuro sutil */
             color: var(--primary-color);
+            border: 1px solid #333;
+            /* Aplicando diseño redondeado */
+            border-radius: var(--border-radius-sm); 
             font-family: var(--font-family);
             font-size: 1em;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s;
         }
-
-        .contact-form input[type="text"]:focus,
-        .contact-form input[type="email"]:focus,
+        
+        .contact-form input:focus,
         .contact-form textarea:focus {
-            border-color: var(--primary-color);
+            border-color: var(--primary-color); /* Borde blanco al enfocar */
             outline: none;
         }
 
@@ -66,92 +79,124 @@
             min-height: 150px;
         }
 
-        /* Estilo del botón de envío, similar al CTA del index */
-        .contact-form button[type="submit"] {
-            display: block;
-            width: auto;
+        /* Botón de Enviar */
+        .submit-button {
+            /* Usamos el mismo estilo que .cta-button de index.html */
             border: 1px solid var(--primary-color);
-            background-color: transparent;
-            color: var(--primary-color);
             padding: 15px 30px;
             font-size: 1em;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-top: 40px;
             cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: transparent;
+            color: var(--primary-color);
+            border-radius: var(--border-radius-sm); 
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        .contact-form button[type="submit"]:hover {
+        .submit-button:hover {
             background-color: var(--primary-color);
             color: var(--background-color);
+        }
+
+        /* OTRAS VÍAS DE CONTACTO */
+        .other-ways {
+            margin-top: 60px;
+        }
+        
+        .other-ways h2 {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .contact-detail {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .contact-detail span {
+            display: block;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
+    
     <header>
         <nav>
             <div class="logo">
                 <a href="index.html">
                     <img src="logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
                 </a>
-            </div></a>
+            </div>
             <div class="nav-links">
-                <!-- <a href="index.html">INICIO</a> -->
-                <!-- <a href="about.html">SOBRE MÍ</a> -->
                 <a href="cv.html">CV</a>
-                <a href="contact.html" class="active">CONTACTO</a> </div>
+                <a href="contact.html" style="color:var(--secondary-color);">CONTACTO</a>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <div class="contact-container">
-            <h2>TRABAJEMOS JUNTOS</h2>
-            <p>
-                Estoy disponible para nuevos proyectos de Rigging y Desarrollo de Herramientas. 
-                Cuéntame más sobre tu idea o simplemente saluda.
-            </p>
-
-            <form action="https://formspree.io/f/[TU_HASH_DE_FORMSPREE]" method="POST" class="contact-form">
-                <div>
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
+    
+    <main class="contact-page">
+        <div class="contact-container" data-aos="fade-up">
+            
+            <h1>TRABAJEMOS JUNTOS</h1>
+            <p class="subtitle">Estoy disponible para nuevos proyectos de Rigging y Desarrollo de Herramientas. Cuéntame más sobre tu idea o simplemente saluda.</p>
+            
+            <form class="contact-form" action="TU_ENDPOINT_DE_FORMULARIO" method="POST">
                 
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="_replyto" required>
-                </div>
-
-                <div>
-                    <label for="subject">Asunto</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
+                <label for="name">NOMBRE</label>
+                <input type="text" id="name" name="name" required>
                 
-                <div>
-                    <label for="message">Mensaje</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
+                <label for="email">EMAIL</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="subject">ASUNTO</label>
+                <input type="text" id="subject" name="_subject" required>
 
-                <button type="submit">Enviar Mensaje</button>
+                <label for="message">MENSAJE</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="submit" class="submit-button">ENVIAR MENSAJE</button>
             </form>
             
-            <section style="margin-top: 50px;">
-                <h3 class="section-title" style="border-bottom: none; font-size: 1.2em; margin-top: 0;">OTRAS VÍAS</h3>
-                <p>
-                    <strong style="color: var(--primary-color); display: block;">Email:</strong> 
-                    <a href="mailto:laiaperis3@gmail.com" style="color: var(--secondary-color);">laiaperis3@gmail.com</a>
-                </p>
-                <p>
-                    <strong style="color: var(--primary-color); display: block;">LinkedIn:</strong> 
-                    <a href="https://linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank" style="color: var(--secondary-color);">/in/laia-peris-arantzamendi-6b9809277</a>
-                </p>
-            </section>
+            <div class="other-ways" data-aos="fade-up" data-aos-delay="300">
+                <h2>OTRAS VÍAS</h2>
+                
+                <div class="contact-detail">
+                    <span>Email:</span>
+                    <a href="mailto:laiaperis3@gmail.com">📧 laiaperis3@gmail.com</a>
+                </div>
+                
+                <div class="contact-detail">
+                    <span>LinkedIn:</span>
+                    <a href="https://linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank" rel="noopener noreferrer">
+                        <img src="icons/linkedin.png" alt="LinkedIn Laia Peris Arantzamendi" style="height:24px;width:auto;vertical-align:middle;"> Laia Peris Arantzamendi
+                    </a>
+                </div>
+            </div>
+
         </div>
     </main>
 
     <footer>
         <p class="copyright">© 2025 LAIA PERIS</p>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    </script>
 </body>
 </html>

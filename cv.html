@@ -3,173 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laia Peris | Currículum Vitae</title>
+    <title>CV | Laia Peris</title>
     
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="style.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
-        .cv-content {
-            max-width: 900px; /* Ancho para centrar el CV */
-            margin: 100px auto 80px; /* Espacio superior, centrado y espacio inferior */
-            padding: 20px;
+        /* CORRECCIÓN SCROLL HORIZONTAL */
+        body {
+            overflow-x: hidden;
         }
 
-        .cv-header h2 {
+        /* Contenedor principal del CV */
+        .cv-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 120px 20px 80px 20px; 
+            background-color: var(--background-color);
+        }
+
+        /* Contenedor del CV, centrado y con ancho limitado */
+        .cv-container {
+            width: 100%;
+            max-width: 1000px; /* Ampliado para más espacio */
+            text-align: left;
+        }
+
+        /* Información de Contacto Superior */
+        .cv-header {
+            margin-bottom: 50px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333; 
+        }
+        
+        .cv-header h1 {
             font-size: 3em;
             font-weight: 700;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
 
-        .section-title {
+        .cv-header p {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            line-height: 1.4;
+        }
+
+        .cv-header a:hover {
+            color: var(--primary-color);
+        }
+
+        /* SECCIONES DEL CV */
+        .cv-section {
+            margin-bottom: 50px;
+            padding-top: 10px;
+        }
+        
+        .cv-section h2 {
             font-size: 1.5em;
             font-weight: 700;
-            letter-spacing: 1px;
-            margin-top: 40px;
             margin-bottom: 15px;
-            border-bottom: 1px solid var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
             padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+        
+        /* Contenido de cada elemento */
+        .cv-item {
+            margin-bottom: 30px;
+        }
+
+        .cv-item h3 {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
-        .job-entry, .education-entry {
-            margin-bottom: 25px;
-        }
-
-        .job-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-
-        .company-name, .dates {
-            font-size: 1em;
-            font-weight: 400;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
-        }
-        
-        .description-list {
-            list-style: none; /* Quitamos los puntos por defecto */
-            padding-left: 0;
-            margin-top: 10px;
-        }
-
-        .description-list li {
-            position: relative;
-            padding-left: 15px;
+        .cv-item p.details {
             font-size: 0.9em;
-            line-height: 1.6;
             color: var(--secondary-color);
-        }
-
-        .description-list li::before {
-            content: '–'; /* Usamos un guión como punto minimalista */
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-            font-weight: 700;
+            margin-bottom: 10px;
         }
         
-        /* Estilos de Habilidades */
-        .skills-list {
+        .cv-item ul {
+            list-style: none;
+            padding-left: 15px;
+        }
+
+        .cv-item ul li {
+            position: relative;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        /* Estilo para los bullets (puntos) en las listas */
+        .cv-item ul li::before {
+            content: '–';
+            position: absolute;
+            left: -15px;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Estilos de Habilidades Técnicas y Listas de Habilidades (para keywords) */
+        .tech-skills p, .soft-skills ul, .language-skills ul {
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .tech-skills p strong {
+            display: inline-block;
+            width: 120px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+        }
+        
+        /* ESTILO PARA COLOCAR HABILIDADES BLANDAS E IDIOMAS HORIZONTALMENTE */
+        .skills-row {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px; 
+            margin-bottom: 50px; 
+        }
+        
+        .skills-row .cv-section {
+            flex: 1; 
+            margin-bottom: 0; 
+        }
+        
+        /* Estilos específicos para listas de Habilidades Blandas/Lenguajes */
+        .soft-skills ul, .language-skills ul {
             list-style: none;
             padding: 0;
         }
+        
+        .soft-skills ul li, .language-skills ul li {
+            position: relative;
+            margin-bottom: 8px;
+            padding-left: 15px;
+        }
+        
+        .soft-skills ul li::before, .language-skills ul li::before {
+            content: '•'; 
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            line-height: 1;
+        }
 
-        .skills-list li {
-            background-color: #1a1a1a;
-            color: var(--primary-color);
-            padding: 8px 15px;
-            margin: 0 10px 10px 0;
-            border-radius: 3px;
-            font-size: 0.9em;
-            font-weight: 400;
-            letter-spacing: 1px;
+
+        /* Adaptación del footer para páginas con scroll */
+        footer {
+            position: relative !important;
+            transform: none !important;
+            padding: 40px 0 20px 0;
+            margin-top: 50px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tech-skills p strong {
+                width: 90px;
+            }
+            /* RESPONSIVE: Vuelven a ser verticales en móviles */
+            .skills-row {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    
     <header>
         <nav>
             <div class="logo">
                 <a href="index.html">
-                    <img src="logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
+                    <img src="icons/logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
                 </a>
-            </div></a>
+            </div>
             <div class="nav-links">
-                <!-- <a href="about.html">SOBRE MÍ</a> -->
-                <a href="cv.html" class="active">CV</a> 
-                <a href="contact.html">CONTACTO</a> 
+                <a href="cv.html" style="color:var(--secondary-color);">CV</a>
+                <a href="contact.html">CONTACTO</a>
             </div>
         </nav>
     </header>
 
-    <main>
-        <div class="cv-content">
-            <div class="cv-header">
-                <h2>CURRÍCULUM VITAE</h2>
-                <p style="color: var(--secondary-color);">Email: laiaperis3@gmail.com | LinkedIn: https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277/ | Portfolio: laiape.github.io</p>
+    
+    <main class="cv-page">
+        <div class="cv-container">
+            
+            <div class="cv-header" data-aos="fade-down">
+                <h1>CURRÍCULUM VITAE</h1>
+                <p>
+                    Email: <a href="mailto:laiaperis3@gmail.com"> 📧 laiaperis3@gmail.com</a> | 
+                    LinkedIn: <a href="https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank" rel="noopener noreferrer">
+                      <img src="icons/linkedin.png" alt="LinkedIn logo" style="height:16px; width:auto; vertical-align:middle; margin-right:0px;">
+                      Laia Peris Arantzamendi
+                    </a> | 
+                    Portfolio: <a href="https://laiape.github.io" target="_blank" rel="noopener noreferrer">
+                      <img src="icons/github.png" alt="GitHub logo" style="height:16px; width:auto; vertical-align:middle; margin-right:6px;">laiape.github.io
+                    </a>
+                </p>
             </div>
-
-            <section class="experience">
-                <h3 class="section-title">EXPERIENCIA RELEVANTE</h3>
+            
+            <section class="cv-section" data-aos="fade-up">
+                <h2>EXPERIENCIA RELEVANTE</h2>
                 
-                <div class="job-entry">
-                    <p class="job-title">DAVI - TFG UNIVERSIDAD</p>
-                    <!-- <p class="company-name">Estudio de Animación Creativa</p> -->
-                    <p class="dates">Septiembre 2024 – Mayo 2025 | Barcelona</p>
-                    <ul class="description-list">
-                        <li>Colaboradora en skinning facial y cuerpo del personaje principal.</li>
+                <div class="cv-item">
+                    <h3>DAVI - TFG UNIVERSIDAD</h3>
+                    <p class="details">Septiembre 2024 – Mayo 2025 | Barcelona</p>
+                    <ul>
+                        <li>Colaboradora en skinning facial y corporal del personaje principal.</li>
                     </ul>
                 </div>
                 
-                <div class="job-entry">
-                    <p class="job-title">HERRAMIENTA AUTOMÁTICA DE RIGGING</p>
-                    <!-- <p class="dates">Enero 2023 – Agosto 2024 | Remoto</p> -->
-                    <ul class="description-list">
+                <div class="cv-item">
+                    <h3>HERRAMIENTA AUTOMÁTICA DE RIGGING</h3>
+                    <p class="details">Proyecto Personal</p>
+                    <ul>
                         <li>Optimización de rigs existentes para proyectos personales.</li>
                         <li>Scripting para tareas repetitivas de setup de bípedos y cuadrúpedos.</li>
                     </ul>
                 </div>
             </section>
-
-            <section class="education">
-                <h3 class="section-title">EDUCACIÓN</h3>
+            
+            <section class="cv-section" data-aos="fade-up" data-aos-delay="200">
+                <h2>EDUCACIÓN</h2>
                 
-                <div class="education-entry">
-                    <p class="job-title">GRADE IN 3D ANIMATION AND VFX</p>
-                    <p class="company-name">La Salle Ramon Llull (URL)</p>
-                    <p class="dates">2022 – 2026 | Barcelona</p>
+                <div class="cv-item">
+                    <h3>GRADE IN 3D ANIMATION AND VFX</h3>
+                    <p class="details">La Salle Ramon Llull (URL) | 2022 – 2026 | Barcelona</p>
                 </div>
                 
-                <div class="education-entry">
-                    <p class="job-title">GRADE IN MULTIMEDIA ENGINEERING</p>
-                    <p class="company-name">La Salle Ramon Llull (URL)</p>
-                    <p class="dates">2021 – 2022 | Barcelona</p>
+                <div class="cv-item">
+                    <h3>GRADE IN MULTIMEDIA ENGINEERING</h3>
+                    <p class="details">La Salle Ramon Llull (URL) | 2021 – 2022 | Barcelona</p>
                 </div>
             </section>
 
-            <section class="skills">
-                <h3 class="section-title">HABILIDADES TÉCNICAS</h3>
-                <ul class="skills-list">
-                    <li>SOFTWARE: Autodesk Maya, Visual Studio </li>
-                    <li>LENGUAJES: Maya Python (Avanzado), Maya API (Básico), PyQt (Básico)</li>
-                    <li>SISTEMAS: Rigging Facial/Corporal, Deformadores, Músculos y Piel, Rigs Modulares</li>
-                    <li>VERSIONADO: Git/GitHub</li>
-                </ul>
+            <section class="cv-section tech-skills" data-aos="fade-up" data-aos-delay="400">
+                <h2>HABILIDADES TÉCNICAS</h2>
+                
+                <p>
+                    <strong>SOFTWARE:</strong> Autodesk Maya, Visual Studio
+                </p>
+                <p>
+                    <strong>LENGUAJES:</strong> Maya Python (Avanzado), Maya API (Básico), PyQt (Básico)
+                </p>
+                <p>
+                    <strong>SISTEMAS:</strong> Rigging Facial/Corporal, Deformadores, Músculos y Piel, Rigs Modulares
+                </p>
+                <p>
+                    <strong>VERSIONADO:</strong> Git/GitHub
+                </p>
             </section>
-        </div>
+            
+            <div class="skills-row">
+                
+                <section class="cv-section soft-skills" data-aos="fade-up" data-aos-delay="500">
+                    <h2>SKILLS</h2>
+                    <ul>
+                        <li>Programming</li>
+                        <li>Version Control Systems</li>
+                        <li>Problem solving</li>
+                        <li>Critical thinking</li>
+                        <li>Team collaboration</li>
+                    </ul>
+                </section>
+
+                <section class="cv-section language-skills" data-aos="fade-up" data-aos-delay="600">
+                    <h2>LANGUAGE SKILLS</h2>
+                    <ul>
+                        <li>Basque (native)</li>
+                        <li>Catalan (native)</li>
+                        <li>Spanish (native)</li>
+                        <li>English (Fluent)</li>
+                    </ul>
+                </section>
+            
+            </div>
+            </div>
     </main>
 
     <footer>
         <p class="copyright">© 2025 LAIA PERIS</p>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    </script>
 </body>
 </html>
