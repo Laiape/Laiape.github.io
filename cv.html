@@ -1,30 +1,176 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CV | Laia Peris</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laia Peris | Currículum Vitae</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .cv-content {
+            max-width: 900px; /* Ancho para centrar el CV */
+            margin: 100px auto 80px; /* Espacio superior, centrado y espacio inferior */
+            padding: 20px;
+        }
+
+        .cv-header h2 {
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .job-entry, .education-entry {
+            margin-bottom: 25px;
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .company-name, .dates {
+            font-size: 1em;
+            font-weight: 400;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+        
+        .description-list {
+            list-style: none; /* Quitamos los puntos por defecto */
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .description-list li {
+            position: relative;
+            padding-left: 15px;
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: var(--secondary-color);
+        }
+
+        .description-list li::before {
+            content: '–'; /* Usamos un guión como punto minimalista */
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        
+        /* Estilos de Habilidades */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-list li {
+            background-color: #1a1a1a;
+            color: var(--primary-color);
+            padding: 8px 15px;
+            margin: 0 10px 10px 0;
+            border-radius: 3px;
+            font-size: 0.9em;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
-  <nav class="nav">
-    <a href="index.html" class="nav__link">Inicio</a>
-    <a href="about.html" class="nav__link">Sobre mí</a>
-    <a href="cv.html" class="nav__link active">CV</a>
-  </nav>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
+                </a>
+            </div></a>
+            <div class="nav-links">
+                <!-- <a href="about.html">SOBRE MÍ</a> -->
+                <a href="cv.html" class="active">CV</a> 
+                <a href="contact.html">CONTACTO</a> 
+            </div>
+        </nav>
+    </header>
 
-  <main class="content fade-in">
-    <h2 class="content__title">Currículum Vitae</h2>
+    <main>
+        <div class="cv-content">
+            <div class="cv-header">
+                <h2>CURRÍCULUM VITAE</h2>
+                <p style="color: var(--secondary-color);">Email: laiaperis3@gmail.com | LinkedIn: https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277/ | Portfolio: laiape.github.io</p>
+            </div>
 
-    <div class="cv-image-container">
-      <img src="cv_preview.jpg" alt="Currículum Vitae de Laia Peris" class="cv__image">
-    </div>
+            <section class="experience">
+                <h3 class="section-title">EXPERIENCIA RELEVANTE</h3>
+                
+                <div class="job-entry">
+                    <p class="job-title">DAVI - TFG UNIVERSIDAD</p>
+                    <!-- <p class="company-name">Estudio de Animación Creativa</p> -->
+                    <p class="dates">Septiembre 2024 – Mayo 2025 | Barcelona</p>
+                    <ul class="description-list">
+                        <li>Colaboradora en skinning facial y cuerpo del personaje principal.</li>
+                    </ul>
+                </div>
+                
+                <div class="job-entry">
+                    <p class="job-title">HERRAMIENTA AUTOMÁTICA DE RIGGING</p>
+                    <!-- <p class="dates">Enero 2023 – Agosto 2024 | Remoto</p> -->
+                    <ul class="description-list">
+                        <li>Mantenimiento y optimización de rigs existentes para proyectos de publicidad.</li>
+                        <li>Scripting para tareas repetitivas de setup de personajes y props.</li>
+                        <li>Documentación de procesos técnicos para nuevos miembros del equipo.</li>
+                    </ul>
+                </div>
+            </section>
 
-    <p class="cv-download">
-      <a href="cv_preview.jpg" download>📥 Descargar CV en JPG</a>
-    </p>
-  </main>
+            <section class="education">
+                <h3 class="section-title">EDUCACIÓN</h3>
+                
+                <div class="education-entry">
+                    <p class="job-title">GRADE IN 3D ANIMATION AND VFX</p>
+                    <p class="company-name">La Salle Ramon Llull (URL)</p>
+                    <p class="dates">2022 – 2026 | Barcelona</p>
+                </div>
+                
+                <div class="education-entry">
+                    <p class="job-title">GRADE IN MULTIMEDIA ENGINEERING</p>
+                    <p class="company-name">La Salle Ramon Llull (URL)</p>
+                    <p class="dates">2021 – 2022 | Barcelona</p>
+                </div>
+            </section>
 
-  <footer class="footer">© 2025 Laia Peris</footer>
+            <section class="skills">
+                <h3 class="section-title">HABILIDADES TÉCNICAS</h3>
+                <ul class="skills-list">
+                    <li>SOFTWARE: Autodesk Maya, Visual Studio </li>
+                    <li>LENGUAJES: Maya Python (Avanzado), Maya API (Básico), PyQt (Básico)</li>
+                    <li>SISTEMAS: Rigging Facial/Corporal, Deformadores, Músculos y Piel, Rigs Modulares</li>
+                    <li>VERSIONADO: Git/GitHub</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p class="copyright">© 2025 LAIA PERIS</p>
+    </footer>
 </body>
 </html>

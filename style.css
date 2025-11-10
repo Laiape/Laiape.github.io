@@ -1,156 +1,154 @@
-/* === ESTILO OSCURO INSPIRADO EN DORIAN GENDRE === */
+/* VARIABLES GLOBALES */
 :root {
-  --bg: #000000;
-  --text: #ffffff;
-  --text-dim: #aaaaaa;
-  --accent: #00b4ff;
-  --font-title: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
+    --primary-color: #ffffff; /* Color de texto principal (blanco) */
+    --secondary-color: #aaaaaa; /* Color de texto secundario (gris) */
+    --background-color: #000000; /* Color de fondo (negro) */
+    --font-family: 'Inter', sans-serif; /* Fuente moderna sans-serif */
 }
 
+/* RESET Y ESTILOS BASE */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  scroll-behavior: smooth;
+body, html {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    /* El 100% de altura es clave para el efecto de pantalla completa */
+    background-image: url('bg.jpg');
+    height: 100%;
 }
 
-/* NAV */
-.nav {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  padding: 2rem 0;
-  background-color: rgba(0,0,0,0.8);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(5px);
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-.nav__link {
-  color: var(--text-dim);
-  text-decoration: none;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: color 0.3s;
+a:hover {
+    color: var(--secondary-color);
 }
 
-.nav__link:hover,
-.nav__link.active {
-  color: var(--accent);
+/* NAVEGACIÓN (HEADER) */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 50px;
+    z-index: 10;
 }
 
-/* HERO */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.2em;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.nav-links a {
+    margin-left: 30px;
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* SECCIÓN PRINCIPAL (HERO) - El corazón del diseño */
 .hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 85vh;
-  text-align: center;
-  animation: fadeIn 1.5s ease forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura total del viewport */
+    text-align: center;
+    padding: 0 20px;
 }
 
-.hero__title {
-  font-family: var(--font-title);
-  font-size: 4.5rem;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+.hero .name {
+    /* Tamaño de fuente grande y responsive (8% del ancho del viewport) */
+    font-size: 8vw;
+    font-weight: 700;
+    letter-spacing: 5px;
+    margin-bottom: 0.1em;
+    text-transform: uppercase;
 }
 
-.hero__subtitle {
-  font-size: 1.5rem;
-  color: var(--accent);
-  margin-top: 0.5rem;
+.hero .title {
+    /* Título más pequeño, pero con mucho espaciado de letras */
+    font-size: 2.5vw;
+    font-weight: 400;
+    letter-spacing: 10px; 
+    color: var(--secondary-color);
+    margin-bottom: 40px;
+    text-transform: uppercase;
 }
 
-/* CONTENT */
-.content {
-  max-width: 900px;
-  margin: 80px auto;
-  padding: 0 1.5rem;
+.hero .location {
+    font-size: 1.5vw;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: var(--primary-color);
+    margin-bottom: 60px;
+    text-transform: uppercase;
 }
 
-.content__title {
-  font-family: var(--font-title);
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: var(--accent);
+/* Botón (CTA) */
+.cta-button {
+    border: 1px solid var(--primary-color);
+    padding: 15px 30px;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
-.content__text {
-  color: var(--text-dim);
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-  animation: fadeIn 1.2s ease forwards;
+.cta-button:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
 }
 
-/* CV IMAGE */
-.cv-image-container {
-  text-align: center;
-  margin-top: 2rem;
+/* FOOTER (Parte inferior de la página) */
+footer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8em;
+    color: var(--secondary-color);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-.cv__image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  border: 1px solid #222;
-  box-shadow: 0 0 40px rgba(255,255,255,0.05);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.cv__image:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 50px rgba(0,180,255,0.3);
-}
-
-/* DOWNLOAD LINK */
-.cv-download {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.cv-download a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.3s;
-}
-
-.cv-download a:hover {
-  color: white;
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  padding: 3rem 0;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
-
-/* ANIMACIONES */
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* RESPONSIVE */
+/* RESPONSIVE: Ajustes para dispositivos móviles */
 @media (max-width: 768px) {
-  .hero__title { font-size: 3rem; }
-  .content__title { font-size: 2rem; }
+    header {
+        padding: 15px 20px;
+    }
+    
+    .nav-links a {
+        margin-left: 15px;
+        font-size: 0.8em;
+    }
+
+    .hero .name {
+        font-size: 10vw; 
+    }
+
+    .hero .title {
+        font-size: 4vw;
+        letter-spacing: 5px;
+    }
+    
+    .hero .location {
+        font-size: 3vw;
+    }
 }
