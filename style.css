@@ -1,0 +1,156 @@
+/* === ESTILO OSCURO INSPIRADO EN DORIAN GENDRE === */
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --text-dim: #aaaaaa;
+  --accent: #00b4ff;
+  --font-title: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
+  background-color: rgba(0,0,0,0.8);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.nav__link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.nav__link:hover,
+.nav__link.active {
+  color: var(--accent);
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  text-align: center;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.hero__title {
+  font-family: var(--font-title);
+  font-size: 4.5rem;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.hero__subtitle {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-top: 0.5rem;
+}
+
+/* CONTENT */
+.content {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 1.5rem;
+}
+
+.content__title {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.content__text {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* CV IMAGE */
+.cv-image-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.cv__image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #222;
+  box-shadow: 0 0 40px rgba(255,255,255,0.05);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cv__image:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 50px rgba(0,180,255,0.3);
+}
+
+/* DOWNLOAD LINK */
+.cv-download {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.cv-download a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.cv-download a:hover {
+  color: white;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 3rem 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+/* ANIMACIONES */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero__title { font-size: 3rem; }
+  .content__title { font-size: 2rem; }
+}
