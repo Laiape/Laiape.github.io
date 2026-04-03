@@ -1,309 +1,452 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV | Laia Peris</title>
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
     <style>
-        /* CORRECCIÓN SCROLL HORIZONTAL */
+        :root {
+            --bg: #0a0a0a;
+            --fg: #f0ede8;
+            --accent: #c8f060;
+            --muted: #3a3a3a;
+            --subtle: #888;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
         body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
             overflow-x: hidden;
+            cursor: none;
         }
 
-        /* Contenedor principal del CV */
-        .cv-page {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 120px 20px 80px 20px; 
-            background-color: var(--background-color);
+        /* --- CURSOR (Igual al index) --- */
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease;
         }
+        .cursor-follower {
+            width: 36px; height: 36px;
+            border: 1px solid rgba(200,240,96,0.35);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+        body:has(a:hover) .cursor, 
+        body:has(button:hover) .cursor { transform: translate(-50%,-50%) scale(2.5); }
 
-        /* Contenedor del CV, centrado y con ancho limitado */
-        .cv-container {
-            width: 100%;
-            max-width: 1000px; /* Ampliado para más espacio */
-            text-align: left;
-        }
-
-        /* Información de Contacto Superior */
-        .cv-header {
-            margin-bottom: 50px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #333; 
-        }
-        
-        .cv-header h1 {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .cv-header p {
-            font-size: 0.9em;
-            color: var(--secondary-color);
-            line-height: 1.4;
-        }
-
-        .cv-header a:hover {
-            color: var(--primary-color);
-        }
-
-        /* SECCIONES DEL CV */
-        .cv-section {
-            margin-bottom: 50px;
-            padding-top: 10px;
-        }
-        
-        .cv-section h2 {
-            font-size: 1.5em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #333;
-        }
-        
-        /* Contenido de cada elemento */
-        .cv-item {
-            margin-bottom: 30px;
-        }
-
-        .cv-item h3 {
-            font-size: 1.1em;
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .cv-item p.details {
-            font-size: 0.9em;
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-        
-        .cv-item ul {
-            list-style: none;
-            padding-left: 15px;
-        }
-
-        .cv-item ul li {
-            position: relative;
-            font-size: 0.9em;
-            margin-bottom: 5px;
-            line-height: 1.4;
-        }
-
-        /* Estilo para los bullets (puntos) en las listas */
-        .cv-item ul li::before {
-            content: '–';
+        /* --- HEADER --- */
+        header {
             position: absolute;
-            left: -15px;
-            color: var(--secondary-color);
-            font-weight: bold;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 24px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            mix-blend-mode: difference;
         }
-
-        /* Estilos de Habilidades Técnicas y Listas de Habilidades (para keywords) */
-        .tech-skills p, .soft-skills ul, .language-skills ul {
-            margin-bottom: 15px;
-            font-size: 0.95em;
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
         }
-
-        .tech-skills p strong {
-            display: inline-block;
-            width: 120px;
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+        nav { display: flex; align-items: center; gap: 36px; }
+        nav a {
+            font-size: 0.72rem;
             font-weight: 700;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--secondary-color);
+            color: var(--fg);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
         }
+        nav a:hover { opacity: 1; }
+
+        /* --- CV CONTENT --- */
+        .cv-main {
+            padding: 180px 48px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+        }
+
+        /* Left Column */
+        .cv-sidebar h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(60px, 8vw, 120px);
+            line-height: 0.85;
+            margin-bottom: 40px;
+        }
+        .cv-sidebar h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--fg);
+        }
+        .contact-info {
+            margin-bottom: 60px;
+        }
+        .contact-item {
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--subtle);
+        }
+        .contact-item a { color: inherit; text-decoration: none; transition: color 0.2s; }
+        .contact-item a:hover { color: var(--accent); }
+        .contact-item img { height: 14px; opacity: 0.6; }
+
+        /* Right Column & Sections */
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--muted);
+        }
+
+        .cv-section { margin-bottom: 80px; }
         
-        /* ESTILO PARA COLOCAR HABILIDADES BLANDAS E IDIOMAS HORIZONTALMENTE */
-        .skills-row {
+        .cv-item { margin-bottom: 40px; }
+        .cv-item-header {
             display: flex;
             justify-content: space-between;
-            gap: 40px; 
-            margin-bottom: 50px; 
+            align-items: baseline;
+            margin-bottom: 10px;
         }
-        
-        .skills-row .cv-section {
-            flex: 1; 
-            margin-bottom: 0; 
+        .cv-item h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
         }
-        
-        /* Estilos específicos para listas de Habilidades Blandas/Lenguajes */
-        .soft-skills ul, .language-skills ul {
+        .cv-item .date {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .cv-item .sub {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+        .cv-item ul {
             list-style: none;
-            padding: 0;
+            padding-left: 0;
         }
-        
-        .soft-skills ul li, .language-skills ul li {
-            position: relative;
+        .cv-item ul li {
+            font-size: 0.95rem;
+            color: var(--subtle);
+            line-height: 1.6;
             margin-bottom: 8px;
-            padding-left: 15px;
+            position: relative;
+            padding-left: 20px;
         }
-        
-        .soft-skills ul li::before, .language-skills ul li::before {
-            content: '•'; 
+        .cv-item ul li::before {
+            content: '→';
             position: absolute;
             left: 0;
-            color: var(--secondary-color);
-            font-size: 1.2em;
-            line-height: 1;
+            color: var(--accent);
         }
 
+        /* Skills Layout */
+        .skills-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .skill-group h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--fg);
+            margin-bottom: 15px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border: 1px solid var(--muted);
+            border-radius: 4px;
+            color: var(--subtle);
+        }
 
-        /* Adaptación del footer para páginas con scroll */
+        /* Footer */
         footer {
-            position: relative !important;
-            transform: none !important;
-            padding: 40px 0 20px 0;
-            margin-top: 50px;
+            border-top: 1px solid var(--muted);
+            padding: 32px 48px;
+            text-align: center;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .tech-skills p strong {
-                width: 90px;
-            }
-            /* RESPONSIVE: Vuelven a ser verticales en móviles */
-            .skills-row {
-                flex-direction: column;
-                gap: 10px;
-            }
+        .footer-copy {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--subtle);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .cv-grid { grid-template-columns: 1fr; gap: 40px; }
+            .cv-main { padding: 140px 24px 60px; }
+            header { padding: 18px 20px; }
+            .skills-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="follower"></div>
+
     <header>
-        <nav>
-            <div class="logo">
-                <a href="index.html">
-                    <img src="icons/logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
-                </a>
-            </div>
-            <div class="nav-links">
-                <a href="cv.html" style="color:var(--secondary-color);">CV</a>
-                <a href="contact.html">CONTACT</a>
-            </div>
+        <a href="index.html">
+            <img src="logo_LP.png" alt="Logo" class="logo-img">
+        </a>
+        <nav class="nav-center"> 
+            <a href="portfolio.html">Portfolio</a>
+            <a href="cv.html" style="opacity: 1; color: var(--accent);">CV</a>
+            <a href="about.html">About Me</a>
         </nav>
     </header>
 
-    
-    <main class="cv-page">
-        <div class="cv-container">
+    <main class="cv-main">
+        <div class="cv-grid">
             
-            <div class="cv-header" data-aos="fade-down">
-                <h1>CURRÍCULUM VITAE</h1>
-                <p>
-                    Email: <a href="mailto:laiaperis3@gmail.com"> 📧 laiaperis3@gmail.com</a> | 
-                    LinkedIn: <a href="https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank" rel="noopener noreferrer">
-                      <img src="icons/linkedin.png" alt="LinkedIn logo" style="height:16px; width:auto; vertical-align:middle; margin-right:0px;">
-                      Laia Peris Arantzamendi
-                    </a> | 
-                    Portfolio: <a href="https://laiape.github.io" target="_blank" rel="noopener noreferrer">
-                      <img src="icons/github.png" alt="GitHub logo" style="height:16px; width:auto; vertical-align:middle; margin-right:6px;">laiape.github.io
-                    </a>
-                </p>
-            </div>
-            
-            <section class="cv-section" data-aos="fade-up">
-                <h2>RELEVANT EXPERIENCE</h2>
+            <aside class="cv-sidebar">
+                <h1 class="reveal">LAIA<br><span>PERIS</span></h1>
                 
-                <div class="cv-item">
-                    <h3>DAVI - UNIVERSITY (FINAL DEGREE PROJECT)</h3>
-                    <p class="details">September 2024 – May 2025 | Barcelona</p>
-                    <ul>
-                        <li>Collaborator on facial and body skinning for the main character..</li>
-                    </ul>
+                <div class="contact-info reveal reveal-delay-1">
+                    <div class="contact-item">
+                        <a href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <img src="icons/linkedin.png" alt="">
+                        <a href="https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank">LinkedIn</a>
+                    </div>
+                    <div class="contact-item">
+                        <img src="icons/github.png" alt="">
+                        <a href="https://laiape.github.io" target="_blank">laiape.github.io</a>
+                    </div>
                 </div>
-                
-                <div class="cv-item">
-                    <h3>AUTOMATIC RIGGING TOOL</h3>
-                    <p class="details">Personal Porject</p>
-                    <ul>
-                        <li>Optimization of existing rigs for personal projects.</li>
-                        <li>Scripting for repetitive setup tasks for bipeds and quadrupeds.</li>
-                    </ul>
-                </div>
-            </section>
-            
-            <section class="cv-section" data-aos="fade-up" data-aos-delay="200">
-                <h2>EDUCATION</h2>
-                
-                <div class="cv-item">
-                    <h3>GRADE IN 3D ANIMATION AND VFX</h3>
-                    <p class="details">La Salle Ramon Llull (URL) | 2022 – 2026 | Barcelona</p>
-                </div>
-                
-                <div class="cv-item">
-                    <h3>GRADE IN MULTIMEDIA ENGINEERING</h3>
-                    <p class="details">La Salle Ramon Llull (URL) | 2021 – 2022 | Barcelona</p>
-                </div>
-            </section>
 
-            <section class="cv-section tech-skills" data-aos="fade-up" data-aos-delay="400">
-                <h2>TECHNICAL SKILLS</h2>
+                <div class="cv-section reveal reveal-delay-2">
+                    <div class="section-label">Languages</div>
+                    <div class="skill-group">
+                        <p class="contact-item">Basque (Native)</p>
+                        <p class="contact-item">Catalan (Native)</p>
+                        <p class="contact-item">Spanish (Native)</p>
+                        <p class="contact-item">English (Fluent)</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="cv-content">
                 
-                <p>
-                    <strong>SOFTWARE:</strong> Autodesk Maya, Visual Studio
-                </p>
-                <p>
-                    <strong>LANGUAGES:</strong> Maya Python (Advanced), Maya API (Basic), PyQt (Basic)
-                </p>
-                <p>
-                    <strong>SYSTEMS:</strong> Rigging Facial/Corporal, Deformadores, Músculos y Piel, Rigs Modulares
-                </p>
-                <p>
-                    <strong>VERSION CONTROL:</strong> Git/GitHub
-                </p>
-            </section>
-            
-            <div class="skills-row">
-                
-                <section class="cv-section soft-skills" data-aos="fade-up" data-aos-delay="500">
-                    <h2>SKILLS</h2>
-                    <ul>
-                        <li>Programming</li>
-                        <li>Version Control Systems</li>
-                        <li>Problem solving</li>
-                        <li>Critical thinking</li>
-                        <li>Team collaboration</li>
-                    </ul>
+                <section class="cv-section reveal">
+                    <div class="section-label">Experience</div>
+                    
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>DAVI - University Project</h3>
+                            <span class="date">2024 — 2025</span>
+                        </div>
+                        <p class="sub">Body Mechanics & Facial Skinning</p>
+                        <ul>
+                            <li>Responsible on Davi's character rig.</li>
+                            <li>mGear Framework + Facial custom rig.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>HERE BE DRAGONS - University Project</h3>
+                            <span class="date">2025 — 2026</span>
+                        </div>
+                        <p class="sub">Body Mechanics & Facial Skinning · CFX</p>
+                        <ul>
+                            <li>Responsible on Aychedral's creature rig. </li>
+                            <li>Module scripting. </li>
+                            <li>AdonisFX setup for muscle simulation.</li>
+                            <li>Houdini setup for wings simulation.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>SPROUTS - University Project</h3>
+                            <span class="date">2025 — 2026</span>
+                        </div>
+                        <p class="sub">Facial Skinning & Corrective Blendshapes</p>
+                        <ul>
+                            <li>Responsible on Mechanic's & Leader's characters rigs.</li>
+                            <li>mGear Framework + Facial custom rig.</li>
+                            <li>Corrective facial blendshapes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>O'PARAISO - University Project</h3>
+                            <span class="date">2025 — 2026</span>
+                        </div>
+                        <p class="sub">Facial Skinning & Corrective Blendshapes</p>
+                        <ul>
+                            <li>Responsible on Thaiz's character rig.</li>
+                            <li>Custom matrix based rig + Facial custom rig.</li>
+                            <li>Corrective facial blendshapes.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>Automatic Rigging Tool</h3>
+                            <span class="date">Personal Project</span>
+                        </div>
+                        <p class="sub">Technical Artist / Developer</p>
+                        <ul>
+                            <li>Scripting for repetitive setup tasks for bipeds and quadrupeds.</li>
+                            <li>Optimization of existing rigs for personal pipeline efficiency.</li>
+                        </ul>
+                    </div>
                 </section>
 
-                <section class="cv-section language-skills" data-aos="fade-up" data-aos-delay="600">
-                    <h2>LANGUAGE SKILLS</h2>
-                    <ul>
-                        <li>Basque (native)</li>
-                        <li>Catalan (native)</li>
-                        <li>Spanish (native)</li>
-                        <li>English (Fluent)</li>
-                    </ul>
+                <section class="cv-section reveal">
+                    <div class="section-label">Education</div>
+                    
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>Degree in 3D Animation & VFX</h3>
+                            <span class="date">2022 — 2026</span>
+                        </div>
+                        <p class="sub">La Salle Ramon Llull (URL) | Barcelona</p>
+                    </div>
+
+                    <div class="cv-item">
+                        <div class="cv-item-header">
+                            <h3>Multimedia Engineering</h3>
+                            <span class="date">2021 — 2022</span>
+                        </div>
+                        <p class="sub">La Salle Ramon Llull (URL) | Barcelona</p>
+                    </div>
                 </section>
-            
+
+                <section class="cv-section reveal">
+                    <div class="section-label">Technical Skills</div>
+                    <div class="skills-container">
+                        <div class="skill-group">
+                            <h4>Software</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Autodesk Maya</span>
+                                <span class="skill-tag">Houdini FX</span>
+                                <span class="skill-tag">Visual Studio Code</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Languages</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python (Advanced)</span>
+                                <span class="skill-tag">Maya API</span>
+                                <span class="skill-tag">PyQt</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Specialization</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Facial/Body Rigging</span>
+                                <span class="skill-tag">Deformers</span>
+                                <span class="skill-tag">Modular Rigs</span>
+                                <span class="skill-tag">Muscle Systems</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Other</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Git / GitHub</span>
+                                <span class="skill-tag">Problem Solving</span>
+                                <span class="skill-tag">Team Collaboration</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
             </div>
-            </div>
+        </div>
     </main>
 
     <footer>
-        <p class="copyright">© 2025 LAIA PERIS</p>
+        <p class="footer-copy">© 2026 Laia Peris</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      AOS.init({
-        duration: 1000,
-        once: true,
-      });
+        // Cursor logic (Igual al index)
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+        let fx = 0, fy = 0, mx = 0, my = 0;
+
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        });
+        (function animFollower() {
+            fx += (mx - fx) * 0.12;
+            fy += (my - fy) * 0.12;
+            follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animFollower);
+        })();
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => io.observe(el));
     </script>
 </body>
 </html>

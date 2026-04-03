@@ -1,37 +1,264 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sobre mí | Laia Peris</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About & Contact | Laia Peris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --fg: #f0ede8;
+            --accent: #c8f060;
+            --muted: #3a3a3a;
+            --subtle: #888;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* --- CURSOR --- */
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease;
+        }
+        .cursor-follower {
+            width: 36px; height: 36px;
+            border: 1px solid rgba(200,240,96,0.35);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 24px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            mix-blend-mode: difference;
+        }
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+        }
+        nav a {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--fg);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        nav a:hover, nav a.active { opacity: 1; color: var(--accent); }
+
+        /* --- SECTIONS --- */
+        section { padding: 140px 48px 80px; max-width: 1200px; margin: 0 auto; min-height: 90vh; }
+        
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 40px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--muted); }
+
+        /* --- ABOUT SECTION --- */
+        .about-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(80px, 12vw, 160px);
+            line-height: 0.85;
+            margin-bottom: 60px;
+        }
+        .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start; }
+        .about-text-container { display: flex; flex-direction: column; gap: 24px; }
+        .about-text { font-size: 1.2rem; line-height: 1.7; color: var(--subtle); max-width: 750px; }
+        .about-text strong { color: var(--fg); }
+
+        .profile-pic-container { 
+            position: relative; width: 100%; max-width: 400px; aspect-ratio: 1/1; 
+            border-radius: 6px; overflow: hidden; border: 1px solid var(--muted); 
+        }
+        .profile-pic { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
+        .profile-pic-container:hover .profile-pic { transform: scale(1.05); }
+
+        /* --- CONTACT SECTION --- */
+        .contact-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; margin-top: 40px; }
+        
+        form { display: flex; flex-direction: column; gap: 32px; }
+        .form-group { display: flex; flex-direction: column; gap: 10px; }
+        label { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--subtle); text-transform: uppercase; }
+        
+        input, textarea {
+            background: transparent; border: none; border-bottom: 1px solid var(--muted);
+            padding: 12px 0; color: var(--fg); font-family: inherit; font-size: 1rem; transition: 0.3s;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        textarea { min-height: 120px; resize: vertical; }
+
+        .submit-btn {
+            align-self: flex-start; padding: 14px 40px; background: var(--accent); color: var(--bg);
+            border: none; border-radius: 100px; font-weight: 700; text-transform: uppercase;
+            cursor: none; transition: 0.3s; margin-top: 20px;
+        }
+        .submit-btn:hover { background: var(--fg); transform: translateY(-2px); }
+
+        .info-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; margin-bottom: 30px; line-height: 1; }
+        .contact-detail { margin-bottom: 30px; }
+        .contact-detail span { display: block; font-size: 0.6rem; color: var(--accent); letter-spacing: 0.2em; margin-bottom: 8px; text-transform: uppercase; }
+        .contact-detail a { color: var(--fg); text-decoration: none; font-size: 1.1rem; transition: 0.3s; }
+        .contact-detail a:hover { color: var(--accent); }
+
+        /* --- FLOATING --- */
+        .floating-controls { position: fixed; bottom: 30px; right: 30px; z-index: 999; }
+        .float-btn {
+            padding: 12px 24px; background: var(--accent); color: var(--bg); border-radius: 100px;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; text-decoration: none;
+            opacity: 0; visibility: hidden; transform: translateY(20px); transition: 0.3s; border: none;
+        }
+        .float-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+        /* --- ANIMATION --- */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .profile-pic-container { max-width: 300px; margin: 0 auto; }
+            header { padding: 20px; }
+            .nav-center { position: static; transform: none; }
+        }
+    </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="logo">
-        <a href="index.html">
-            <img src="logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
-        </a>
-    </div></a>
-    <div class="nav__links">
-      <a href="about.html" class="nav__link active">Sobre mí</a>
-      <a href="cv.html" class="nav__link">CV</a>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="follower"></div>
+
+    <header>
+        <a href="index.html"><img src="logo_LP.png" alt="Logo" style="height:38px;"></a>
+        <nav class="nav-center">
+            <a href="portfolio.html">Portfolio</a>
+            <a href="cv.html">CV</a>
+            <a href="about.html" class="active">About Me</a>
+        </nav>
+        <div style="width:38px;"></div>
+    </header>
+
+    <section id="about">
+        <div class="section-label reveal">01 — Profile</div>
+        <h2 class="about-title reveal">ABOUT<br><span style="color:transparent; -webkit-text-stroke: 1px var(--fg);">ME</span></h2>
+        
+        <div class="about-grid">
+            <div class="profile-pic-container reveal">
+                <img src="icons/me.jpg" alt="Laia Peris Profile" class="profile-pic">
+            </div>
+            <div class="about-text-container reveal">
+                <div class="about-text">
+                    <p>I am a 3D Technical Artist specialized in <strong>rigging</strong> for animation. I am passionate about creating efficient, production-ready rigs and optimizing workflows in Maya through Python scripting.</p>
+                </div>
+                <div class="about-text">
+                    <p>I am driven by solving complex technical challenges, fostering team collaboration, and contributing to the creative pipeline from its core.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-label reveal">02 — Contact</div>
+        <div class="contact-grid">
+            <div class="reveal">
+                <form action="https://formspree.io/f/mqakppov" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell me about your project"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="reveal">
+                <h3 class="info-title">LET'S<br>WORK<br>TOGETHER</h3>
+                <div class="contact-detail">
+                    <span>Email</span>
+                    <a href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
+                </div>
+                <div class="contact-detail">
+                    <span>Social</span>
+                    <a href="https://linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="floating-controls">
+        <button id="backToTop" class="float-btn">Back to top ↑</button>
     </div>
-  </nav>
 
-  <main class="content">
-    <h2 class="content__title reveal">Sobre mí</h2>
-    <p class="content__text reveal">
-      Soy una artista técnica 3D especializada en rigging para animación. Me apasiona crear rigs eficientes y 
-      preparados para producción, optimizando flujos de trabajo en Maya mediante scripting en Python.
-    </p>
-    <p class="content__text reveal">
-      Me motiva resolver retos técnicos complejos, colaborar en equipo y aportar al pipeline creativo desde la base.
-    </p>
-  </main>
+    <script>
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+        let mx = 0, my = 0, fx = 0, fy = 0;
 
-  <footer class="footer">© 2025 Laia Peris</footer>
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        });
+        (function anim() {
+            fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12;
+            follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
+            requestAnimationFrame(anim);
+        })();
 
-  <script src="script.js"></script>
+        // Scroll Reveal
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        // Back to top
+        const btt = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            btt.classList.toggle('show', window.scrollY > 400);
+        });
+        btt.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+    </script>
 </body>
 </html>

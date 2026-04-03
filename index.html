@@ -1,343 +1,888 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laia Peris | 3D Rigging TD Artist</title>
-    
-    <link rel="stylesheet" href="style.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILOS ESPECÍFICOS PARA LA PÁGINA DE INICIO (INDEX.HTML) --- */
+        :root {
+            --bg: #0a0a0a;
+            --fg: #f0ede8;
+            --accent: #c8f060;
+            --muted: #3a3a3a;
+            --subtle: #888;
+            --card-bg: #111;
+        }
 
-        /* Hero Section (Ahora con fondo liso y texto grande) */
-        .hero-main {
-            height: 100vh;
-            background-image: none;
-            background-color: var(--background-color); /* Fondo liso negro */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* --- CURSOR --- */
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease;
+        }
+        .cursor-follower {
+            width: 36px; height: 36px;
+            border: 1px solid rgba(200,240,96,0.35);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+        body:has(a:hover) .cursor, 
+        body:has(button:hover) .cursor { transform: translate(-50%,-50%) scale(2.5); }
+
+        /* --- HEADER --- */
+        header {
+            position: absolute; /* Cambiado de fixed a absolute para que se quede arriba */
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 24px 48px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            color: var(--primary-color);
-            position: relative;
-            z-index: 1;
-            padding: 0 20px;
-        }
-
-        /* ELIMINADO: Overlay oscuro para mejorar la legibilidad del texto (ya no es necesario) */
-        .hero-main::before {
-            content: none; 
-        }
-
-        .hero-main .name {
-            /* MÁS GRANDE Y CON MENOS ESPACIADO QUE ANTES */
-            font-size: 12vw; /* Aún más grande */
-            font-weight: 700;
-            letter-spacing: -0.05em; /* Espaciado negativo para un efecto compacto */
-            line-height: 0.9em; /* Para que las líneas estén más juntas */
-            margin-bottom: 0.1em; /* Espacio entre nombre y apellido */
-            text-transform: uppercase;
-        }
-
-        /* AGREGADO: Estilo para la segunda línea del nombre (si lo dividimos) */
-        .hero-main .name span {
-            display: block; /* Cada parte del nombre en su propia línea */
-        }
-
-        .hero-main .title {
-            /* AJUSTADO: Más pequeño y con más espaciado como "FREELANCE 3D ARTIST" */
-            font-size: 1vw; /* Más pequeño que antes */
-            font-weight: 400;
-            letter-spacing: 5px; /* Más espaciado */
-            color: var(--secondary-color); /* Gris sutil */
-            margin-top: 10px; /* Espacio debajo del nombre */
-            margin-bottom: 0; /* No necesitamos margen inferior aquí */
-            text-transform: uppercase;
-        }
-
-        .hero-main .location {
-            content: none; /* ELIMINADO: Ya no necesitamos la ubicación */
-            display: none; /* Asegura que no se muestre */
-        }
-        
-        /* ELIMINADO: Ya no usamos este botón en el hero-main */
-        .hero-main .cta-button {
-            display: none;
-        }
-
-        /* --- NAVEGACIÓN (HEADER) - Estilo para el botón de Contacto --- */
-        /* Nuevo estilo para el botón de contacto en la navegación */
-        .nav-button-contact {
-            border: 1px solid var(--primary-color);
-            padding: 8px 20px; /* Más pequeño que el CTA principal */
-            font-size: 0.8em;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: var(--border-radius-sm); 
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-            margin-left: 30px; /* Espacio del último enlace */
-            color: var(--primary-color); /* Color por defecto */
-        }
-
-        .nav-button-contact:hover {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-        }
-
-
-        /* Sección de proyectos destacados (Contenedor del Demo Reel y los iconos) */
-        .featured-projects {
-            background-color: var(--background-color);
-            padding: 80px 20px;
-            text-align: center;
-            color: var(--primary-color);
-        }
-
-        /* Contenedor del Separador */
-        .section-separator {
-            width: 90%;
-            max-width: 1400px; 
-            margin: 0 auto 50px auto;
-            color: var(--secondary-color);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9em;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-separator hr {
-            border: 0;
-            height: 1px;
-            background-color: #333;
-            margin-bottom: 15px;
-        }
-
-        .section-separator .separator-text {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
+            mix-blend-mode: difference;
         }
-
-        .section-separator .sep-center {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 1.1em;
-        }
-        
-        /* Contenedor del Vídeo */
-        .video-container {
-            margin: 0 auto;
-            max-width: 1400px; /* Mantén el ancho máximo */
-            width: 90%; /* Ocupa el 90% del ancho del padre */
-            height: 0; /* CAMBIO CLAVE: Altura inicial 0 */
-            position: relative;
-            padding-bottom: 30%; /* CAMBIO CLAVE: Relación de aspecto 16:9 (9 / 16 = 0.5625) */
-            overflow: hidden;
-            border: 1px solid #333;
-            margin-bottom: 50px; 
-            border-radius: var(--border-radius-sm); 
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%; /* CAMBIO CLAVE: Ocupa el 100% del ancho del padre */
-            height: 100%; /* CAMBIO CLAVE: Ocupa el 100% de la altura del padre */
-            border: none;
-            border-radius: var(--border-radius-sm); 
-        }
-      
-
-        /* --- ESTILOS PARA LOS ICONOS DE HABILIDADES (Cuadrícula Actualizada) --- */
-        .skill-icons {
-            width: 90%;
-            max-width: 1400px; 
-            margin: 50px auto 80px auto; 
-            
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 20px; 
-            text-align: center;
-        }
-
-        .skill-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #0c0c0c; 
-            height: 160px; 
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            border-radius: var(--border-radius-sm); 
-        }
-
-        .skill-box:hover {
-            border: 1px solid #333;
-        }
-
-        .skill-box img {
-            height: 80%;
+        .logo-img {
+            height: 38px;
             width: auto;
             object-fit: contain;
-            opacity: 0.3; /* Desvanecido */
-            transition: opacity 0.3s ease;
+            display: block;
+        }
+        nav { display: flex; align-items: center; gap: 36px; }
+        nav a {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--fg);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        /* Añadir esto alrededor de la línea 50 */
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        nav a:hover { opacity: 1; }
+        .nav-cta {
+            border: 1px solid var(--fg) !important;
+            padding: 8px 20px;
+            opacity: 1 !important;
+            transition: background 0.3s, color 0.3s !important;
+        }
+        .nav-cta:hover {
+            background: var(--fg) !important;
+            color: var(--bg) !important;
         }
 
-        .skill-box:hover img {
-            opacity: 1; /* Iluminado al pasar el ratón */
-        }
-
-        /* --- ESTILOS DEL FOOTER --- */
-        footer {
-            /* Ahora el footer no es fijo para que aparezca después del contenido */
-            position: relative; 
-            bottom: auto; 
-            left: auto;
-            transform: none;
-            width: 100%;
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            z-index: 5;
-            padding: 40px 0 20px 0; /* Agregamos padding para que no esté pegado */
+            padding: 140px 48px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(200,240,96,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(80px, 14vw, 200px);
+            line-height: 0.88;
+            letter-spacing: -0.01em;
+            color: var(--fg);
+        }
+        .hero-name .line-accent {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--fg);
+        }
+        .hero-subtitle {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 7vw, 100px);
+            line-height: 1;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-top: 10px;
+        }
+        
+        .hero-divider {
+            width: 1px;
+            height: 64px;
+            background: linear-gradient(to bottom, var(--muted), transparent);
+            margin: 40px auto 0;
+        }
+        .hero-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            margin-top: 32px;
+        }
+        .hero-role {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--subtle);
+        }
+        .hero-desc {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.65;
+            color: var(--subtle);
+            max-width: 340px;
+            text-align: center;
+            font-style: italic;
+        }
+        .hero-scroll {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--subtle);
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        .hero-scroll::after {
+            content: '';
+            display: block;
+            width: 1px;
+            height: 44px;
+            background: linear-gradient(to bottom, var(--subtle), transparent);
+        }
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(7px); }
         }
 
-        footer .copyright {
-            font-size: 0.8em;
-            color: var(--secondary-color); 
-            letter-spacing: 1px;
-            text-transform: uppercase; 
+        /* --- KEYWORD MARQUEE --- */
+        .marquee-strip {
+            border-top: 1px solid var(--muted);
+            border-bottom: 1px solid var(--muted);
+            padding: 16px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-track {
+            display: inline-flex;
+            animation: marquee 18s linear infinite;
+        }
+        .marquee-item {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            padding: 0 40px;
+        }
+        .marquee-item span { color: var(--accent); margin-right: 40px; }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
         }
 
+        /* --- SECTIONS --- */
+        section { padding: 100px 48px; }
 
-        /* Responsive para fuentes y márgenes */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-            .nav-links a {
-                margin-left: 15px;
-                font-size: 0.8em;
-            }
-            .nav-button-contact {
-                margin-left: 15px;
-                padding: 6px 15px;
-                font-size: 0.7em;
-            }
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--muted);
+        }
 
-            .hero-main .name { 
-                font-size: 15vw; /* Más grande en móvil */
-                letter-spacing: -0.03em;
-            }
-            .hero-main .title { 
-                font-size: 3.5vw; 
-                letter-spacing: 3px;
-                margin-top: 20px;
-            }
-            .featured-projects { padding: 50px 10px;}
-            
-            .section-separator .separator-text {
-                font-size: 0.8em;
-            }
+        /* --- REEL --- */
+        .reel-section { background: var(--bg); }
+        .reel-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+        .reel-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 6vw, 80px);
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+        .reel-meta {
+            text-align: right;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--subtle);
+            line-height: 2;
+        }
+        .video-wrap {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--muted);
+            background: #000;
+        }
+        .video-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
 
-            .skill-icons {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
+        /* --- TOOLS --- */
+        .tools-section { border-top: 1px solid var(--muted); }
+
+        .logo-ticker-wrap {
+            overflow: hidden;
+            width: 100%;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+        }
+        .logo-ticker {
+            display: inline-flex;
+            align-items: center;
+            animation: logoTicker 16s linear infinite;
+        }
+        .logo-ticker:hover { animation-play-state: paused; }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 64px;
+            height: 90px;
+            position: relative;
+        }
+        .logo-item::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            width: 1px; height: 32px;
+            background: var(--muted);
+        }
+        .logo-item img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            /* Filtros eliminados para mostrar colores originales */
+            transition: transform 0.35s ease;
+        }
+        .logo-item:hover img {
+            transform: scale(1.12);
+        }
+        @keyframes logoTicker {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        /* --- PROJECTS --- */
+        .projects-section { border-top: 1px solid var(--muted); }
+        .projects-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+        .projects-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 6vw, 80px);
+            line-height: 1;
+        }
+        .see-all {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--subtle);
+            text-decoration: none;
+            border-bottom: 1px solid var(--muted);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .see-all:hover { color: var(--accent); border-color: var(--accent); }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .project-card {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: var(--card-bg);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--muted);
+            cursor: none;
+            transition: border-color 0.3s;
+        }
+        .project-card:hover { border-color: rgba(200,240,96,0.45); }
+
+        .card-bg {
+            position: absolute; inset: 0;
+            transition: transform 0.6s ease;
+        }
+        .project-card:hover .card-bg { transform: scale(1.04); }
+
+        .card-bg-1 { background: linear-gradient(135deg, #121a10 0%, #0a1508 60%, #0e1a0a 100%); }
+        .card-bg-2 { background: linear-gradient(135deg, #0e0e1e 0%, #080818 60%, #111128 100%); }
+        .card-bg-3 { background: linear-gradient(135deg, #1a1008 0%, #150c05 60%, #1e1408 100%); }
+        .card-bg-4 { background: linear-gradient(135deg, #1a0f0f 0%, #120808 60%, #1e1010 100%); }
+        .card-bg-5 { background: linear-gradient(90deg, #111 0%, #0d1a0d 40%, #1a2a0a 100%); }
+
+        .card-grid-lines {
+            position: absolute; inset: 0;
+            opacity: 0.05;
+            background-image:
+                linear-gradient(var(--fg) 1px, transparent 1px),
+                linear-gradient(90deg, var(--fg) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transition: opacity 0.3s;
+        }
+        .project-card:hover .card-grid-lines { opacity: 0.1; }
+
+        .card-status {
+            position: absolute;
+            top: 18px; left: 18px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            border: 1px solid;
+            z-index: 2;
+        }
+        .status-done {
+            background: rgba(200,240,96,0.1);
+            border-color: rgba(200,240,96,0.4);
+            color: var(--accent);
+        }
+        .status-wip {
+            background: rgba(255,160,60,0.08);
+            border-color: rgba(255,160,60,0.35);
+            color: #ffa03c;
+        }
+        .status-personal {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--muted);
+            color: var(--subtle);
+        }
+
+        .card-arrow {
+            position: absolute;
+            top: 18px; right: 18px;
+            width: 34px; height: 34px;
+            border: 1px solid var(--muted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.3s, transform 0.3s, border-color 0.3s;
+            z-index: 2;
+        }
+        .project-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: var(--accent);
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 28px;
+            background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
+            z-index: 2;
+        }
+        .card-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(24px, 2.8vw, 40px);
+            line-height: 0.95;
+            letter-spacing: 0.04em;
+            margin-bottom: 10px;
+        }
+        .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-right: 50px; }
+        .card-tag {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--subtle);
+        }
+        .card-tag + .card-tag::before { content: '·'; margin-right: 8px; }
+
+        /* Logos de programas en las tarjetas */
+        .card-software-logos {
+            position: absolute;
+            bottom: 28px;
+            right: 28px;
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+        .card-software-logos img {
+            height: 24px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Wide 5th card */
+        .project-card-wide {
+            grid-column: 1 / -1;
+            aspect-ratio: unset;
+            height: 260px;
+        }
+        .project-card-wide .card-content {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        .project-card-wide .card-title { font-size: clamp(28px, 4vw, 56px); }
+        .project-card-wide .card-software-logos {
+            right: 190px; /* Para no solaparse con el botón */
+        }
+
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--muted);
+            padding: 12px 24px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 100px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: border-color 0.3s, background 0.3s, color 0.3s;
+        }
+        .card-cta:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        /* --- BACK TO TOP BUTTON --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 12px 20px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: none;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: var(--fg);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--muted);
+            padding: 32px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-copy {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--subtle);
+        }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--subtle);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.12s; }
+        .reveal-delay-2 { transition-delay: 0.24s; }
+        .reveal-delay-3 { transition-delay: 0.36s; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            header { padding: 18px 20px; }
+            section { padding: 60px 20px; }
+            footer { padding: 24px 20px; flex-direction: column; gap: 14px; text-align: center; }
+            .hero { padding: 100px 24px 60px; }
+            .reel-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card-wide { height: auto; min-height: 220px; }
+            .project-card-wide .card-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .logo-item { padding: 0 36px; }
+            .logo-item img { height: 32px; }
             
-            .skill-box {
-                height: 120px; 
-            }
-            
-            /* En móvil, el footer se vuelve relativo para no superponerse */
-            footer {
-                position: relative;
+            .project-card-wide .card-software-logos {
+                top: 20px;
                 bottom: auto;
-                transform: none;
-                padding: 20px 0;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="follower"></div>
+
     <header>
-        <nav>
-            <div class="logo">
-                <a href="index.html">
-                    <img src="icons/logo_LP.png" alt="Logo Laia Peris" style="height:40px;width:auto;">
-                </a>
-            </div>
-            <div class="nav-links">
-                <a href="#featured-projects">PORTFOLIO</a> 
-                <a href="cv.html">CV</a>
-                <a href="contact.html" class="nav-button-contact">CONTACTO</a>
-            </div>
+        <a href="index.html" class="logo-link">
+            <img src="logo_LP.png" alt="Laia Peris Logo" class="logo-img">
+        </a>
+        <nav class="nav-center">
+            <a href="portfolio.html">Portfolio</a>
+            <a href="cv.html">CV</a>
+            <a href="about.html" class="nav-cta">About Me</a>
         </nav>
     </header>
 
-    
-    <main class="hero-main">
-        <h1 class="name" data-aos="fade-up"><span>LAIA</span><span>PERIS</span></h1>
-        <p class="title" data-aos="fade-up" data-aos-delay="200">3D RIGGING TD ARTIST</p>
-        </main>
-
-    
-    <section id="featured-projects" class="featured-projects">
+    <section class="hero">
+        <h1 class="hero-name">
+            <span>LAIA</span><br>
+            <span class="line-accent">PERIS</span>
+        </h1>
+        <h2 class="hero-subtitle">3D RIGGING TD ARTIST</h2>
         
-        <div class="section-separator" style="margin-bottom: 30px;" data-aos="fade-up">
-            <hr>
-            <div class="separator-text">
-                <span class="sep-left">01</span>
-                <span class="sep-center">// STUDENT DEMO REEL</span>
-                <span class="sep-right">2025</span>
+        <div class="hero-divider"></div>
+        <div class="hero-bottom">
+            <p class="hero-role">Available · 2026</p>
+            <p class="hero-desc">Technical rigging specialist crafting skeleton systems and deformation rigs for 3D characters.</p>
+            <div class="hero-scroll">Scroll</div>
+        </div>
+    </section>
+
+    <div class="marquee-strip">
+        <div class="marquee-track">
+            <span class="marquee-item"><span>✦</span>3D RIGGING</span>
+            <span class="marquee-item"><span>✦</span>CHARACTER TD</span>
+            <span class="marquee-item"><span>✦</span>AUTODESK MAYA</span>
+            <span class="marquee-item"><span>✦</span>PYTHON SCRIPTING</span>
+            <span class="marquee-item"><span>✦</span>DEFORMATION SYSTEMS</span>
+            <span class="marquee-item"><span>✦</span>STUDENT DEMO REEL 2026</span>
+            <span class="marquee-item"><span>✦</span>3D RIGGING</span>
+            <span class="marquee-item"><span>✦</span>CHARACTER TD</span>
+            <span class="marquee-item"><span>✦</span>AUTODESK MAYA</span>
+            <span class="marquee-item"><span>✦</span>PYTHON SCRIPTING</span>
+            <span class="marquee-item"><span>✦</span>DEFORMATION SYSTEMS</span>
+            <span class="marquee-item"><span>✦</span>STUDENT DEMO REEL 2026</span>
+        </div>
+    </div>
+
+    <section id="reel" class="reel-section">
+        <div class="section-label">01 — Demo Reel</div>
+        <div class="reel-header reveal">
+            <h2 class="reel-title">STUDENT<br>DEMO REEL</h2>
+            <div class="reel-meta">
+                <div>Year · 2026</div>
             </div>
         </div>
-
-        <div class="video-container" data-aos="zoom-in">
-            <iframe 
-<<<<<<< HEAD
-                src="https://www.youtube.com/embed/Ta0BNLFsjqw"
-=======
-                src="https://youtu.be/Ta0BNLFsjqw"
->>>>>>> 6f24e0c6be993ac74dd9a70a2617f0b1e32645f6
-                title="YouTube video player" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        <div class="video-wrap reveal reveal-delay-1">
+            <iframe
+                src="https://www.youtube.com/embed/Ta0BNLFsjqw?rel=0&modestbranding=1"
+                title="Laia Peris — Student Demo Reel 2026"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowfullscreen>
             </iframe>
         </div>
+    </section>
 
-        <div class="section-separator" data-aos="fade-up">
-            <hr>
-            <div class="separator-text">
-                <span class="sep-left">02</span>
-                <span class="sep-center">// SOFTWARE & TOOLS</span>
-                <span class="sep-right"></span> 
+    <section class="tools-section">
+        <div class="section-label reveal">02 — Software &amp; Tools</div>
+        <div class="logo-ticker-wrap reveal reveal-delay-1">
+            <div class="logo-ticker">
+                <div class="logo-item"><img src="icons/maya.png"         alt="Autodesk Maya"></div>
+                <div class="logo-item"><img src="icons/houdini.png"      alt="Houdini FX"></div>
+                <div class="logo-item"><img src="icons/python.png"       alt="Python"></div>
+                <div class="logo-item"><img src="icons/git.png"          alt="Git"></div>
+                <div class="logo-item"><img src="icons/visualstudio.png" alt="VS Code"></div>
+                <div class="logo-item"><img src="icons/maya.png"         alt="Autodesk Maya"></div>
+                <div class="logo-item"><img src="icons/houdini.png"      alt="Houdini FX"></div>
+                <div class="logo-item"><img src="icons/python.png"       alt="Python"></div>
+                <div class="logo-item"><img src="icons/git.png"          alt="Git"></div>
+                <div class="logo-item"><img src="icons/visualstudio.png" alt="VS Code"></div>
             </div>
         </div>
+    </section>
 
-        <div class="skill-icons" data-aos="fade-up">
-            <div class="skill-box"><img src="icons/maya.png" alt="Autodesk Maya Logo"></div>
-            <div class="skill-box"><img src="icons/visualstudio.png" alt="Visual Studio Code Logo"></div>
-            <div class="skill-box"><img src="icons/git.png" alt="Git Logo"></div>
-            <div class="skill-box"><img src="icons/python.png" alt="Python Logo"></div>
+    <section class="projects-section">
+        <div class="section-label">03 — Projects</div>
+        <div class="projects-header reveal">
+            <h2 class="projects-title">SELECTED<br>WORK</h2>
+            <a href="portfolio.html" class="see-all">See all →</a>
         </div>
 
+        <div class="projects-grid">
+
+            <div class="project-card reveal">
+                <div class="card-bg card-bg-1"></div>
+                <div class="card-grid-lines"></div>
+                <span class="card-status status-done">✓ Completed</span>
+                <div class="card-arrow">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </div>
+                <div class="card-content">
+                    <div class="card-num">01</div>
+                    <h3 class="card-title">DAVI</h3>
+                    <div class="card-tags">
+                        <span class="card-tag">Character Rig</span>
+                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
+                    </div>
+                </div>
+                <div class="card-software-logos">
+                    <img src="icons/maya.png" alt="Maya">
+                </div>
+            </div>
+
+            <div class="project-card reveal reveal-delay-1">
+                <div class="card-bg card-bg-2"></div>
+                <div class="card-grid-lines"></div>
+                <span class="card-status status-wip">⬤ WIP</span>
+                <div class="card-arrow">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </div>
+                <div class="card-content">
+                    <div class="card-num">02</div>
+                    <h3 class="card-title">HERE BE<br>DRAGONS</h3>
+                    <div class="card-tags">
+                        <span class="card-tag">Creature Rig</span>
+                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
+                        <span class="card-tag">Muscle Sim</span>
+                        <span class="card-tag">Wing Sim</span>
+                    </div>
+                </div>
+                <div class="card-software-logos">
+                    <img src="icons/maya.png" alt="Maya">
+                    <img src="icons/houdini.png" alt="Houdini">
+                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
+                    <img src="icons/python.png" alt="Python">
+                </div>
+            </div>
+
+            <div class="project-card reveal reveal-delay-2">
+                <div class="card-bg card-bg-3"></div>
+                <div class="card-grid-lines"></div>
+                <span class="card-status status-wip">⬤ WIP</span>
+                <div class="card-arrow">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </div>
+                <div class="card-content">
+                    <div class="card-num">03</div>
+                    <h3 class="card-title">SPROUTS</h3>
+                    <div class="card-tags">
+                        <span class="card-tag">Character Rig</span>
+                        <span class="card-tag">Custom Facial Scripting</span>
+                        <span class="card-tag">Facial Skinning</span>
+                        <span class="card-tag">Correctives Blendshapes</span>
+                    </div>
+                </div>
+                <div class="card-software-logos">
+                    <img src="icons/maya.png" alt="Maya">
+                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
+                    <img src="icons/python.png" alt="Python">
+                </div>
+            </div>
+
+            <div class="project-card reveal reveal-delay-3">
+                <div class="card-bg card-bg-4"></div>
+                <div class="card-grid-lines"></div>
+                <span class="card-status status-wip">⬤ WIP</span>
+                <div class="card-arrow">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                </div>
+                <div class="card-content">
+                    <div class="card-num">04</div>
+                    <h3 class="card-title">O'PARAISO</h3>
+                    <div class="card-tags">
+                        <span class="card-tag">Character Rig</span>
+                        <span class="card-tag">Custom Matrix Based Rig</span>
+                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
+                    </div>
+                </div>
+                <div class="card-software-logos">
+                    <img src="icons/maya.png" alt="Maya">
+                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
+                    <img src="icons/python.png" alt="Python">
+                </div>
+            </div>
+
+            <div class="project-card project-card-wide reveal">
+                <div class="card-bg card-bg-5"></div>
+                <div class="card-grid-lines"></div>
+                <span class="card-status status-personal">Personal</span>
+                <div class="card-content">
+                    <div>
+                        <div class="card-num"></div>
+                        <div class="card-num">05</div>
+                        <h3 class="card-title">PERSONAL RIGGING<br>PIPELINE</h3>
+                        <div class="card-tags" style="margin-top:8px">
+                            <span class="card-tag">Pipeline</span>
+                            <span class="card-tag">Modular Rig</span>
+                        </div>
+                    </div>
+                    <a href="portfolio.html" class="card-cta">
+                        View project
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </a>
+                </div>
+                <div class="card-software-logos">
+                    <img src="icons/maya.png" alt="Maya">
+                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
+                    <img src="icons/python.png" alt="Python">
+                    <img src="icons/git.png" alt="Git">
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <footer>
-        <p class="copyright">© 2025 LAIA PERIS</p>
+        <p class="footer-copy">© 2026 Laia Peris</p>
+        <div class="footer-links">
+            <a href="cv.html">CV</a>
+            <a href="about.html">About Me</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <button id="backToTop" class="back-to-top">Back to top ↑</button>
+
     <script>
-      AOS.init({
-        duration: 1000,
-        once: true,
-      });
+        // Custom cursor
+        const cursor   = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+        let fx = 0, fy = 0, mx = 0, my = 0;
+
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        });
+        (function animFollower() {
+            fx += (mx - fx) * 0.12;
+            fy += (my - fy) * 0.12;
+            follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animFollower);
+        })();
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => io.observe(el));
+
+        // Back to top button logic
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
     </script>
 </body>
 </html>

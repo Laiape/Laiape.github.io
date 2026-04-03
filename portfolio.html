@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Laia Peris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --fg: #f0ede8;
+            --accent: #c8f060;
+            --muted: #3a3a3a;
+            --subtle: #888;
+            --card-bg: #111;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        /* --- CURSOR --- */
+        .cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.15s ease; }
+        .cursor-follower { width: 36px; height: 36px; border: 1px solid rgba(200,240,96,0.35); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); }
+
+        /* --- HEADER --- */
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; mix-blend-mode: difference; }
+        nav a { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg); text-decoration: none; opacity: 0.7; transition: 0.3s; }
+        nav a:hover, nav a.active { opacity: 1; color: var(--accent); }
+
+        /* --- PORTFOLIO HEADER --- */
+        .portfolio-hero { padding: 160px 48px 60px; max-width: 1200px; margin: 0 auto; }
+        .portfolio-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 12vw, 150px); line-height: 0.8; }
+
+        /* --- PROJECT ITEM --- */
+        .project-block { padding: 100px 48px; border-bottom: 1px solid var(--muted); max-width: 1400px; margin: 0 auto; }
+        
+        .project-media { width: 100%; border-radius: 8px; overflow: hidden; background: var(--card-bg); border: 1px solid var(--muted); margin-bottom: 40px; }
+        .project-media video, .project-media img { width: 100%; display: block; }
+
+        .project-info-header { margin-bottom: 40px; }
+        .project-info-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: var(--accent); margin-bottom: 10px; }
+        .project-description { font-size: 1.2rem; line-height: 1.6; color: var(--fg); max-width: 900px; }
+
+        /* --- TECHNICAL GRID --- */
+        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--muted); }
+        .tech-item h3 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .tech-item h3::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+        .tech-item p { color: var(--subtle); font-size: 1rem; line-height: 1.5; }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 48px; text-align: center; border-top: 1px solid var(--muted); }
+        .footer-copy { font-size: 0.8rem; color: var(--subtle); opacity: 0.6; }
+
+        /* --- ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .tech-grid { grid-template-columns: 1fr; gap: 30px; }
+            .portfolio-hero, .project-block { padding: 100px 24px 40px; }
+            .project-info-header h2 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="follower"></div>
+
+    <header>
+        <a href="index.html"><img src="logo_LP.png" alt="Logo" style="height:38px;"></a>
+        <nav class="nav-center">
+            <a href="portfolio.html" class="active">Portfolio</a>
+            <a href="cv.html">CV</a>
+            <a href="about.html" >About Me</a>
+        </nav>
+        <div style="width:38px;"></div>
+    </header>
+
+    <main>
+        <section class="portfolio-hero reveal">
+            <h1>SELECTED<br><span style="color:transparent; -webkit-text-stroke: 1px var(--fg);">WORKS</span></h1>
+        </section>
+
+        <article class="project-block reveal">
+            <div class="project-media">
+                <video autoplay muted loop playsinline>
+                    <source src="videos/project1.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="project-info-header">
+                <h2>Project One Name</h2>
+                <div class="project-description">
+                    <p>Overview text explaining what this project was about. This rig was developed for a feature film/short focused on high-end facial expressions and extreme body deformations.</p>
+                </div>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h3>Deformation System</h3>
+                    <p>Description of the corrective blendshapes, skinning techniques, and how the volume was preserved during extreme poses using custom nodes or RBF systems.</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Rig System</h3>
+                    <p>Details about the IK/FK switching, custom UI for animators, modular rigging structure, and Python scripts used to automate the control placement.</p>
+                </div>
+            </div>
+        </article>
+
+        <article class="project-block reveal">
+            <div class="project-media">
+                <img src="images/project2_full.jpg" alt="Mechanical Rig">
+            </div>
+            
+            <div class="project-info-header">
+                <h2>Project Two Name</h2>
+                <div class="project-description">
+                    <p>Explanation of a different project, for example, a creature or a mechanical prop. Focused on automation and complex hierarchy management.</p>
+                </div>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h3>Deformation System</h3>
+                    <p>How the muscles react to the movement. Explanation of the delta mush implementation or custom deformers created in C++ or Python.</p>
+                </div>
+                <div class="tech-item">
+                    <h3>Rig System</h3>
+                    <p>Complexity of the mechanical gears, constraints used for the motion, and the ease of use for the animation team.</p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p class="footer-copy">© 2026 Laia Peris — Rigging TD</p>
+    </footer>
+
+    <script>
+        // Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+        let mx = 0, my = 0, fx = 0, fy = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        });
+        (function anim() {
+            fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12;
+            follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
+            requestAnimationFrame(anim);
+        })();
+
+        // Scroll Reveal Logic
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
+</body>
+</html>
