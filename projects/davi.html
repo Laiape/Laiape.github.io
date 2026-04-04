@@ -462,7 +462,7 @@
                     <source src="/projects/media/davi/highlight.mp4" type="video/mp4">
                     Tu navegador no soporta videos.
                 </video>
-            </div>
+            </div> 
         
         </div>
 
@@ -512,34 +512,9 @@
             
         </div>
 
-        <!-- ═══════════ RIG SYSTEM ═══════════ -->
-        <div class="content-block reveal">
-            <div class="block-label">02 — Rig System</div>
-            <h2 class="block-title">CONTROLS &<br>ARCHITECTURE</h2>
-            <p class="block-text">The control rig separates deformation joints from animation controls using a three-layer system: guide → bind → control. This decouples skinning from rigging iterations, allowing safe geometry updates mid-production without breaking existing animation curves.</p>
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <h3>IK / FK Switching</h3>
-                    <p>Seamless IK/FK blend on arms and legs via a custom matching script that reads world-space matrices at switch time. No pop. Animators can freely switch mid-timeline.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>Spine System</h3>
-                    <p>FK ribbon spine with three CVs (hip, mid, chest) and optional bendy limbs on the upper body. The ribbon uses a uniform parameterisation to prevent skin sliding during spine twisting.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>Custom Animator UI</h3>
-                    <p>A single-panel picker built in Python/PySide2 exposes character spaces, IK/FK state, corrective bake tools and a mirroring utility. Zero MEL dependency — fully importable as a standalone module.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>Facial Controls</h3>
-                    <p>Region-based GUI with sliders for brows, eyes, cheeks, lips and jaw. Each slider drives a combination target via SDK, with a secondary layer of pose-to-pose blends for extreme acting.</p>
-                </div>
-            </div>
-        </div>
-
         <!-- ═══════════ GALLERY ═══════════ -->
         <div class="gallery-block reveal">
-            <div class="block-label">03 — Gallery</div>
+            <div class="block-label">02 — Gallery</div>
             <div class="gallery-grid">
                 <!-- Replace src with your actual images -->
                 <div class="gallery-item full-width">
