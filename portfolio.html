@@ -153,6 +153,9 @@
             grid-template-columns: 1fr 1fr;
             border-bottom: 1px solid var(--muted);
         }
+        .projects-row:first-child {
+            border-top: 1px solid var(--muted);
+        }
 
         /* Single project cell */
         .project-item {
@@ -236,8 +239,10 @@
         }
         .proj-num {
             font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
-            text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+            display: flex; align-items: center; gap: 12px;
         }
+        .proj-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--accent); opacity: 0.4; }
         .proj-desc {
             font-size: 0.92rem; line-height: 1.65; color: var(--subtle); max-width: 440px;
         }
@@ -333,6 +338,7 @@
             <h1>PRODUCTION<br><span>WORKS</span></h1>
             <div class="hero-sub">
                 <p class="hero-desc">A collection of rigging projects — characters, creatures and pipelines crafted with technical precision and built to move.</p>
+                <div class="hero-count">05<span>Projects</span></div>
             </div>
         </div>
 
@@ -379,8 +385,6 @@
                         </span>
                     </div>
                 </a>
-            
-                </div>
 
                 <a href="project-dragons.html" class="project-item reveal reveal-delay-1" data-type="creature">
                     <div class="project-visual vis-2">
@@ -394,7 +398,7 @@
                     <div class="project-info">
                         <div>
                             <div class="proj-num">02</div>
-                            <p class="proj-desc">Quadruped dragon con muscle simulation, wing dynamics procedurales y un facial rig completo para un cortometraje de animación.</p>
+                            <p class="proj-desc">Quadruped dragon with muscle simulation, procedural wing dynamics, and a full facial rig built for an animated short film.</p>
                             <div class="proj-tags">
                                 <span class="proj-tag">Creature Rig</span>
                                 <span class="proj-tag">Body Mechanics</span>
@@ -423,14 +427,14 @@
                     <div class="project-info">
                         <div>
                             <div class="proj-num">03</div>
-                            <p class="proj-desc">Personaje estilizado con un sistema de scripting facial en Python y un pipeline completo de corrective blendshapes para actuaciones emocionales.</p>
+                            <p class="proj-desc">Stylized character with a Python-based facial scripting system and a complete corrective blendshape pipeline for emotionally nuanced performances.</p>
                             <div class="proj-tags">
                                 <span class="proj-tag">Character Rig</span>
                                 <span class="proj-tag">Custom Facial Scripting</span>
                                 <span class="proj-tag">Correctives</span>
                             </div>
                         </div>
-                        <span class="proj-cta">Ver proyecto <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                        <span class="proj-cta">See project <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
                     </div>
                 </a>
 
@@ -446,23 +450,23 @@
                     <div class="project-info">
                         <div>
                             <div class="proj-num">04</div>
-                            <p class="proj-desc">Rig de personaje construido sobre un sistema matrix-based personalizado, eliminando el gimbal lock y ofreciendo un workflow más limpio al equipo de animación.</p>
+                            <p class="proj-desc">Character rig built on a custom matrix-based system, eliminating gimbal lock and delivering a cleaner workflow for the animation team.</p>
                             <div class="proj-tags">
                                 <span class="proj-tag">Character Rig</span>
                                 <span class="proj-tag">Matrix Based Rig</span>
                                 <span class="proj-tag">Body & Facial</span>
                             </div>
                         </div>
-                        <span class="proj-cta">Ver proyecto <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                        <span class="proj-cta">See project <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
                     </div>
                 </a>
 
             </div>
 
-            <!-- ROW 3 — proyecto ancho -->
-            <div class="projects-row" style="grid-template-columns: 1fr; border-bottom: none;">
+            <!-- ROW 3 — full-width project -->
+            <div class="projects-row" style="grid-template-columns: 1fr;">
 
-                <a href="project-pipeline.html" class="project-item reveal" data-type="pipeline" style="padding-right: 0; border-right: none;">
+                <a href="project-pipeline.html" class="project-item reveal" data-type="pipeline" style="padding-right: 0; border-right: none; padding-bottom: 0;">
                     <div class="project-visual vis-5" style="aspect-ratio: 16/6;">
                         <!-- swap with: <img src="images/pipeline_cover.jpg" alt="Pipeline"> -->
                         <span class="proj-status status-personal">Personal</span>
@@ -474,7 +478,7 @@
                     <div class="project-info">
                         <div>
                             <div class="proj-num">05</div>
-                            <p class="proj-desc">Framework de rigging modular escrito en Python — componentes plug-and-play para columna, extremidades y sistemas faciales, diseñado para escalar entre producciones.</p>
+                            <p class="proj-desc">Modular rigging framework written in Python — plug-and-play components for spine, limbs, and facial systems, designed to scale across productions.</p>
                             <div class="proj-tags">
                                 <span class="proj-tag">Pipeline</span>
                                 <span class="proj-tag">Modular Rig</span>
@@ -482,7 +486,7 @@
                                 <span class="proj-tag">Git</span>
                             </div>
                         </div>
-                        <span class="proj-cta">Ver proyecto <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                        <span class="proj-cta">See project <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
                     </div>
                 </a>
 
