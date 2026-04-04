@@ -486,6 +486,23 @@
             object-fit: contain;
         }
 
+        .project-card {
+            position: relative;
+            aspect-ratio: 16 / 9; /* Obliga a la tarjeta a tener forma de video */
+            overflow: hidden;
+            background: var(--card-bg);
+        }
+        
+        .card-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Con aspect-ratio 16/9, 'cover' ya no hará zoom excesivo */
+            z-index: 0;
+        }
+
         /* Wide 5th card */
         .project-card-wide {
             grid-column: 1 / -1;
@@ -709,37 +726,33 @@
     
         <div class="projects-grid">
             <!-- ------ DAVI------ -->
-            <div class="project-card reveal">
+            <a href="projects/davi.html" class="project-card-link project-card reveal">
+                <video autoplay muted loop playsinline class="card-video-bg">
+                    <source src="projects/media/davi/highlight.mp4" type="video/mp4">
+                </video>
+            
+                <div class="card-grid-lines"></div>
+                <span class="card-status status-done">✓ Completed</span>
                 
-                <a href="projects/davi.html" class="project-card-link">
-                    <div class="project-card reveal">
-                        <video autoplay muted loop playsinline class="card-video">
-                            <source src="projects/media/davi/highlight.mp4" type="video/mp4">
-                        </video>
-                
-                        <div class="card-grid-lines"></div>
-                        <span class="card-status status-done">✓ Completed</span>
-                        
-                        <div class="card-arrow">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                                <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                            </svg>
-                        </div>
-                
-                        <div class="card-content">
-                            <div class="card-num">01</div>
-                            <h3 class="card-title">DAVI</h3>
-                            <div class="card-tags">
-                                <span class="card-tag">Character Rig</span>
-                                <span class="card-tag">Body Mechanics & Facial Skinning</span>
-                            </div>
-                        </div>
-                
-                        <div class="card-software-logos">
-                            <img src="icons/maya.png" alt="Maya">
-                        </div>
+                <div class="card-arrow">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                    </svg>
+                </div>
+            
+                <div class="card-content">
+                    <div class="card-num">01</div>
+                    <h3 class="card-title">DAVI</h3>
+                    <div class="card-tags">
+                        <span class="card-tag">Character Rig</span>
+                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
                     </div>
-                </a>
+                </div>
+            
+                <div class="card-software-logos">
+                    <img src="icons/maya.png" alt="Maya">
+                </div>
+            </a>
             
                 <div class="card-software-logos">
                     <img src="icons/maya.png" alt="Maya">
