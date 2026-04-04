@@ -27,56 +27,286 @@
             cursor: none;
         }
 
-        .nav-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
         /* --- CURSOR --- */
-        .cursor { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.15s ease; }
-        .cursor-follower { width: 36px; height: 36px; border: 1px solid rgba(200,240,96,0.35); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); }
+        .cursor {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease;
+        }
+        .cursor-follower {
+            width: 36px; height: 36px;
+            border: 1px solid rgba(200,240,96,0.35);
+            border-radius: 50%;
+            position: fixed; top: 0; left: 0;
+            pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+        }
+        body:has(a:hover) .cursor,
+        body:has(button:hover) .cursor { transform: translate(-50%,-50%) scale(2.5); }
 
         /* --- HEADER --- */
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; mix-blend-mode: difference; }
-        nav a { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg); text-decoration: none; opacity: 0.7; transition: 0.3s; }
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0; z-index: 100;
+            padding: 24px 48px;
+            display: flex; align-items: center; justify-content: space-between;
+            mix-blend-mode: difference;
+        }
+        .logo-img { height: 38px; width: auto; object-fit: contain; display: block; }
+        .nav-center {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 40px;
+        }
+        nav a {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--fg); text-decoration: none;
+            opacity: 0.7; transition: opacity 0.2s;
+        }
         nav a:hover, nav a.active { opacity: 1; color: var(--accent); }
+        .nav-cta {
+            border: 1px solid var(--fg) !important;
+            padding: 8px 20px; opacity: 1 !important;
+            transition: background 0.3s, color 0.3s !important;
+        }
+        .nav-cta:hover { background: var(--fg) !important; color: var(--bg) !important; }
 
-        /* --- PORTFOLIO HEADER --- */
-        .portfolio-hero { padding: 160px 48px 60px; max-width: 1200px; margin: 0 auto; }
-        .portfolio-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(80px, 12vw, 150px); line-height: 0.8; }
+        /* --- PAGE HEADER --- */
+        .page-header {
+            padding: 160px 48px 64px;
+            border-bottom: 1px solid var(--muted);
+        }
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: var(--muted); }
+        .page-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(80px, 12vw, 150px);
+            line-height: 0.85;
+        }
+        .page-header h1 span { color: transparent; -webkit-text-stroke: 1px var(--fg); }
+        .hero-sub {
+            margin-top: 32px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .hero-desc {
+            font-size: 1rem; line-height: 1.7;
+            color: var(--subtle); max-width: 480px; font-style: italic;
+        }
+        .hero-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(40px, 6vw, 80px);
+            color: var(--accent); line-height: 1;
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .hero-count span {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.6rem; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--subtle); margin-top: 4px;
+        }
 
-        /* --- PROJECT ITEM --- */
-        .project-block { padding: 100px 48px; border-bottom: 1px solid var(--muted); max-width: 1400px; margin: 0 auto; }
-        
-        .project-media { width: 100%; border-radius: 8px; overflow: hidden; background: var(--card-bg); border: 1px solid var(--muted); margin-bottom: 40px; }
-        .project-media video, .project-media img { width: 100%; display: block; }
+        /* --- FILTER BAR --- */
+        .filter-bar {
+            padding: 28px 48px;
+            display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+            border-bottom: 1px solid var(--muted);
+        }
+        .filter-label {
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--subtle); margin-right: 8px;
+        }
+        .filter-btn {
+            background: none; border: 1px solid var(--muted);
+            color: var(--subtle); font-family: 'DM Sans', sans-serif;
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em;
+            text-transform: uppercase; padding: 6px 16px;
+            border-radius: 100px; cursor: none;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent); color: var(--accent);
+            background: rgba(200,240,96,0.06);
+        }
 
-        .project-info-header { margin-bottom: 40px; }
-        .project-info-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: var(--accent); margin-bottom: 10px; }
-        .project-description { font-size: 1.2rem; line-height: 1.6; color: var(--fg); max-width: 900px; }
+        /* --- PROJECTS GRID --- */
+        .projects-wrap { padding: 0 48px 120px; }
 
-        /* --- TECHNICAL GRID --- */
-        .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--muted); }
-        .tech-item h3 { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .tech-item h3::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
-        .tech-item p { color: var(--subtle); font-size: 1rem; line-height: 1.5; }
+        .projects-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 1px solid var(--muted);
+        }
+
+        /* Single project cell */
+        .project-item {
+            padding: 56px 0;
+            display: flex; flex-direction: column;
+            text-decoration: none; color: var(--fg);
+        }
+        .project-item:first-child { padding-right: 40px; border-right: 1px solid var(--muted); }
+        .project-item:last-child  { padding-left: 40px; }
+
+        /* Image block */
+        .project-visual {
+            width: 100%; aspect-ratio: 4/3;
+            border-radius: 6px; overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--muted);
+            position: relative;
+            transition: border-color 0.35s;
+        }
+        .project-item:hover .project-visual { border-color: rgba(200,240,96,0.4); }
+
+        /* Placeholder gradients — swap with real images */
+        .vis-1 { background: linear-gradient(135deg, #121a10 0%, #0a1508 60%, #0e1a0a 100%); }
+        .vis-2 { background: linear-gradient(135deg, #0e0e1e 0%, #080818 60%, #111128 100%); }
+        .vis-3 { background: linear-gradient(135deg, #1a1008 0%, #150c05 60%, #1e1408 100%); }
+        .vis-4 { background: linear-gradient(135deg, #1a0f0f 0%, #120808 60%, #1e1010 100%); }
+        .vis-5 { background: linear-gradient(135deg, #0d1a0d 0%, #111 60%, #1a2a0a 100%); }
+
+        /* Subtle grid pattern */
+        .project-visual::before {
+            content: ''; position: absolute; inset: 0;
+            background-image:
+                linear-gradient(var(--fg) 1px, transparent 1px),
+                linear-gradient(90deg, var(--fg) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.04; transition: opacity 0.35s;
+        }
+        .project-item:hover .project-visual::before { opacity: 0.09; }
+
+        .project-visual img, .project-visual video {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 0.6s ease;
+        }
+        .project-item:hover .project-visual img,
+        .project-item:hover .project-visual video { transform: scale(1.04); }
+
+        /* Status badge */
+        .proj-status {
+            position: absolute; top: 16px; left: 16px;
+            padding: 4px 12px; border-radius: 100px;
+            font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em;
+            text-transform: uppercase; backdrop-filter: blur(8px); border: 1px solid; z-index: 2;
+        }
+        .status-done     { background: rgba(200,240,96,0.1); border-color: rgba(200,240,96,0.4); color: var(--accent); }
+        .status-wip      { background: rgba(255,160,60,0.08); border-color: rgba(255,160,60,0.35); color: #ffa03c; }
+        .status-personal { background: rgba(255,255,255,0.05); border-color: var(--muted); color: var(--subtle); }
+
+        /* Title overlay inside image */
+        .proj-overlay-title {
+            position: absolute; bottom: 20px; left: 20px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(28px, 3.5vw, 48px); line-height: 0.9;
+            letter-spacing: 0.04em; color: var(--fg); z-index: 2;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+        }
+
+        /* Arrow */
+        .proj-arrow {
+            position: absolute; top: 16px; right: 16px;
+            width: 34px; height: 34px; border: 1px solid var(--muted);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: translateY(6px);
+            transition: opacity 0.3s, transform 0.3s, border-color 0.3s, color 0.3s; z-index: 2;
+        }
+        .project-item:hover .proj-arrow { opacity: 1; transform: translateY(0); border-color: var(--accent); color: var(--accent); }
+
+        /* Below-image info */
+        .project-info {
+            margin-top: 20px;
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
+        }
+        .proj-num {
+            font-size: 0.58rem; font-weight: 700; letter-spacing: 0.22em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+        }
+        .proj-desc {
+            font-size: 0.92rem; line-height: 1.65; color: var(--subtle); max-width: 440px;
+        }
+        .proj-tags {
+            display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+        }
+        .proj-tag {
+            font-size: 0.56rem; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--muted); transition: color 0.3s;
+        }
+        .project-item:hover .proj-tag { color: var(--subtle); }
+        .proj-tag + .proj-tag::before { content: '·'; margin-right: 6px; }
+
+        /* CTA */
+        .proj-cta {
+            flex-shrink: 0;
+            display: inline-flex; align-items: center; gap: 10px;
+            border: 1px solid var(--muted); padding: 11px 22px;
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--fg); border-radius: 100px;
+            white-space: nowrap; margin-top: 4px;
+            transition: border-color 0.3s, background 0.3s, color 0.3s;
+        }
+        .project-item:hover .proj-cta { border-color: var(--accent); background: var(--accent); color: var(--bg); }
+
+        /* --- BACK TO TOP --- */
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            padding: 12px 20px; background: var(--accent); color: var(--bg);
+            border: none; border-radius: 100px; font-size: 0.7rem; font-weight: 700;
+            font-family: 'DM Sans', sans-serif; letter-spacing: 0.1em;
+            text-transform: uppercase; cursor: none; z-index: 999;
+            opacity: 0; visibility: hidden; transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top:hover { background: var(--fg); }
 
         /* --- FOOTER --- */
-        footer { padding: 80px 48px; text-align: center; border-top: 1px solid var(--muted); }
-        .footer-copy { font-size: 0.8rem; color: var(--subtle); opacity: 0.6; }
+        footer {
+            border-top: 1px solid var(--muted); padding: 32px 48px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .footer-copy { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--subtle); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--subtle); text-decoration: none; transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
 
-        /* --- ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(40px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* --- REVEAL --- */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.14s; }
 
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .tech-grid { grid-template-columns: 1fr; gap: 30px; }
-            .portfolio-hero, .project-block { padding: 100px 24px 40px; }
-            .project-info-header h2 { font-size: 2.5rem; }
+            header { padding: 18px 20px; }
+            .page-header { padding: 110px 20px 48px; }
+            .hero-sub { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .filter-bar { padding: 20px; }
+            .projects-wrap { padding: 0 20px 80px; }
+            .projects-row { grid-template-columns: 1fr; border-bottom: none; }
+            .project-item:first-child { padding-right: 0; border-right: none; border-bottom: 1px solid var(--muted); }
+            .project-item:last-child  { padding-left: 0; }
+            .project-info { flex-direction: column; gap: 14px; }
+            footer { padding: 24px 20px; flex-direction: column; gap: 14px; text-align: center; }
         }
     </style>
 </head>
@@ -86,95 +316,222 @@
     <div class="cursor-follower" id="follower"></div>
 
     <header>
-        <a href="index.html"><img src="logo_LP.png" alt="Logo" style="height:38px;"></a>
+        <a href="/index.html">
+            <img src="logo_LP.png" alt="Laia Peris Logo" class="logo-img">
+        </a>
         <nav class="nav-center">
-            <a href="portfolio.html" class="active">Portfolio</a>
-            <a href="cv.html">CV</a>
-            <a href="about.html" >About Me</a>
+            <a href="/portfolio.html" class="active">Portfolio</a>
+            <a href="/cv.html">CV</a>
+            <a href="/about.html" class="nav-cta">About Me</a>
         </nav>
-        <div style="width:38px;"></div>
     </header>
 
     <main>
-        <section class="portfolio-hero reveal">
-            <h1>SELECTED<br><span style="color:transparent; -webkit-text-stroke: 1px var(--fg);">WORKS</span></h1>
-        </section>
 
-        <article class="project-block reveal">
-            <div class="project-media">
-                <video autoplay muted loop playsinline>
-                    <source src="videos/project1.mp4" type="video/mp4">
-                </video>
+        <div class="page-header reveal">
+            <div class="section-label">Portfolio</div>
+            <h1>PRODUCTION<br><span>WORKS</span></h1>
+            <div class="hero-sub">
+                <p class="hero-desc">A collection of rigging projects — characters, creatures and pipelines crafted with technical precision and built to move.</p>
             </div>
-            
-            <div class="project-info-header">
-                <h2>Project One Name</h2>
-                <div class="project-description">
-                    <p>Overview text explaining what this project was about. This rig was developed for a feature film/short focused on high-end facial expressions and extreme body deformations.</p>
-                </div>
+        </div>
+
+        <div class="filter-bar reveal reveal-delay-1">
+            <span class="filter-label">Filter —</span>
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="character">Character Rig</button>
+            <button class="filter-btn" data-filter="creature">Creature Rig</button>
+            <button class="filter-btn" data-filter="pipeline">Pipeline</button>
+        </div>
+
+        <div class="projects-wrap">
+
+            <!-- ROW 1 -->
+            <div class="projects-row">
+
+                <a href="projects/project-davi.html" class="project-item reveal" data-type="character">
+                    <div class="project-visual vis-1">
+                        <!-- swap with: <img src="images/davi_cover.jpg" alt="DAVI"> -->
+                        <span class="proj-status status-done">✓ Completed</span>
+                        <div class="proj-overlay-title">DAVI</div>
+                        <div class="proj-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <div class="proj-num">01</div>
+                            <p class="proj-desc">Stylized human character rig using the mGear framework, featuring a custom facial system focused on expressive, animation-ready performance.</p>
+                            <div class="proj-tags">
+                                <span class="proj-tag">Character Rig</span>
+                                <span class="proj-tag">Body Mechanics</span>
+                                <span class="proj-tag">Facial Skinning</span>
+                            </div>
+                        </div>
+                        <span class="proj-cta">See project <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                    </div>
+                </a>
+
+                <a href="project-dragons.html" class="project-item reveal reveal-delay-1" data-type="creature">
+                    <div class="project-visual vis-2">
+                        <!-- swap with: <img src="images/dragons_cover.jpg" alt="Here Be Dragons"> -->
+                        <span class="proj-status status-wip">⬤ WIP</span>
+                        <div class="proj-overlay-title">HERE BE<br>DRAGONS</div>
+                        <div class="proj-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <div class="proj-num">02</div>
+                            <p class="proj-desc">Quadruped dragon con muscle simulation, wing dynamics procedurales y un facial rig completo para un cortometraje de animación.</p>
+                            <div class="proj-tags">
+                                <span class="proj-tag">Creature Rig</span>
+                                <span class="proj-tag">Body Mechanics</span>
+                                <span class="proj-tag">Facial Skinning</span>
+                                <span class="proj-tag">CFX</span>
+                            </div>
+                        </div>
+                        <span class="proj-cta">See project <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                    </div>
+                </a>
+
             </div>
 
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <h3>Deformation System</h3>
-                    <p>Description of the corrective blendshapes, skinning techniques, and how the volume was preserved during extreme poses using custom nodes or RBF systems.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>Rig System</h3>
-                    <p>Details about the IK/FK switching, custom UI for animators, modular rigging structure, and Python scripts used to automate the control placement.</p>
-                </div>
-            </div>
-        </article>
+            <!-- ROW 2 -->
+            <div class="projects-row">
 
-        <article class="project-block reveal">
-            <div class="project-media">
-                <img src="images/project2_full.jpg" alt="Mechanical Rig">
-            </div>
-            
-            <div class="project-info-header">
-                <h2>Project Two Name</h2>
-                <div class="project-description">
-                    <p>Explanation of a different project, for example, a creature or a mechanical prop. Focused on automation and complex hierarchy management.</p>
-                </div>
+                <a href="project-sprouts.html" class="project-item reveal" data-type="character">
+                    <div class="project-visual vis-3">
+                        <!-- swap with: <img src="images/sprouts_cover.jpg" alt="Sprouts"> -->
+                        <span class="proj-status status-wip">⬤ WIP</span>
+                        <div class="proj-overlay-title">SPROUTS</div>
+                        <div class="proj-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <div class="proj-num">03</div>
+                            <p class="proj-desc">Personaje estilizado con un sistema de scripting facial en Python y un pipeline completo de corrective blendshapes para actuaciones emocionales.</p>
+                            <div class="proj-tags">
+                                <span class="proj-tag">Character Rig</span>
+                                <span class="proj-tag">Custom Facial Scripting</span>
+                                <span class="proj-tag">Correctives</span>
+                            </div>
+                        </div>
+                        <span class="proj-cta">Ver proyecto <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                    </div>
+                </a>
+
+                <a href="project-oparaiso.html" class="project-item reveal reveal-delay-1" data-type="character">
+                    <div class="project-visual vis-4">
+                        <!-- swap with: <img src="images/oparaiso_cover.jpg" alt="O'Paraiso"> -->
+                        <span class="proj-status status-wip">⬤ WIP</span>
+                        <div class="proj-overlay-title">O'PARAISO</div>
+                        <div class="proj-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <div class="proj-num">04</div>
+                            <p class="proj-desc">Rig de personaje construido sobre un sistema matrix-based personalizado, eliminando el gimbal lock y ofreciendo un workflow más limpio al equipo de animación.</p>
+                            <div class="proj-tags">
+                                <span class="proj-tag">Character Rig</span>
+                                <span class="proj-tag">Matrix Based Rig</span>
+                                <span class="proj-tag">Body & Facial</span>
+                            </div>
+                        </div>
+                        <span class="proj-cta">Ver proyecto <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                    </div>
+                </a>
+
             </div>
 
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <h3>Deformation System</h3>
-                    <p>How the muscles react to the movement. Explanation of the delta mush implementation or custom deformers created in C++ or Python.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>Rig System</h3>
-                    <p>Complexity of the mechanical gears, constraints used for the motion, and the ease of use for the animation team.</p>
-                </div>
+            <!-- ROW 3 — proyecto ancho -->
+            <div class="projects-row" style="grid-template-columns: 1fr; border-bottom: none;">
+
+                <a href="project-pipeline.html" class="project-item reveal" data-type="pipeline" style="padding-right: 0; border-right: none;">
+                    <div class="project-visual vis-5" style="aspect-ratio: 16/6;">
+                        <!-- swap with: <img src="images/pipeline_cover.jpg" alt="Pipeline"> -->
+                        <span class="proj-status status-personal">Personal</span>
+                        <div class="proj-overlay-title">PERSONAL RIGGING PIPELINE</div>
+                        <div class="proj-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <div class="proj-num">05</div>
+                            <p class="proj-desc">Framework de rigging modular escrito en Python — componentes plug-and-play para columna, extremidades y sistemas faciales, diseñado para escalar entre producciones.</p>
+                            <div class="proj-tags">
+                                <span class="proj-tag">Pipeline</span>
+                                <span class="proj-tag">Modular Rig</span>
+                                <span class="proj-tag">Python</span>
+                                <span class="proj-tag">Git</span>
+                            </div>
+                        </div>
+                        <span class="proj-cta">Ver proyecto <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+                    </div>
+                </a>
+
             </div>
-        </article>
+
+        </div>
+
     </main>
 
     <footer>
         <p class="footer-copy">© 2026 Laia Peris — Rigging TD</p>
+        <div class="footer-links">
+            <a href="cv.html">CV</a>
+            <a href="about.html">About Me</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
     </footer>
 
+    <button id="backToTop" class="back-to-top">Back to top ↑</button>
+
     <script>
-        // Cursor Logic
-        const cursor = document.getElementById('cursor');
+        const cursor   = document.getElementById('cursor');
         const follower = document.getElementById('follower');
-        let mx = 0, my = 0, fx = 0, fy = 0;
+        let fx = 0, fy = 0, mx = 0, my = 0;
         document.addEventListener('mousemove', e => {
             mx = e.clientX; my = e.clientY;
             cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
         });
-        (function anim() {
-            fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12;
+        (function animFollower() {
+            fx += (mx - fx) * 0.12;
+            fy += (my - fy) * 0.12;
             follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
-            requestAnimationFrame(anim);
+            requestAnimationFrame(animFollower);
         })();
 
-        // Scroll Reveal Logic
         const io = new IntersectionObserver(entries => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.1 });
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+        const btn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => btn.classList.toggle('show', window.scrollY > 400));
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                const f = b.dataset.filter;
+                document.querySelectorAll('.project-item').forEach(card => {
+                    const match = f === 'all' || card.dataset.type === f;
+                    card.style.opacity = match ? '1' : '0.2';
+                    card.style.pointerEvents = match ? 'auto' : 'none';
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
