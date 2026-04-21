@@ -282,6 +282,86 @@
         }
         .decision-a { font-size: 0.95rem; line-height: 1.7; color: var(--subtle); }
 
+        /* --- TOOL CARDS --- */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--muted);
+            border: 1px solid var(--muted);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 48px;
+        }
+        .tool-card {
+            background: var(--card-bg);
+            padding: 32px;
+            position: relative;
+            transition: background 0.3s;
+        }
+        .tool-card:hover { background: #161616; }
+        .tool-card-wide { grid-column: span 2; }
+        .tool-icon {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .tool-name {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+        }
+        .tool-desc {
+            font-size: 0.88rem; line-height: 1.65; color: var(--subtle);
+        }
+        .tool-tags {
+            display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px;
+        }
+        .tool-tag {
+            font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--fg); opacity: 0.35;
+            border: 1px solid var(--muted); padding: 3px 9px; border-radius: 100px;
+        }
+
+        /* --- CHARACTERS GRID --- */
+        .chars-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 48px;
+        }
+        .char-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--muted);
+            transition: border-color 0.3s;
+        }
+        .char-card:hover { border-color: rgba(200,240,96,0.4); }
+        .char-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+            filter: grayscale(30%);
+        }
+        .char-card:hover img { transform: scale(1.04); filter: grayscale(0%); }
+        .char-card-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 40px 16px 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+        }
+        .char-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem; letter-spacing: 0.08em; color: var(--fg);
+            margin-bottom: 2px;
+        }
+        .char-type {
+            font-size: 0.55rem; font-weight: 700; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--subtle);
+        }
+
         /* --- NEXT PROJECT --- */
         .next-project {
             padding: 80px 48px; max-width: 1400px; margin: 0 auto;
@@ -347,6 +427,9 @@
             .project-hero { padding-top: 120px; }
             .intro-row { grid-template-columns: 1fr; gap: 40px; }
             .module-grid { grid-template-columns: 1fr; }
+            .tool-grid { grid-template-columns: 1fr; }
+            .tool-card-wide { grid-column: span 1; }
+            .chars-grid { grid-template-columns: repeat(2, 1fr); }
             .decision-item { grid-template-columns: 1fr; gap: 12px; }
             .pipeline-hero-banner { padding: 40px 24px; }
             .flow-arrow { padding: 0 8px; font-size: 0.9rem; }
@@ -579,6 +662,184 @@
                 <div class="decision-item">
                     <div class="decision-q">Why a JSON cache bus between modules?</div>
                     <div class="decision-a">Python memory doesn't survive scene reloads or <code>importlib.reload()</code> calls. A file on disk does. The cache also acts as a build log — opening <code>biped.cache</code> immediately shows which modules ran, what node names were assigned, and where space switches will connect.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════ TOOLS ═══════════ -->
+        <div class="content-block reveal">
+            <div class="block-label">04 — Standalone Tools</div>
+            <h2 class="block-title">PIPELINE<br>TOOLS</h2>
+            <p class="block-text">Ten standalone tools built alongside the autorig system — each solving a specific production problem in Maya, from skinning to QC to animation utilities.</p>
+
+            <div class="tool-grid">
+
+                <div class="tool-card tool-card-wide">
+                    <span class="tool-icon">🦴</span>
+                    <div class="tool-name">Auto Skin Transfer</div>
+                    <p class="tool-desc">Topology-independent skin weight transfer using skeleton-relative UV projection. Maps source and target vertices into a shared coordinate space defined by their skeleton, then transfers weights via KNN lookup with IDW blending. Works across different topology, vertex count, and proportions — the source mesh doesn't need to be in the scene at build time.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">UV Projection</span>
+                        <span class="tool-tag">KNN + IDW</span>
+                        <span class="tool-tag">Topology-independent</span>
+                        <span class="tool-tag">Skeleton-relative</span>
+                        <span class="tool-tag">5 modules</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">📦</span>
+                    <div class="tool-name">Skin Manager</div>
+                    <p class="tool-desc">ngSkinTools2 integration for exporting and importing skin weights in a custom sparse <code>.skc</code> format — 60–80% smaller than Maya's native export. Only non-zero weights are stored. Auto-discovers all skinned meshes in the scene and batch-exports them per asset.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">ngSkinTools2</span>
+                        <span class="tool-tag">.skc sparse</span>
+                        <span class="tool-tag">Batch export</span>
+                        <span class="tool-tag">JSON</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">📤</span>
+                    <div class="tool-name">Mesh Data Exporter</div>
+                    <p class="tool-desc">Run once on a source character scene (with skin active) to export both the sparse weights file and a pre-computed UV weight map (<code>.skinmap</code>). At rig build time the system reads these files and runs the skin transfer automatically — no source mesh needed in scene.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">.skinmap</span>
+                        <span class="tool-tag">Offline export</span>
+                        <span class="tool-tag">NumPy</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">🎛️</span>
+                    <div class="tool-name">Curve Library</div>
+                    <p class="tool-desc">Grid UI to browse, save and apply NURBS controller shapes. Stores CV positions, knots, degree, form, override color, and <code>alwaysDrawOnTop</code> per shape in JSON. Apply any saved shape to the selected controller with one click. Dark-themed PySide6/PySide2 compatible interface.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">NURBS shapes</span>
+                        <span class="tool-tag">PySide6</span>
+                        <span class="tool-tag">JSON library</span>
+                        <span class="tool-tag">Grid UI</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">🔀</span>
+                    <div class="tool-name">IK/FK Match</div>
+                    <p class="tool-desc">Maya Python plugin (<code>MPxCommand</code>) for seamless IK/FK switching. Registered as a native Maya command — callable from MEL, Python, hotkeys or shelf buttons. Supports arm and leg modules. Matches FK joints to IK pose or IK controllers to FK pose without any visible pop.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">MPxCommand</span>
+                        <span class="tool-tag">Maya Plugin</span>
+                        <span class="tool-tag">IK/FK blend</span>
+                        <span class="tool-tag">API 2.0</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">🔧</span>
+                    <div class="tool-name">Rig Tools</div>
+                    <p class="tool-desc">A collection of animation and rigging utilities inspired by Morgan Loomis' ml_tools: Arc Tracer (visualise controller motion arcs), World Bake (bake to world space for editing), Color Control with gradient picker, Parent Shape, Reset Channels, and Rotation Order Switcher.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">Arc Tracer</span>
+                        <span class="tool-tag">World Bake</span>
+                        <span class="tool-tag">Color Gradient</span>
+                        <span class="tool-tag">Rotation Order</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">✅</span>
+                    <div class="tool-name">Model Checker</div>
+                    <p class="tool-desc">QC validation tool based on Modeling QC Standards (Roure Osso, 2023). Checks mesh topology, naming conventions, pivot positions, history, freeze transforms, and other pre-rigging requirements. PySide UI with per-check pass/fail status and quick-fix buttons.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">QC Validation</span>
+                        <span class="tool-tag">Pre-rig checks</span>
+                        <span class="tool-tag">PySide UI</span>
+                        <span class="tool-tag">OpenMaya</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">📍</span>
+                    <div class="tool-name">Proxy Locator</div>
+                    <p class="tool-desc">Maya Python plugin (<code>MPxLocatorNode</code>) that draws a mesh patch on each controller showing the nearest skin region in the viewport. Color inherits from the controller's override color. <code>assign_all_proxy_locators()</code> auto-detects the body mesh and distributes patches across the full rig.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">MPxLocatorNode</span>
+                        <span class="tool-tag">Viewport draw</span>
+                        <span class="tool-tag">Auto-assign</span>
+                        <span class="tool-tag">OpenMayaUI</span>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <span class="tool-icon">💥</span>
+                    <div class="tool-name">Auto Collision</div>
+                    <p class="tool-desc">Distance-based collision system for secondary bones. Given a list of colliders and a target joint, builds a node network using <code>distanceBetween</code>, <code>plusMinusAverage</code> (Minimum mode), and a <code>remapValue</code> to drive push on a chosen axis. Offset group prevents double transforms. Attributes exposed on the target controller.</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">Distance-based</span>
+                        <span class="tool-tag">Node network</span>
+                        <span class="tool-tag">Secondary motion</span>
+                        <span class="tool-tag">Non-destructive</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ═══════════ CHARACTERS ═══════════ -->
+        <div class="content-block reveal">
+            <div class="block-label">05 — Built with this pipeline</div>
+            <h2 class="block-title">CHARACTERS<br>RIGGED</h2>
+            <p class="block-text">Every rig below was built using this pipeline — from guide placement to final skin transfer, zero manual scene editing.</p>
+
+            <div class="chars-grid">
+                <div class="char-card reveal">
+                    <img src="assets/freya.jpg" alt="Freya character rig">
+                    <div class="char-card-label">
+                        <div class="char-name">FREYA</div>
+                        <div class="char-type">Biped · 34 skin versions</div>
+                    </div>
+                </div>
+                <div class="char-card reveal reveal-delay-1">
+                    <img src="assets/mechanic.jpg" alt="Mechanic character rig">
+                    <div class="char-card-label">
+                        <div class="char-name">MECHANIC</div>
+                        <div class="char-type">Biped · 7 skin versions</div>
+                    </div>
+                </div>
+                <div class="char-card reveal reveal-delay-1">
+                    <img src="assets/thaiz.jpg" alt="Thaiz character rig">
+                    <div class="char-card-label">
+                        <div class="char-name">THAIZ</div>
+                        <div class="char-type">Biped · 20 skin versions</div>
+                    </div>
+                </div>
+                <div class="char-card reveal reveal-delay-2">
+                    <img src="assets/jamal.png" alt="Jamal character rig">
+                    <div class="char-card-label">
+                        <div class="char-name">JAMAL</div>
+                        <div class="char-type">Biped · Facial blendshapes</div>
+                    </div>
+                </div>
+                <div class="char-card reveal">
+                    <img src="assets/maui.jpg" alt="Maui character rig">
+                    <div class="char-card-label">
+                        <div class="char-name">MAUI</div>
+                        <div class="char-type">Biped · 2 skin versions</div>
+                    </div>
+                </div>
+                <div class="char-card reveal reveal-delay-1">
+                    <img src="assets/moana.jpg" alt="Moana character rig">
+                    <div class="char-card-label">
+                        <div class="char-name">MOANA</div>
+                        <div class="char-type">Biped · 3 skin versions</div>
+                    </div>
+                </div>
+                <div class="char-card reveal reveal-delay-2">
+                    <img src="assets/giraffe.jpg" alt="Giraffe creature rig">
+                    <div class="char-card-label">
+                        <div class="char-name">GIRAFFE</div>
+                        <div class="char-type">Quadruped</div>
+                    </div>
                 </div>
             </div>
         </div>

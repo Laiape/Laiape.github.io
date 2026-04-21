@@ -47,6 +47,9 @@
             transform: translate(-50%, -50%);
         }
 
+        body:has(a:hover) .cursor,
+        body:has(button:hover) .cursor { transform: translate(-50%,-50%) scale(2.5); }
+
         /* --- HEADER --- */
         header {
             position: fixed;
@@ -76,6 +79,25 @@
             transition: 0.3s;
         }
         nav a:hover, nav a.active { opacity: 1; color: var(--accent); }
+        .nav-cta {
+            border: 1px solid var(--fg) !important;
+            padding: 8px 20px; opacity: 1 !important;
+            transition: background 0.3s, color 0.3s !important;
+        }
+        .nav-cta:hover { background: var(--fg) !important; color: var(--bg) !important; }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--muted); padding: 32px 48px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .footer-copy { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--subtle); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--subtle); text-decoration: none; transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--accent); }
 
         /* --- SECTIONS --- */
         section { padding: 140px 48px 80px; max-width: 1200px; margin: 0 auto; min-height: 90vh; }
@@ -168,7 +190,7 @@
         <nav class="nav-center">
             <a href="portfolio.html">Portfolio</a>
             <a href="cv.html">CV</a>
-            <a href="about.html" class="active">About Me</a>
+            <a href="about.html" class="active nav-cta">About Me</a>
         </nav>
         <div style="width:38px;"></div>
     </header>
@@ -226,6 +248,15 @@
             </div>
         </div>
     </section>
+
+    <footer>
+        <p class="footer-copy">© 2026 Laia Peris — Rigging TD</p>
+        <div class="footer-links">
+            <a href="cv.html">CV</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="https://linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
 
     <div class="floating-controls">
         <button id="backToTop" class="float-btn">Back to top ↑</button>

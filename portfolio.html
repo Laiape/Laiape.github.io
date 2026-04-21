@@ -348,6 +348,7 @@
             <button class="filter-btn" data-filter="character">Character Rig</button>
             <button class="filter-btn" data-filter="creature">Creature Rig</button>
             <button class="filter-btn" data-filter="pipeline">Pipeline</button>
+            <button class="filter-btn" data-filter="tools">Tools</button>
         </div>
 
         <div class="projects-wrap">
@@ -466,7 +467,7 @@
             <!-- ROW 3 — full-width project -->
             <div class="projects-row" style="grid-template-columns: 1fr;">
 
-                <a href="projects/pipeline.html" class="project-item reveal" data-type="pipeline" style="padding-right: 0; border-right: none; padding-bottom: 0;">
+                <a href="projects/pipeline.html" class="project-item reveal" data-type="pipeline tools" style="padding-right: 0; border-right: none; padding-bottom: 0;">
                     <div class="project-visual vis-5" style="aspect-ratio: 16/6;">
                         <!-- swap with: <img src="images/pipeline_cover.jpg" alt="Pipeline"> -->
                         <span class="proj-status status-personal">Personal</span>
@@ -478,12 +479,12 @@
                     <div class="project-info">
                         <div>
                             <div class="proj-num">05</div>
-                            <p class="proj-desc">Modular rigging framework written in Python — plug-and-play components for spine, limbs, and facial systems, designed to scale across productions.</p>
+                            <p class="proj-desc">Procedural, data-driven autorig system in Maya Python — biped, quadruped &amp; facial modules, matrix-only constraints, topology-independent skin transfer, and 9 standalone tools. Used to rig 7+ production characters.</p>
                             <div class="proj-tags">
                                 <span class="proj-tag">Pipeline</span>
                                 <span class="proj-tag">Modular Rig</span>
-                                <span class="proj-tag">Python</span>
-                                <span class="proj-tag">Git</span>
+                                <span class="proj-tag">Python · Maya API 2.0</span>
+                                <span class="proj-tag">9 Tools</span>
                             </div>
                         </div>
                         <span class="proj-cta">See project <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
@@ -539,7 +540,8 @@
                 b.classList.add('active');
                 const f = b.dataset.filter;
                 document.querySelectorAll('.project-item').forEach(card => {
-                    const match = f === 'all' || card.dataset.type === f;
+                    const types = (card.dataset.type || '').split(' ');
+                    const match = f === 'all' || types.includes(f);
                     card.style.opacity = match ? '1' : '0.2';
                     card.style.pointerEvents = match ? 'auto' : 'none';
                 });
