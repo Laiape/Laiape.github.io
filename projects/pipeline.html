@@ -509,8 +509,8 @@
         <!-- ═══════════ INTRO ═══════════ -->
         <div class="intro-row reveal">
             <div class="intro-desc">
-                <p>A fully procedural, data-driven rigging system built in Maya Python. Given a set of guide locators, it builds a complete character rig from scratch — joints, controllers, IK/FK systems, space switches, and skin weights — without any manual scene state. Every build starts from a blank scene. The rig is deterministic: the same guides always produce the same rig.</p>
-                <p style="margin-top: 20px;">Built to produce rigs for <strong>O'Paraiso</strong> and all future characters, the toolkit is now the foundation of my production pipeline.</p>
+                <p>This started as a simple question: why am I rebuilding the same arm rig for the fifth time? So I wrote a tool that does it for me. You drop some guide locators on a character, press build, and it generates the whole rig from scratch — joints, controllers, IK/FK, space switches, even the skin weights. Nothing is done by hand in the scene. And because everything is rebuilt from zero every time, the same guides always give you the exact same rig. No surprises.</p>
+                <p style="margin-top: 20px;">I built it to rig the characters for <strong>O'Paraiso</strong>, but at this point it's just how I rig everything. Every character on this site went through it.</p>
             </div>
             <div class="intro-stats">
                 <div class="stat-item">
@@ -540,14 +540,14 @@
         <div class="content-block reveal">
             <div class="block-label">01 — Architecture</div>
             <h2 class="block-title">PIPELINE<br>MODULES</h2>
-            <p class="block-text">The system is broken into five independent modules. Each is responsible for one stage of the build. Modules communicate through a JSON cache on disk — not through Python memory — so each build is reproducible and scene-state independent.</p>
+            <p class="block-text">The whole thing is split into five pieces, and each one minds its own business. They don't talk to each other through Python memory (that dies the moment you reload) — they write to a JSON cache on disk. Sounds boring, but it's the reason every build comes out the same no matter what state Maya is in.</p>
 
             <div class="module-grid">
 
                 <div class="module-card">
                     <div class="module-num">01</div>
                     <div class="module-title">Asset Management</div>
-                    <p class="module-desc">Tracks the active character via Maya's <code>optionVar</code> — persists across <code>cmds.file(new=True)</code> calls. On first setup it generates the full folder structure: <code>models/</code>, <code>build/</code>, <code>guides/</code>, <code>curves/</code>, <code>skin_clusters/</code>. Every build opens a clean scene from <code>assets/&lt;char&gt;/models/</code> — no carried state from previous sessions.</p>
+                    <p class="module-desc">Keeps track of which character you're working on using Maya's <code>optionVar</code>, which survives even when you open a new scene. The first time you set up a character it creates the whole folder structure for you — <code>models/</code>, <code>build/</code>, <code>guides/</code>, <code>curves/</code>, <code>skin_clusters/</code> — so every asset looks the same. Each build opens a fresh scene from the model folder. Whatever mess you left in the last session, it doesn't care.</p>
                     <div class="module-tags">
                         <span class="module-tag">optionVar</span>
                         <span class="module-tag">File I/O</span>
@@ -558,7 +558,7 @@
                 <div class="module-card">
                     <div class="module-num">02</div>
                     <div class="module-title">Guides &amp; Skeletons</div>
-                    <p class="module-desc">Guides are locators placed in T-pose — the only persistent artist input. They are mirrored automatically from <code>L_</code> to <code>R_</code>, then exported to JSON. The rig is rebuilt entirely from that file each build. <strong>Data-driven</strong>: if a guide exists, that limb is built. If it doesn't, it's skipped. One pipeline supports biped, quadruped, and facial in the same system.</p>
+                    <p class="module-desc">The guides are the only thing you actually place by hand: locators in T-pose. Do the left side, and the right side mirrors itself. Everything gets saved to a JSON file, and the rig is rebuilt from that file every single time. The nice part: if a guide exists, that limb gets built. If it doesn't, it's skipped. That's how the same pipeline handles bipeds, quadrupeds and faces without me writing three separate systems.</p>
                     <div class="module-tags">
                         <span class="module-tag">JSON export</span>
                         <span class="module-tag">Auto mirror</span>
@@ -570,7 +570,7 @@
                 <div class="module-card">
                     <div class="module-num">03</div>
                     <div class="module-title">Curves &amp; Controllers</div>
-                    <p class="module-desc">Controller shapes are stored per character as a <code>.curves</code> JSON file — CV positions, knots, degree, form, override color, <code>alwaysDrawOnTop</code>. At build time the system recreates each curve via Maya API 2.0. Color convention: cyan for Left, blue for Right, yellow for Center. Mirror uses <code>scaleX = -1</code> + <code>makeIdentity</code> — one operation, any shape.</p>
+                    <p class="module-desc">Ever spent an hour making controller shapes pretty and then lost them on a rebuild? Yeah. So every character stores its shapes in a <code>.curves</code> file — CV positions, knots, degree, color, everything — and the build recreates them exactly with the Maya API. Cyan for left, blue for right, yellow for center, always. Mirroring a shape is one operation: flip <code>scaleX</code>, freeze, done.</p>
                     <div class="module-tags">
                         <span class="module-tag">.curves format</span>
                         <span class="module-tag">API 2.0</span>
@@ -582,7 +582,7 @@
                 <div class="module-card">
                     <div class="module-num">04</div>
                     <div class="module-title">Skin Clusters</div>
-                    <p class="module-desc">Custom <code>.skc</code> sparse format stores only non-zero weights — 60–80% smaller than Maya's native export. Auto-transfer via <strong>skeleton-relative UV projection</strong>: vertices from both characters are mapped into a shared coordinate space defined by their shared skeleton. Works across different topology, vertex count, and proportions. The source character doesn't need to be in the scene at build time.</p>
+                    <p class="module-desc">Skin weights live in my own <code>.skc</code> format that only stores the weights that aren't zero — files end up 60–80% smaller than Maya's export. And when a new character has no weights at all, it borrows them from another one: both meshes get mapped into a shared space defined by the skeleton, so the weights land where they should even if one character is twice as wide or has completely different topology. The donor character doesn't even need to be in the scene.</p>
                     <div class="module-tags">
                         <span class="module-tag">.skc sparse</span>
                         <span class="module-tag">UV projection</span>
@@ -594,7 +594,7 @@
                 <div class="module-card module-card-wide">
                     <div class="module-num">05</div>
                     <div class="module-title">Rig Functionality &amp; Logic</div>
-                    <p class="module-desc">The entire constraint system uses <strong>matrix nodes only</strong> — <code>multMatrix</code>, <code>blendMatrix</code>, <code>parentMatrix</code>, <code>offsetParentMatrix</code>. No <code>parentConstraint</code> or <code>orientConstraint</code>. IK/FK blend is driven by <code>blendMatrix</code> feeding into <code>offsetParentMatrix</code>. Space switches use <code>parentMatrix + blendMatrix + condition</code> nodes, with enum attributes directly on the controller. Modules communicate through a JSON cache bus — each module registers its output node names, and space switches resolve in post-build without depending on module execution order.</p>
+                    <p class="module-desc">Here's my hill: no constraints. Not a single <code>parentConstraint</code> or <code>orientConstraint</code> in the whole rig — everything runs on matrix nodes (<code>multMatrix</code>, <code>blendMatrix</code>, <code>offsetParentMatrix</code>). The IK/FK blend is a <code>blendMatrix</code> feeding straight into the <code>offsetParentMatrix</code>. Space switches are matrix nodes plus a condition, with the enum right there on the controller. And since every module writes its node names into the JSON cache, the space switches get wired up at the end without caring which module ran first.</p>
                     <div class="module-tags">
                         <span class="module-tag">multMatrix</span>
                         <span class="module-tag">blendMatrix</span>
@@ -612,7 +612,7 @@
         <div class="content-block reveal">
             <div class="block-label">02 — Build</div>
             <h2 class="block-title">BUILD<br>SEQUENCE</h2>
-            <p class="block-text">The full rig is rebuilt from scratch every time — no incremental updates, no persistent scene state. Eight steps, always in the same order.</p>
+            <p class="block-text">Every build starts from nothing and runs the same eight steps in the same order. No "just fix this one thing in the scene" — if something's wrong, you fix the guides or the code and rebuild. It takes seconds, so why not.</p>
 
             <div class="code-block">
 <span class="c-comment"># 1. Clear cache &amp; set character context</span>
@@ -649,19 +649,19 @@
             <div class="decision-list">
                 <div class="decision-item">
                     <div class="decision-q">Why matrix nodes instead of Maya constraints?</div>
-                    <div class="decision-a">Matrix operations are evaluated in parallel by Maya's dependency graph. <code>parentConstraint</code> nodes add evaluation overhead and clutter the DAG. Matrix nodes are cleaner, faster, and produce rigs that export to game engines without extra cleanup.</div>
+                    <div class="decision-a">Because constraints are slow and messy. Maya evaluates matrix nodes in parallel, while every <code>parentConstraint</code> adds overhead and an extra node cluttering your Outliner. Matrix rigs run faster, the graph stays readable, and when it's time to export to a game engine there's nothing to clean up.</div>
                 </div>
                 <div class="decision-item">
                     <div class="decision-q">Why rebuild from scratch every build?</div>
-                    <div class="decision-a">Incremental builds accumulate state — a fix in one session can break something in the next. Rebuilding from scratch guarantees that the rig always matches the guides. The artist's only persistent input is the guide file and the curves file, both of which are version-controlled.</div>
+                    <div class="decision-a">Because hand-edited rigs rot. You fix something on Tuesday, and on Friday nobody remembers what changed and the rig breaks in a new and exciting way. If the rig is always rebuilt from the guides, the rig always matches the guides — end of mystery. The only files I actually maintain are the guides and the curves, and both live in git.</div>
                 </div>
                 <div class="decision-item">
                     <div class="decision-q">Why skeleton-relative UV for skin transfer?</div>
-                    <div class="decision-a">Point-cloud matching breaks when two characters have different proportions. The skeleton defines body regions that are consistent regardless of mesh density or scale. Mapping vertices into skeleton-relative coordinates means a hip joint always maps to the hip area, even if one character is twice as wide.</div>
+                    <div class="decision-a">The obvious approach — match the closest points between the two meshes — falls apart the moment the characters have different proportions. A skinny character and a chunky one have their hips in very different places in world space. But relative to the skeleton, a hip is always a hip. So I map everything into skeleton space first, and the weights land where they belong no matter the body type.</div>
                 </div>
                 <div class="decision-item">
                     <div class="decision-q">Why a JSON cache bus between modules?</div>
-                    <div class="decision-a">Python memory doesn't survive scene reloads or <code>importlib.reload()</code> calls. A file on disk does. The cache also acts as a build log — opening <code>biped.cache</code> immediately shows which modules ran, what node names were assigned, and where space switches will connect.</div>
+                    <div class="decision-a">Because Python memory betrays you. Reload a scene or a module, and everything you stored is gone. A file on disk doesn't have that problem. Bonus: the cache doubles as a build log — if something looks off, I open <code>biped.cache</code> and can see exactly which modules ran, what they named their nodes, and where the space switches connect.</div>
                 </div>
             </div>
         </div>
@@ -670,14 +670,14 @@
         <div class="content-block reveal">
             <div class="block-label">04 — Standalone Tools</div>
             <h2 class="block-title">PIPELINE<br>TOOLS</h2>
-            <p class="block-text">Ten standalone tools built alongside the autorig system — each solving a specific production problem in Maya, from skinning to QC to animation utilities.</p>
+            <p class="block-text">Along the way I kept hitting problems the autorig didn't cover — so each one got its own tool. Some took an afternoon, some took weeks. All of them exist because doing it by hand the third time made me angry.</p>
 
             <div class="tool-grid">
 
                 <div class="tool-card tool-card-wide">
                     <span class="tool-icon">🦴</span>
                     <div class="tool-name">Auto Skin Transfer</div>
-                    <p class="tool-desc">Topology-independent skin weight transfer using skeleton-relative UV projection. Maps source and target vertices into a shared coordinate space defined by their skeleton, then transfers weights via KNN lookup with IDW blending. Works across different topology, vertex count, and proportions — the source mesh doesn't need to be in the scene at build time.</p>
+                    <p class="tool-desc">The big one. Skinning a character from scratch takes days; this borrows the weights from an already-skinned character instead. Both meshes get projected into a shared space built from the skeleton, then each vertex looks up its nearest neighbours and blends their weights. Different topology, different vertex count, different proportions — doesn't matter. The donor mesh doesn't even need to be in the scene.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">UV Projection</span>
                         <span class="tool-tag">KNN + IDW</span>
@@ -690,7 +690,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">📦</span>
                     <div class="tool-name">Skin Manager</div>
-                    <p class="tool-desc">ngSkinTools2 integration for exporting and importing skin weights in a custom sparse <code>.skc</code> format — 60–80% smaller than Maya's native export. Only non-zero weights are stored. Auto-discovers all skinned meshes in the scene and batch-exports them per asset.</p>
+                    <p class="tool-desc">Saves and loads skin weights in my own <code>.skc</code> format, which skips all the zeros — files come out 60–80% smaller than Maya's export. It plugs into ngSkinTools2, finds every skinned mesh in the scene on its own, and exports the whole batch per asset. One click before closing, one click after building.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">ngSkinTools2</span>
                         <span class="tool-tag">.skc sparse</span>
@@ -702,7 +702,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">📤</span>
                     <div class="tool-name">Mesh Data Exporter</div>
-                    <p class="tool-desc">Run once on a source character scene (with skin active) to export both the sparse weights file and a pre-computed UV weight map (<code>.skinmap</code>). At rig build time the system reads these files and runs the skin transfer automatically — no source mesh needed in scene.</p>
+                    <p class="tool-desc">The companion to the skin transfer: you run it once on a character that's already skinned, and it spits out the weights file plus a pre-computed <code>.skinmap</code>. From then on, any new rig build can pull weights from that character automatically — without ever opening their scene again.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">.skinmap</span>
                         <span class="tool-tag">Offline export</span>
@@ -713,7 +713,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">🎛️</span>
                     <div class="tool-name">Curve Library</div>
-                    <p class="tool-desc">Grid UI to browse, save and apply NURBS controller shapes. Stores CV positions, knots, degree, form, override color, and <code>alwaysDrawOnTop</code> per shape in JSON. Apply any saved shape to the selected controller with one click. Dark-themed PySide6/PySide2 compatible interface.</p>
+                    <p class="tool-desc">A little shape shop for controllers. Browse a grid of saved NURBS shapes, click one, and it lands on your selected controller — with the right CVs, color and draw settings. Make a shape you like once, keep it forever. Dark UI, because we're not animals.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">NURBS shapes</span>
                         <span class="tool-tag">PySide6</span>
@@ -725,7 +725,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">🔀</span>
                     <div class="tool-name">IK/FK Match</div>
-                    <p class="tool-desc">Maya Python plugin (<code>MPxCommand</code>) for seamless IK/FK switching. Registered as a native Maya command — callable from MEL, Python, hotkeys or shelf buttons. Supports arm and leg modules. Matches FK joints to IK pose or IK controllers to FK pose without any visible pop.</p>
+                    <p class="tool-desc">Switching IK to FK mid-shot usually means the arm pops to a different pose and the animator says words. This is a proper Maya plugin (<code>MPxCommand</code>) that matches the poses before switching, so the swap is invisible. Being a real command, it works from MEL, Python, a hotkey or a shelf button — whatever the animator likes.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">MPxCommand</span>
                         <span class="tool-tag">Maya Plugin</span>
@@ -737,7 +737,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">🔧</span>
                     <div class="tool-name">Rig Tools</div>
-                    <p class="tool-desc">A collection of animation and rigging utilities inspired by Morgan Loomis' ml_tools: Arc Tracer (visualise controller motion arcs), World Bake (bake to world space for editing), Color Control with gradient picker, Parent Shape, Reset Channels, and Rotation Order Switcher.</p>
+                    <p class="tool-desc">My grab-bag of everyday utilities, very much inspired by Morgan Loomis' ml_tools: an Arc Tracer to see the path a controller draws, World Bake for editing animation in world space, a color picker with gradients for controllers, Parent Shape, Reset Channels, and a rotation order switcher. The stuff you reach for twenty times a day.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">Arc Tracer</span>
                         <span class="tool-tag">World Bake</span>
@@ -749,7 +749,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">✅</span>
                     <div class="tool-name">Model Checker</div>
-                    <p class="tool-desc">QC validation tool based on Modeling QC Standards (Roure Osso, 2023). Checks mesh topology, naming conventions, pivot positions, history, freeze transforms, and other pre-rigging requirements. PySide UI with per-check pass/fail status and quick-fix buttons.</p>
+                    <p class="tool-desc">Runs the model through a checklist before I waste a day rigging something broken: topology, naming, pivots, leftover history, unfrozen transforms — all the classics (based on Roure Osso's Modeling QC Standards, 2023). Each check shows pass or fail, and most failures have a quick-fix button right there. Catches the "oops" before it becomes a re-rig.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">QC Validation</span>
                         <span class="tool-tag">Pre-rig checks</span>
@@ -761,7 +761,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">📍</span>
                     <div class="tool-name">Proxy Locator</div>
-                    <p class="tool-desc">Maya Python plugin (<code>MPxLocatorNode</code>) that draws a mesh patch on each controller showing the nearest skin region in the viewport. Color inherits from the controller's override color. <code>assign_all_proxy_locators()</code> auto-detects the body mesh and distributes patches across the full rig.</p>
+                    <p class="tool-desc">A viewport plugin (<code>MPxLocatorNode</code>) that draws a little patch of the mesh on top of each controller, so you can see which part of the body it moves without guessing. The patch takes the controller's color automatically, and one function call spreads them across the whole rig. Animators love this one.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">MPxLocatorNode</span>
                         <span class="tool-tag">Viewport draw</span>
@@ -773,7 +773,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">💥</span>
                     <div class="tool-name">Auto Collision</div>
-                    <p class="tool-desc">Distance-based collision system for secondary bones. Given a list of colliders and a target joint, builds a node network using <code>distanceBetween</code>, <code>plusMinusAverage</code> (Minimum mode), and a <code>remapValue</code> to drive push on a chosen axis. Offset group prevents double transforms. Attributes exposed on the target controller.</p>
+                    <p class="tool-desc">Makes secondary bones get out of the way on their own. You give it some colliders and a target joint, and it wires up a small node network — distances in, a remap, a push out on whatever axis you pick. When something gets close, the bone slides away. All tweakable from attributes on the controller, no simulation, no baking, nothing destructive.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">Distance-based</span>
                         <span class="tool-tag">Node network</span>
@@ -789,7 +789,7 @@
         <div class="content-block reveal">
             <div class="block-label">05 — Built with this pipeline</div>
             <h2 class="block-title">CHARACTERS<br>RIGGED</h2>
-            <p class="block-text">Every rig below was built using this pipeline — from guide placement to final skin transfer, zero manual scene editing.</p>
+            <p class="block-text">Proof it actually works: every character below went through the pipeline, from placing the guides to the final skin — without me touching the scene by hand once.</p>
 
             <div class="chars-grid">
                 <div class="char-card reveal">
