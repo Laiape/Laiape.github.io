@@ -35,7 +35,7 @@
             position: fixed; top: 0; left: 0;
             pointer-events: none; z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.15s ease;
+            transition: scale 0.15s ease;
         }
         .cursor-follower {
             width: 36px; height: 36px;
@@ -46,7 +46,7 @@
             transform: translate(-50%, -50%);
         }
         body:has(a:hover) .cursor,
-        body:has(button:hover) .cursor { transform: translate(-50%,-50%) scale(2.5); }
+        body:has(button:hover) .cursor { scale: 2.5; }
 
         /* --- HEADER --- */
         header {
@@ -876,7 +876,7 @@
         let fx = 0, fy = 0, mx = 0, my = 0;
         document.addEventListener('mousemove', e => {
             mx = e.clientX; my = e.clientY;
-            cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+            cursor.style.translate = `${mx}px ${my}px`;
         });
         (function animFollower() {
             fx += (mx - fx) * 0.12;
