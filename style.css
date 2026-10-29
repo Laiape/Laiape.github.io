@@ -160,6 +160,7 @@ code{font-family:var(--mono);font-size:.9em;color:var(--fg)}
 .breakdown-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .breakdown-clip{margin:0}
 .breakdown-frame{position:relative;aspect-ratio:1280/664;background:#000;overflow:hidden}
+.breakdown-frame.frame-634{aspect-ratio:1280/634}
 .breakdown-frame picture,.breakdown-frame video{position:absolute;inset:0;width:100%;height:100%;display:block}
 .breakdown-frame img,.breakdown-frame video{width:100%;height:100%;object-fit:contain;background:#000}
 .breakdown-frame video{opacity:0}
