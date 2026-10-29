@@ -44,7 +44,10 @@
         if (reduce) return;
         var pending = video.play();
         if (pending && pending.catch) {
-          pending.catch(function () { showPlay(video); });
+          pending.catch(function (err) {
+            if (err && err.name === 'AbortError') return;
+            showPlay(video);
+          });
         }
       });
     }, { threshold: 0.35 });
