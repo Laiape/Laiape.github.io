@@ -72,6 +72,12 @@ h1{font:700 clamp(2.2rem,5.6vw,5.2rem)/1.02 var(--display);letter-spacing:-.03em
 .ph .mono{border:1px dashed var(--muted);padding:3px 8px}
 .art{background:#fff;overflow:hidden}
 .art img{width:100%;height:100%;object-fit:contain;padding:12px}
+.shot{position:relative;display:block;overflow:hidden;border-bottom:1px solid var(--line);background:#10140f}
+.shot-dragon{aspect-ratio:16/9}
+.shot-portrait{aspect-ratio:1200/1418}
+.shot img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center}
+.shot-portrait img{object-fit:contain;object-position:center}
+.model-credit{margin:0;padding:10px 20px 0;color:var(--muted);font-size:.75rem}
 .card-body{padding:18px 20px 22px}
 .kicker{color:var(--muted);margin:0 0 6px}
 .card h4{font:700 1.35rem var(--display);margin:0 0 12px}
