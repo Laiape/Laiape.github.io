@@ -1,916 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laia Peris | 3D Rigging TD Artist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --fg: #f0ede8;
-            --accent: #c8f060;
-            --muted: #3a3a3a;
-            --subtle: #888;
-            --card-bg: #111;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--fg);
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 300;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* --- CURSOR --- */
-        .cursor {
-            width: 10px; height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: scale 0.15s ease;
-        }
-        .cursor-follower {
-            width: 36px; height: 36px;
-            border: 1px solid rgba(200,240,96,0.35);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-        }
-        body:has(a:hover) .cursor, 
-        body:has(button:hover) .cursor { scale: 2.5; }
-
-        /* --- HEADER --- */
-        header {
-            position: absolute; /* Cambiado de fixed a absolute para que se quede arriba */
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            padding: 24px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            mix-blend-mode: difference;
-        }
-        .logo-img {
-            height: 38px;
-            width: auto;
-            object-fit: contain;
-            display: block;
-        }
-        nav { display: flex; align-items: center; gap: 36px; }
-        nav a {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--fg);
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        /* Añadir esto alrededor de la línea 50 */
-        .nav-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-        nav a:hover { opacity: 1; }
-        .nav-cta {
-            border: 1px solid var(--fg) !important;
-            padding: 8px 20px;
-            opacity: 1 !important;
-            transition: background 0.3s, color 0.3s !important;
-        }
-        .nav-cta:hover {
-            background: var(--fg) !important;
-            color: var(--bg) !important;
-        }
-
-        /* --- HERO --- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 140px 48px 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -200px; right: -200px;
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(200,240,96,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(80px, 14vw, 200px);
-            line-height: 0.88;
-            letter-spacing: -0.01em;
-            color: var(--fg);
-        }
-        .hero-name .line-accent {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--fg);
-        }
-        .hero-subtitle {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(40px, 7vw, 100px);
-            line-height: 1;
-            letter-spacing: 0.05em;
-            color: var(--accent);
-            margin-top: 10px;
-        }
-        
-        .hero-divider {
-            width: 1px;
-            height: 64px;
-            background: linear-gradient(to bottom, var(--muted), transparent);
-            margin: 40px auto 0;
-        }
-        .hero-bottom {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            margin-top: 32px;
-        }
-        .hero-role {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--subtle);
-        }
-        .hero-desc {
-            font-size: 0.95rem;
-            font-weight: 300;
-            line-height: 1.65;
-            color: var(--subtle);
-            max-width: 340px;
-            text-align: center;
-            font-style: italic;
-        }
-        .hero-scroll {
-            margin-top: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--subtle);
-            animation: scrollBounce 2s ease-in-out infinite;
-        }
-        .hero-scroll::after {
-            content: '';
-            display: block;
-            width: 1px;
-            height: 44px;
-            background: linear-gradient(to bottom, var(--subtle), transparent);
-        }
-        @keyframes scrollBounce {
-            0%, 100% { transform: translateY(0); }
-            50%       { transform: translateY(7px); }
-        }
-
-        /* --- KEYWORD MARQUEE --- */
-        .marquee-strip {
-            border-top: 1px solid var(--muted);
-            border-bottom: 1px solid var(--muted);
-            padding: 16px 0;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        .marquee-track {
-            display: inline-flex;
-            animation: marquee 18s linear infinite;
-        }
-        .marquee-item {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 0.15em;
-            color: var(--muted);
-            padding: 0 40px;
-        }
-        .marquee-item span { color: var(--accent); margin-right: 40px; }
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-        }
-
-        /* --- SECTIONS --- */
-        section { padding: 100px 48px; }
-
-        .section-label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 60px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--muted);
-        }
-
-        /* --- REEL --- */
-        .reel-section { background: var(--bg); }
-        .reel-header {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            margin-bottom: 32px;
-        }
-        .reel-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(40px, 6vw, 80px);
-            line-height: 1;
-            letter-spacing: 0.05em;
-        }
-        .reel-meta {
-            text-align: right;
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--subtle);
-            line-height: 2;
-        }
-        .video-wrap {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--muted);
-            background: #000;
-        }
-        .video-wrap iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%; height: 100%;
-            border: none;
-        }
-
-        /* --- TOOLS --- */
-        .tools-section { border-top: 1px solid var(--muted); }
-
-        .logo-ticker-wrap {
-            overflow: hidden;
-            width: 100%;
-            -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-        }
-        .logo-ticker {
-            display: inline-flex;
-            align-items: center;
-            animation: logoTicker 16s linear infinite;
-        }
-        .logo-ticker:hover { animation-play-state: paused; }
-
-        .logo-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 64px;
-            height: 90px;
-            position: relative;
-        }
-        .logo-item::after {
-            content: '';
-            position: absolute;
-            right: 0; top: 50%;
-            transform: translateY(-50%);
-            width: 1px; height: 32px;
-            background: var(--muted);
-        }
-        .logo-item img {
-            height: 40px;
-            width: auto;
-            object-fit: contain;
-            /* Filtros eliminados para mostrar colores originales */
-            transition: transform 0.35s ease;
-        }
-        .logo-item:hover img {
-            transform: scale(1.12);
-        }
-        @keyframes logoTicker {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-        }
-
-        /* --- PROJECTS --- */
-        .projects-section { border-top: 1px solid var(--muted); }
-        .projects-header {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            margin-bottom: 48px;
-        }
-        .projects-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(40px, 6vw, 80px);
-            line-height: 1;
-        }
-        .see-all {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--subtle);
-            text-decoration: none;
-            border-bottom: 1px solid var(--muted);
-            padding-bottom: 2px;
-            transition: color 0.2s, border-color 0.2s;
-        }
-        .see-all:hover { color: var(--accent); border-color: var(--accent); }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .project-card {
-            position: relative;
-            aspect-ratio: 4/3;
-            background: var(--card-bg);
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid var(--muted);
-            cursor: none;
-            transition: border-color 0.3s;
-        }
-        .project-card:hover { border-color: rgba(200,240,96,0.45); }
-
-        .card-bg {
-            position: absolute; inset: 0;
-            transition: transform 0.6s ease;
-        }
-        .project-card:hover .card-bg { transform: scale(1.04); }
-
-        .card-bg-1 { background: linear-gradient(135deg, #121a10 0%, #0a1508 60%, #0e1a0a 100%); }
-        .card-bg-2 { background: linear-gradient(135deg, #0e0e1e 0%, #080818 60%, #111128 100%); }
-        .card-bg-3 { background: linear-gradient(135deg, #1a1008 0%, #150c05 60%, #1e1408 100%); }
-        .card-bg-4 { background: linear-gradient(135deg, #1a0f0f 0%, #120808 60%, #1e1010 100%); }
-        .card-bg-5 { background: linear-gradient(90deg, #111 0%, #0d1a0d 40%, #1a2a0a 100%); }
-
-        .card-grid-lines {
-            position: absolute; inset: 0;
-            opacity: 0.05;
-            background-image:
-                linear-gradient(var(--fg) 1px, transparent 1px),
-                linear-gradient(90deg, var(--fg) 1px, transparent 1px);
-            background-size: 40px 40px;
-            transition: opacity 0.3s;
-        }
-        .project-card:hover .card-grid-lines { opacity: 0.1; }
-
-        .card-status {
-            position: absolute;
-            top: 18px; left: 18px;
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 0.58rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            backdrop-filter: blur(8px);
-            border: 1px solid;
-            z-index: 2;
-        }
-        .status-done {
-            background: rgba(200,240,96,0.1);
-            border-color: rgba(200,240,96,0.4);
-            color: var(--accent);
-        }
-        .status-wip {
-            background: rgba(255,160,60,0.08);
-            border-color: rgba(255,160,60,0.35);
-            color: #ffa03c;
-        }
-        .status-personal {
-            background: rgba(255,255,255,0.05);
-            border-color: var(--muted);
-            color: var(--subtle);
-        }
-
-        .card-arrow {
-            position: absolute;
-            top: 18px; right: 18px;
-            width: 34px; height: 34px;
-            border: 1px solid var(--muted);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(4px);
-            transition: opacity 0.3s, transform 0.3s, border-color 0.3s;
-            z-index: 2;
-        }
-        .project-card:hover .card-arrow {
-            opacity: 1;
-            transform: translateY(0);
-            border-color: var(--accent);
-        }
-
-        .card-content {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 28px;
-            background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%);
-            z-index: 2;
-        }
-        .card-num {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.75rem;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-            margin-bottom: 4px;
-        }
-        .card-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(24px, 2.8vw, 40px);
-            color: var(--fg);
-            line-height: 0.95;
-            letter-spacing: 0.04em;
-            margin-bottom: 10px;
-        }
-        .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-right: 50px; }
-        .card-tag {
-            font-size: 0.58rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--subtle);
-        }
-        .card-tag + .card-tag::before { content: '·'; margin-right: 8px; }
-
-        /* Logos de programas en las tarjetas */
-        .card-software-logos {
-            position: absolute;
-            bottom: 28px;
-            right: 28px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 3;
-        }
-        .card-software-logos img {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
-
-        .project-card {
-            position: relative;
-            aspect-ratio: 16 / 9; /* Obliga a la tarjeta a tener forma de video */
-            overflow: hidden;
-            background: var(--card-bg);
-        }
-        
-        .card-video-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Con aspect-ratio 16/9, 'cover' ya no hará zoom excesivo */
-            z-index: 0;
-        }
-
-        /* Wide 5th card */
-        .project-card-wide {
-            grid-column: 1 / -1;
-            aspect-ratio: unset;
-            height: 260px;
-        }
-        .project-card-wide .card-content {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 24px;
-        }
-        .project-card-wide .card-title { font-size: clamp(28px, 4vw, 56px); }
-        .project-card-wide .card-software-logos {
-            right: 190px; /* Para no solaparse con el botón */
-        }
-
-        .card-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid var(--muted);
-            padding: 12px 24px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--accent);
-            text-decoration: none;
-            border-radius: 100px;
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: border-color 0.3s, background 0.3s, color 0.3s;
-        }
-        .card-cta:hover {
-            border-color: var(--accent);
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        /* --- BACK TO TOP BUTTON --- */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 12px 20px;
-            background: var(--accent);
-            color: var(--bg);
-            border: none;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            font-family: 'DM Sans', sans-serif;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            cursor: none;
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: opacity 0.3s, transform 0.3s, visibility 0.3s, background 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .back-to-top:hover {
-            background: var(--fg);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--muted);
-            padding: 32px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .footer-copy {
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--subtle);
-        }
-        .footer-links { display: flex; gap: 24px; }
-        .footer-links a {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--subtle);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .footer-links a:hover { color: var(--accent); }
-
-        /* --- SCROLL REVEAL --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.12s; }
-        .reveal-delay-2 { transition-delay: 0.24s; }
-        .reveal-delay-3 { transition-delay: 0.36s; }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            header { padding: 18px 20px; }
-            section { padding: 60px 20px; }
-            footer { padding: 24px 20px; flex-direction: column; gap: 14px; text-align: center; }
-            .hero { padding: 100px 24px 60px; }
-            .reel-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .project-card-wide { height: auto; min-height: 220px; }
-            .project-card-wide .card-content { flex-direction: column; align-items: flex-start; gap: 20px; }
-            .logo-item { padding: 0 36px; }
-            .logo-item img { height: 32px; }
-            
-            .project-card-wide .card-software-logos {
-                top: 20px;
-                bottom: auto;
-                right: 20px;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laia Peris — Character Rigger / Rigging TD</title>
+<meta name="description" content="Laia Peris Arantzamendi, Character Rigger / Rigging TD. Animation-ready character and creature rigs, skinning, CFX, and a Python autorig framework for Maya. Demo Reel 2026.">
+<link rel="canonical" href="https://laiape.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Laia Peris — Character Rigger / Rigging TD">
+<meta property="og:description" content="Animation-ready character rigs and the Python tools that build them. Demo Reel 2026.">
+<meta property="og:url" content="https://laiape.github.io/">
+<meta property="og:image" content="https://laiape.github.io/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Laia Peris, Character Rigger / Rigging TD">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Laia Peris — Character Rigger / Rigging TD">
+<meta name="twitter:description" content="Animation-ready character rigs and the Python tools that build them. Demo Reel 2026.">
+<meta name="twitter:image" content="https://laiape.github.io/assets/og-card.png">
+<meta name="theme-color" content="#0e0f0c">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="#top"><span class="brand-mark">LP</span><span>Laia Peris</span></a>
+  <nav aria-label="Main">
+    <a href="#reel">Reel</a>
+    <a href="#characters">Characters</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-cv" href="cv.pdf">CV <span class="mono">PDF</span></a>
+  </nav>
+</header>
 
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="follower"></div>
+<main id="main">
+  <section class="hero" id="top">
+   <div class="hero-grid">
+   <div>
+    <p class="label"><span class="dot" aria-hidden="true"></span>Character Rigger / Rigging TD</p>
+    <h1>I build animation&#8209;ready character rigs, and the Python tools that build&nbsp;them.</h1>
+    <div class="hero-meta">
+      <p class="name">Laia Peris Arantzamendi</p>
+      <a class="award" href="https://www.therookies.co/entries/52333" target="_blank" rel="noopener">
+        <span class="award-badges"><img src="assets/rookies-finalist-2026.png" width="176" height="184" alt="Official The Rookies badge: Rookie Awards 2026 Finalist">
+        <img src="assets/rookies-draft-selection-2026.png" width="176" height="184" alt="Official The Rookies badge: Rookie Awards 2026 Draft Selection"></span>
+        <span class="award-text"><span class="mono">The Rookies 2026 · Rookie of the Year Finalist</span><span class="mono muted">Also Draft Selection · View entry <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></span></span>
+      </a>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="#reel">Watch Reel 2026</a>
+      <a class="btn" href="cv.pdf">Download CV (PDF)</a>
+      <a class="btn btn-ghost" href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
+    </div>
+   </div>
+   <dl class="spec" aria-label="Profile summary">
+     <div><dt class="mono">Focus</dt><dd>Rig quality and tooling</dd></div>
+     <div><dt class="mono">Builds</dt><dd>Procedural autorig framework: guide-based rebuilds, matrix-only constraints</dd></div>
+     <div><dt class="mono">Complement</dt><dd>CFX: AdonisFX, Vellum</dd></div>
+     <div><dt class="mono">Stack</dt><dd>Maya · Python 3 · Maya API 2.0 · Houdini</dd></div>
+   </dl>
+   </div>
+  </section>
 
-    <header>
-        <a href="index.html" class="logo-link">
-            <img src="logo_LP.png" alt="Laia Peris Logo" class="logo-img">
-        </a>
-        <nav class="nav-center">
-            <a href="portfolio.html">Portfolio</a>
-            <a href="cv.html">CV</a>
-            <a href="about.html" class="nav-cta">About Me</a>
-        </nav>
-    </header>
+  <section class="reel" id="reel" aria-labelledby="reel-h">
+    <div class="sec-head">
+      <span class="mono idx">00</span>
+      <h2 id="reel-h">Demo Reel 2026</h2>
+      <span class="mono muted">Rigging TD · CFX</span>
+    </div>
+    <div class="reel-box">
+      <button class="reel-btn" type="button" data-yt="B7hctd5SA2A" data-title="Laia Peris — Demo Reel 2026">
+        <img src="assets/reel-poster.jpg" width="480" height="270" alt="Frame from the Demo Reel 2026: Sprouts characters, facial rigging">
+        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+        <span class="reel-cta">Play reel <span class="muted">· loads YouTube</span></span>
+      </button>
+    </div>
+    <p class="reel-fallback"><a href="https://www.youtube.com/watch?v=B7hctd5SA2A" target="_blank" rel="noopener noreferrer">Watch on YouTube<span class="sr-only"> (opens in a new tab)</span></a></p>
+    <noscript><p><a href="https://www.youtube.com/watch?v=B7hctd5SA2A" target="_blank" rel="noopener noreferrer">Watch on YouTube</a></p></noscript>
+  </section>
 
-    <section class="hero">
-        <h1 class="hero-name">
-            <span>LAIA</span><br>
-            <span class="line-accent">PERIS</span>
-        </h1>
-        <h2 class="hero-subtitle">3D RIGGING TD & CFX ARTIST</h2>
-        
-        <div class="hero-divider"></div>
-        <div class="hero-bottom">
-            <p class="hero-role">Available · 2026</p>
-            <p class="hero-desc">Technical rigging specialist crafting skeleton systems and deformation rigs for 3D characters.</p>
-            <div class="hero-scroll">Scroll</div>
-        </div>
-    </section>
-
-    <div class="marquee-strip">
-        <div class="marquee-track">
-            <span class="marquee-item"><span>✦</span>3D RIGGING</span>
-            <span class="marquee-item"><span>✦</span>CHARACTER TD</span>
-            <span class="marquee-item"><span>✦</span>AUTODESK MAYA</span>
-            <span class="marquee-item"><span>✦</span>PYTHON SCRIPTING</span>
-            <span class="marquee-item"><span>✦</span>DEFORMATION SYSTEMS</span>
-            <span class="marquee-item"><span>✦</span>STUDENT DEMO REEL 2026</span>
-            <span class="marquee-item"><span>✦</span>3D RIGGING</span>
-            <span class="marquee-item"><span>✦</span>CHARACTER TD</span>
-            <span class="marquee-item"><span>✦</span>AUTODESK MAYA</span>
-            <span class="marquee-item"><span>✦</span>PYTHON SCRIPTING</span>
-            <span class="marquee-item"><span>✦</span>DEFORMATION SYSTEMS</span>
-            <span class="marquee-item"><span>✦</span>STUDENT DEMO REEL 2026</span>
-        </div>
+  <section id="characters" aria-labelledby="chars-h">
+    <div class="sec-head">
+      <span class="mono idx">01</span>
+      <h2 id="chars-h">Characters</h2>
+      <span class="mono muted">What I did on each rig</span>
     </div>
 
-    <section id="reel" class="reel-section">
-        <div class="section-label">01 — Demo Reel</div>
-        <div class="reel-header reveal">
-            <h2 class="reel-title">STUDENT<br>DEMO REEL</h2>
-            <div class="reel-meta">
-                <div>Year · 2026</div>
-            </div>
+    <div class="group">
+      <div class="group-head">
+        <h3>Here Be Dragons</h3>
+        <p class="mono muted">Final degree project · 03/2025 – 07/2026</p>
+        <ul class="tags" aria-label="Project areas"><li>Body Mechanics</li><li>Facial Skinning</li><li>CFX</li></ul>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <picture class="shot shot-dragon">
+            <source srcset="assets/aychedral.webp" type="image/webp">
+            <img src="assets/aychedral.jpg" width="1200" height="676" alt="Aychedral, dragon from Here Be Dragons" loading="lazy">
+          </picture>
+          <div class="card-body">
+            <p class="mono kicker">Creature · Dragon</p>
+            <h4>Aychedral</h4>
+            <ul class="credits"><li>Skinning</li><li>AdonisFX muscle/fat sim</li><li>Vellum wing membrane sim</li></ul>
+          </div>
+        </article>
+        <article class="card">
+          <picture class="shot shot-dragon">
+            <source srcset="assets/varyndor.webp" type="image/webp">
+            <img src="assets/varyndor.jpg" width="1200" height="651" alt="Varyndor, dragon from Here Be Dragons" loading="lazy">
+          </picture>
+          <div class="card-body">
+            <p class="mono kicker">Creature · Dragon</p>
+            <h4>Varyndor</h4>
+            <ul class="credits"><li>Vellum wing membrane sim</li></ul>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <picture class="shot shot-portrait">
+          <source srcset="assets/edward.webp" type="image/webp">
+          <img src="assets/edward.jpg" width="1200" height="1418" alt="Edward character render" loading="lazy">
+        </picture>
+        <p class="model-credit mono">Model: Jordi Soriano</p>
+        <div class="card-body">
+          <p class="mono kicker">Independent collaborative project · 08/2026 – present</p>
+          <h4>Edward</h4>
+          <ul class="credits"><li>Full code-built rig</li><li>Complete skinning</li><li>Bifrost wrinkles</li><li>Corrective blendshapes</li></ul>
         </div>
-        <div class="video-wrap reveal reveal-delay-1">
-            <iframe
-                src="https://www.youtube.com/embed/B7hctd5SA2A"
-                title="Laia Peris — Student Demo Reel 2026"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-            </iframe>
+      </article>
+      <article class="card">
+        <picture class="shot shot-dragon">
+          <source srcset="assets/oparaiso-cover.webp" type="image/webp">
+          <img src="assets/oparaiso-cover.jpg" width="1200" height="674" alt="O'Paraiso, final degree project cover" loading="lazy">
+        </picture>
+        <div class="card-body">
+          <p class="mono kicker">O'Paraiso · Final degree project · 01/2026 – 06/2026</p>
+          <h4>Thaiz</h4>
+          <ul class="credits"><li>Body + facial rig</li><li>Skinning</li><li>Custom matrix-based rig</li><li>First character built with my autorig</li></ul>
         </div>
-    </section>
-
-    <section class="tools-section">
-        <div class="section-label reveal">02 — Software &amp; Tools</div>
-        <div class="logo-ticker-wrap reveal reveal-delay-1">
-            <div class="logo-ticker">
-                <div class="logo-item"><img src="icons/maya.png"         alt="Autodesk Maya"></div>
-                <div class="logo-item"><img src="icons/houdini.png"      alt="Houdini FX"></div>
-                <div class="logo-item"><img src="icons/python.png"       alt="Python"></div>
-                <div class="logo-item"><img src="icons/git.png"          alt="Git"></div>
-                <div class="logo-item"><img src="icons/visualstudio.png" alt="VS Code"></div>
-                <div class="logo-item"><img src="icons/maya.png"         alt="Autodesk Maya"></div>
-                <div class="logo-item"><img src="icons/houdini.png"      alt="Houdini FX"></div>
-                <div class="logo-item"><img src="icons/python.png"       alt="Python"></div>
-                <div class="logo-item"><img src="icons/git.png"          alt="Git"></div>
-                <div class="logo-item"><img src="icons/visualstudio.png" alt="VS Code"></div>
-            </div>
+      </article>
+      <article class="card">
+        <picture class="shot shot-dragon">
+          <source srcset="assets/sprouts-cover.webp" type="image/webp">
+          <img src="assets/sprouts-cover.jpg" width="1200" height="675" alt="Sprouts, final degree project cover: “Who said vegetables can't be heroes?”" loading="lazy">
+        </picture>
+        <div class="card-body">
+          <p class="mono kicker">Sprouts · Final degree project · 11/2025 – 06/2026</p>
+          <h4>Sprouts — Leader &amp; Mechanic</h4>
+          <ul class="credits"><li>mGear-integrated custom facial rigs</li><li>Skinning</li><li>Corrective blendshapes</li></ul>
         </div>
-    </section>
-    
-    <section class="projects-section">
-        <div class="section-label">03 — Projects</div>
-        <div class="projects-header reveal">
-            <h2 class="projects-title">PRODUCTION<br>WORKS</h2>
-            <a href="portfolio.html" class="see-all">See all →</a>
-        </div>
-    
-        <div class="projects-grid">
-            <!-- ------ DAVI------ -->
-            <a href="projects/davi.html" class="project-card-link project-card reveal">
-                <video autoplay muted loop playsinline class="card-video-bg">
-                    <source src="projects/media/davi/highlight.mp4" type="video/mp4">
-                </video>
-            
-                <div class="card-grid-lines"></div>
-                <span class="card-status status-done">✓ Completed</span>
-                
-                <div class="card-arrow">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M7 17L17 7M17 7H7M17 7v10"/>
-                    </svg>
-                </div>
-            
-                <div class="card-content">
-                    <div class="card-num">01</div>
-                    <h3 class="card-title">DAVI</h3>
-                    <div class="card-tags">
-                        <span class="card-tag">Character Rig</span>
-                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
-                    </div>
-                </div>
-            
-                <div class="card-software-logos">
-                    <img src="icons/maya.png" alt="Maya">
-                </div>
-            </a>
-            
+      </article>
+    </div>
 
-            <div class="project-card reveal reveal-delay-1">
-                <div class="card-bg card-bg-2"></div>
-                <div class="card-grid-lines"></div>
-                <span class="card-status status-wip">⬤ WIP</span>
-                <div class="card-arrow">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                </div>
-                <div class="card-content">
-                    <div class="card-num">02</div>
-                    <h3 class="card-title">HERE BE<br>DRAGONS</h3>
-                    <div class="card-tags">
-                        <span class="card-tag">Creature Skinning</span>
-                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
-                        <span class="card-tag">AdonisFX Muscle/Fat Sim</span>
-                        <span class="card-tag">Vellum Wing Sim</span>
-                    </div>
-                </div>
-                <div class="card-software-logos">
-                    <img src="icons/maya.png" alt="Maya">
-                    <img src="icons/houdini.png" alt="Houdini">
-                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
-                    <img src="icons/python.png" alt="Python">
-                </div>
-            </div>
+    <div class="breakdown breakdown-edward">
+      <p class="model-credit mono">Model: Jordi Soriano</p>
+      <div class="breakdown-pair">
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/edward-ikfk-controls-poster.webp" type="image/webp">
+              <img src="assets/video/edward-ikfk-controls-poster.jpg" width="1280" height="720" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="IK/FK">
+              <source src="assets/video/edward-ikfk-controls.webm" type="video/webm">
+              <source src="assets/video/edward-ikfk-controls.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">IK/FK</figcaption>
+        </figure>
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/edward-stretch-controls-poster.webp" type="image/webp">
+              <img src="assets/video/edward-stretch-controls-poster.jpg" width="1280" height="720" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="Stretch">
+              <source src="assets/video/edward-stretch-controls.webm" type="video/webm">
+              <source src="assets/video/edward-stretch-controls.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">Stretch</figcaption>
+        </figure>
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/edward-space-switch-script-comp-controls-poster.webp" type="image/webp">
+              <img src="assets/video/edward-space-switch-script-comp-controls-poster.jpg" width="1280" height="720" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="Space switch (script compensation)">
+              <source src="assets/video/edward-space-switch-script-comp-controls.webm" type="video/webm">
+              <source src="assets/video/edward-space-switch-script-comp-controls.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">Space switch (script compensation)</figcaption>
+        </figure>
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/edward-idle-clean-poster.webp" type="image/webp">
+              <img src="assets/video/edward-idle-clean-poster.jpg" width="1280" height="720" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="Idle">
+              <source src="assets/video/edward-idle-clean.webm" type="video/webm">
+              <source src="assets/video/edward-idle-clean.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">Idle</figcaption>
+        </figure>
+      </div>
+    </div>
 
-            <div class="project-card reveal reveal-delay-2">
-                <div class="card-bg card-bg-3"></div>
-                <div class="card-grid-lines"></div>
-                <span class="card-status status-wip">⬤ WIP</span>
-                <div class="card-arrow">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                </div>
-                <div class="card-content">
-                    <div class="card-num">03</div>
-                    <h3 class="card-title">SPROUTS</h3>
-                    <div class="card-tags">
-                        <span class="card-tag">Character Rig</span>
-                        <span class="card-tag">Custom Facial Scripting</span>
-                        <span class="card-tag">Facial Skinning</span>
-                        <span class="card-tag">Correctives Blendshapes</span>
-                    </div>
-                </div>
-                <div class="card-software-logos">
-                    <img src="icons/maya.png" alt="Maya">
-                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
-                    <img src="icons/python.png" alt="Python">
-                </div>
-            </div>
+    <article class="card card-wide">
+      <div class="stat"><span class="stat-num">77%</span><span class="mono">shared code</span></div>
+      <div class="card-body">
+        <p class="mono kicker">Final degree thesis</p>
+        <h4>Quadruped rigging</h4>
+        <ul class="credits"><li>77% shared code</li></ul>
+      </div>
+    </article>
+  </section>
 
-            <div class="project-card reveal reveal-delay-3">
-                <div class="card-bg card-bg-4"></div>
-                <div class="card-grid-lines"></div>
-                <span class="card-status status-wip">⬤ WIP</span>
-                <div class="card-arrow">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                </div>
-                <div class="card-content">
-                    <div class="card-num">04</div>
-                    <h3 class="card-title">O'PARAISO</h3>
-                    <div class="card-tags">
-                        <span class="card-tag">Character Rig</span>
-                        <span class="card-tag">Custom Matrix Based Rig</span>
-                        <span class="card-tag">Body Mechanics & Facial Skinning</span>
-                    </div>
-                </div>
-                <div class="card-software-logos">
-                    <img src="icons/maya.png" alt="Maya">
-                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
-                    <img src="icons/python.png" alt="Python">
-                </div>
-            </div>
+  <section id="tools" aria-labelledby="tools-h">
+    <div class="sec-head">
+      <span class="mono idx">02</span>
+      <h2 id="tools-h">Autorig framework</h2>
+      <span class="mono muted">Python 3 · Maya API 2.0</span>
+    </div>
+    <p class="lede">My personal rigging framework for Maya. Every rig is rebuilt from scratch from data, so the same inputs always give the same rig.</p>
+    <ol class="flow">
+      <li><span class="mono step">A</span><h3>Character Manager</h3><p>One place per character: versioned guides, curves, models and skin weights.</p></li>
+      <li><span class="mono step">B</span><h3>Guides</h3><p>Locators placed in T&#8209;pose and mirrored, saved to JSON. If a guide exists, that part gets built.</p></li>
+      <li><span class="mono step">C</span><h3>Layered skinning</h3><p>Weights authored in ngSkinTools2 layers, stored in a sparse <code>.skc</code> format and reapplied on every build, with topology-independent transfer.</p></li>
+      <li><span class="mono step">D</span><h3>Builder</h3><p>Rebuilds the rig from zero: joints, controls, IK/FK and spaces, using matrix nodes only. Custom Python or mGear Shifter engine.</p></li>
+    </ol>
+    <div class="breakdown">
+      <div class="breakdown-pair">
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame frame-634">
+            <picture>
+              <source srcset="assets/video/demo-guides-to-rig-poster.webp" type="image/webp">
+              <img src="assets/video/demo-guides-to-rig-poster.jpg" width="1280" height="634" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="634" aria-label="From guides to a built rig. AutoRig builds Freya from guides.">
+              <source src="assets/video/demo-guides-to-rig.webm" type="video/webm">
+              <source src="assets/video/demo-guides-to-rig.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">From guides to a built rig</figcaption>
+        </figure>
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame frame-634">
+            <picture>
+              <source srcset="assets/video/demo-character-manager-poster.webp" type="image/webp">
+              <img src="assets/video/demo-character-manager-poster.jpg" width="1280" height="634" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="634" aria-label="Character Manager. The AutoRig UI, with Edward's thumbnail visible.">
+              <source src="assets/video/demo-character-manager.webm" type="video/webm">
+              <source src="assets/video/demo-character-manager.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">Character Manager</figcaption>
+          <p class="model-credit mono">Edward model: Jordi Soriano</p>
+        </figure>
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/demo-thaiz-build-poster.webp" type="image/webp">
+              <img src="assets/video/demo-thaiz-build-poster.jpg" width="1280" height="664" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="664" aria-label="One-click build: Thaiz. AutoRig builds Thaiz from start to a completed rig.">
+              <source src="assets/video/demo-thaiz-build.webm" type="video/webm">
+              <source src="assets/video/demo-thaiz-build.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">One-click build: Thaiz</figcaption>
+        </figure>
+      </div>
+    </div>
+    <ul class="stack" aria-label="Software and tools">
+      <li>Maya</li><li>Python</li><li>Maya API 2.0</li><li>PySide6</li><li>mGear</li><li>ngSkinTools2</li><li>AdonisFX</li><li>Bifrost</li><li>Houdini · Vellum</li><li>Git</li>
+    </ul>
+  </section>
 
-            <div class="project-card project-card-wide reveal">
-                <div class="card-bg card-bg-5"></div>
-                <div class="card-grid-lines"></div>
-                <span class="card-status status-personal">Personal</span>
-                <div class="card-content">
-                    <div>
-                        <div class="card-num"></div>
-                        <div class="card-num">05</div>
-                        <h3 class="card-title">PERSONAL RIGGING<br>PIPELINE</h3>
-                        <div class="card-tags" style="margin-top:8px">
-                            <span class="card-tag">Pipeline</span>
-                            <span class="card-tag">Modular Rig</span>
-                        </div>
-                    </div>
-                    <a href="projects/pipeline.html" class="card-cta">
-                        View project
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                    </a>
-                </div>
-                <div class="card-software-logos">
-                    <img src="icons/maya.png" alt="Maya">
-                    <img src="icons/visualstudio.png" alt="Visual Studio Code">
-                    <img src="icons/python.png" alt="Python">
-                    <img src="icons/git.png" alt="Git">
-                </div>
-            </div>
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <div class="sec-head">
+      <span class="mono idx">03</span>
+      <h2 id="contact-h">Contact</h2>
+      <span class="mono muted">Available · 2026</span>
+    </div>
+    <a class="mail" href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
+    <div class="actions">
+      <a class="btn btn-primary" href="cv.pdf">Download CV (PDF)</a>
+      <a class="btn" href="https://www.linkedin.com/in/laiaperis" rel="me">LinkedIn</a>
+    </div>
+  </section>
+</main>
 
-        </div>
-    </section>
-
-    <footer>
-        <p class="footer-copy">© 2026 Laia Peris</p>
-        <div class="footer-links">
-            <a href="cv.html">CV</a>
-            <a href="about.html">About Me</a>
-            <a href="https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank">LinkedIn</a>
-        </div>
-    </footer>
-
-    <button id="backToTop" class="back-to-top">Back to top ↑</button>
-
-    <script>
-        // Custom cursor
-        const cursor   = document.getElementById('cursor');
-        const follower = document.getElementById('follower');
-        let fx = 0, fy = 0, mx = 0, my = 0;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            cursor.style.translate = `${mx}px ${my}px`;
-        });
-        (function animFollower() {
-            fx += (mx - fx) * 0.12;
-            fy += (my - fy) * 0.12;
-            follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
-            requestAnimationFrame(animFollower);
-        })();
-
-        // Scroll reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const io = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-            });
-        }, { threshold: 0.1 });
-        reveals.forEach(el => io.observe(el));
-
-        // Back to top button logic
-        const backToTopBtn = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
+<footer class="foot">
+  <p class="mono muted">© 2026 Laia Peris Arantzamendi · Character Rigger / Rigging TD</p>
+  <a class="mono" href="#top">Back to top ↑</a>
+</footer>
+<script src="assets/reel.js" defer></script>
+<script src="assets/breakdown.js" defer></script>
 </body>
 </html>

@@ -540,7 +540,7 @@
         <div class="content-block reveal">
             <div class="block-label">01 — Architecture</div>
             <h2 class="block-title">PIPELINE<br>MODULES</h2>
-            <p class="block-text">The whole thing is split into five pieces, and each one minds its own business. They don't talk to each other through Python memory (that dies the moment you reload) — they write to a JSON cache on disk. Sounds boring, but it's the reason every build comes out the same no matter what state Maya is in.</p>
+            <p class="block-text">The whole thing is split into separate pieces, and each one minds its own business. They don't talk to each other through Python memory (that dies the moment you reload) — they write to a JSON cache on disk. Sounds boring, but it's the reason every build comes out the same no matter what state Maya is in.</p>
 
             <div class="module-grid">
 
@@ -558,7 +558,7 @@
                 <div class="module-card">
                     <div class="module-num">02</div>
                     <div class="module-title">Guides &amp; Skeletons</div>
-                    <p class="module-desc">The guides are the only thing you actually place by hand: locators in T-pose. Do the left side, and the right side mirrors itself. Everything gets saved to a JSON file, and the rig is rebuilt from that file every single time. The nice part: if a guide exists, that limb gets built. If it doesn't, it's skipped. That's how the same pipeline handles bipeds, quadrupeds and faces without me writing three separate systems.</p>
+                    <p class="module-desc">The guides are the only thing you actually place by hand: locators in T-pose. Do the left side, and the right side mirrors itself. Everything gets saved to a JSON file, and the rig is rebuilt from that file every single time. The nice part: if a guide exists, that limb gets built. If it doesn't, it's skipped. That's how the same pipeline handles bipeds, quadrupeds and faces without me writing a separate system for each.</p>
                     <div class="module-tags">
                         <span class="module-tag">JSON export</span>
                         <span class="module-tag">Auto mirror</span>
@@ -582,7 +582,7 @@
                 <div class="module-card">
                     <div class="module-num">04</div>
                     <div class="module-title">Skin Clusters</div>
-                    <p class="module-desc">Skin weights live in my own <code>.skc</code> format that only stores the weights that aren't zero — files end up 60–80% smaller than Maya's export. And when a new character has no weights at all, it borrows them from another one: both meshes get mapped into a shared space defined by the skeleton, so the weights land where they should even if one character is twice as wide or has completely different topology. The donor character doesn't even need to be in the scene.</p>
+                    <p class="module-desc">Skin weights live in my own <code>.skc</code> format that only stores the weights that aren't zero — files end up smaller than Maya's export. And when a new character has no weights at all, it borrows them from another one: both meshes get mapped into a shared space defined by the skeleton, so the weights land where they should even if one character is twice as wide or has completely different topology. The donor character doesn't even need to be in the scene.</p>
                     <div class="module-tags">
                         <span class="module-tag">.skc sparse</span>
                         <span class="module-tag">UV projection</span>
@@ -612,7 +612,7 @@
         <div class="content-block reveal">
             <div class="block-label">02 — Build</div>
             <h2 class="block-title">BUILD<br>SEQUENCE</h2>
-            <p class="block-text">Every build starts from nothing and runs the same eight steps in the same order. No "just fix this one thing in the scene" — if something's wrong, you fix the guides or the code and rebuild. It takes seconds, so why not.</p>
+            <p class="block-text">Every build starts from nothing and runs the same steps in the same order. No "just fix this one thing in the scene" — if something's wrong, you fix the guides or the code and rebuild. A rebuild is quick, so why not.</p>
 
             <div class="code-block">
 <span class="c-comment"># 1. Clear cache &amp; set character context</span>
@@ -677,20 +677,19 @@
                 <div class="tool-card tool-card-wide">
                     <span class="tool-icon">🦴</span>
                     <div class="tool-name">Auto Skin Transfer</div>
-                    <p class="tool-desc">The big one. Skinning a character from scratch takes days; this borrows the weights from an already-skinned character instead. Both meshes get projected into a shared space built from the skeleton, then each vertex looks up its nearest neighbours and blends their weights. Different topology, different vertex count, different proportions — doesn't matter. The donor mesh doesn't even need to be in the scene.</p>
+                    <p class="tool-desc">The big one. Skinning a character from scratch is slow work; this borrows the weights from an already-skinned character instead. Both meshes get projected into a shared space built from the skeleton, then each vertex looks up its nearest neighbours and blends their weights. Different topology, different vertex count, different proportions — doesn't matter. The donor mesh doesn't even need to be in the scene.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">UV Projection</span>
                         <span class="tool-tag">KNN + IDW</span>
                         <span class="tool-tag">Topology-independent</span>
                         <span class="tool-tag">Skeleton-relative</span>
-                        <span class="tool-tag">5 modules</span>
                     </div>
                 </div>
 
                 <div class="tool-card">
                     <span class="tool-icon">📦</span>
                     <div class="tool-name">Skin Manager</div>
-                    <p class="tool-desc">Saves and loads skin weights in my own <code>.skc</code> format, which skips all the zeros — files come out 60–80% smaller than Maya's export. It plugs into ngSkinTools2, finds every skinned mesh in the scene on its own, and exports the whole batch per asset. One click before closing, one click after building.</p>
+                    <p class="tool-desc">Saves and loads skin weights in my own <code>.skc</code> format, which skips all the zeros — files come out smaller than Maya's export. It plugs into ngSkinTools2, finds every skinned mesh in the scene on its own, and exports the whole batch per asset. One click before closing, one click after building.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">ngSkinTools2</span>
                         <span class="tool-tag">.skc sparse</span>
@@ -737,7 +736,7 @@
                 <div class="tool-card">
                     <span class="tool-icon">🔧</span>
                     <div class="tool-name">Rig Tools</div>
-                    <p class="tool-desc">My grab-bag of everyday utilities, very much inspired by Morgan Loomis' ml_tools: an Arc Tracer to see the path a controller draws, World Bake for editing animation in world space, a color picker with gradients for controllers, Parent Shape, Reset Channels, and a rotation order switcher. The stuff you reach for twenty times a day.</p>
+                    <p class="tool-desc">My grab-bag of everyday utilities, very much inspired by Morgan Loomis' ml_tools: an Arc Tracer to see the path a controller draws, World Bake for editing animation in world space, a color picker with gradients for controllers, Parent Shape, Reset Channels, and a rotation order switcher. The stuff you reach for all the time.</p>
                     <div class="tool-tags">
                         <span class="tool-tag">Arc Tracer</span>
                         <span class="tool-tag">World Bake</span>
@@ -796,21 +795,21 @@
                     <img src="assets/freya.jpg" alt="Freya character rig">
                     <div class="char-card-label">
                         <div class="char-name">FREYA</div>
-                        <div class="char-type">Biped · 34 skin versions</div>
+                        <div class="char-type">Biped · multiple skin versions</div>
                     </div>
                 </div>
                 <div class="char-card reveal reveal-delay-1">
                     <img src="assets/mechanic.jpg" alt="Mechanic character rig">
                     <div class="char-card-label">
                         <div class="char-name">MECHANIC</div>
-                        <div class="char-type">Biped · 7 skin versions</div>
+                        <div class="char-type">Biped · multiple skin versions</div>
                     </div>
                 </div>
                 <div class="char-card reveal reveal-delay-1">
                     <img src="assets/thaiz.jpg" alt="Thaiz character rig">
                     <div class="char-card-label">
                         <div class="char-name">THAIZ</div>
-                        <div class="char-type">Biped · 20 skin versions</div>
+                        <div class="char-type">Biped · multiple skin versions</div>
                     </div>
                 </div>
             </div>
