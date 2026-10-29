@@ -2,14 +2,10 @@
 
 ## Breakdown clips
 
-The live homepage does not include breakdown videos. The markup, CSS and loader are ready for a later clip per character.
+The Autorig section plays two demos from `assets/video/`. Each clip is a `<video muted loop playsinline preload="none">` with a WebM source and an MP4 fallback. The still is a `<picture>` (WebP, then JPG) at 1280×664.
 
-To add one, paste the comment marked `breakdown-template` in `index.html` inside that character's card. Point each `<video>` at real files:
+`assets/breakdown.js` uses `IntersectionObserver`: a clip plays only while it is on screen, so the media files are not requested on first paint. If the visitor prefers reduced motion, the poster stays up and a Play control is shown instead of autoplay.
 
-- `poster` — a still image
-- a WebM `<source>`, then an MP4 `<source>`
-- `muted loop playsinline preload="none"` stay as written
+The same styles support a later with-controls / without-controls pair. Add `data-view="both"` on `.breakdown`, `data-variant="controls"` and `data-variant="plain"` on the figures, and the toggle buttons from `.breakdown-toggle` (`data-breakdown="both|controls|plain"`). Below 640px the pair stacks.
 
-`assets/breakdown.js` uses `IntersectionObserver`: a clip loads and plays only while it is on screen. If the visitor prefers reduced motion, it stays on the poster and does not autoplay. The toggle (`Both` / `With controls` / `Without controls`) shows the pair side by side, or one clip at a time. Below 640px the pair stacks.
-
-Do not commit placeholder videos. Leave the template commented until the real files exist.
+Do not commit placeholder videos.

@@ -184,6 +184,37 @@
       <li><span class="mono step">C</span><h3>Layered skinning</h3><p>Weights authored in ngSkinTools2 layers, stored in a sparse <code>.skc</code> format and reapplied on every build, with topology-independent transfer.</p></li>
       <li><span class="mono step">D</span><h3>Builder</h3><p>Rebuilds the rig from zero: joints, controls, IK/FK and spaces, using matrix nodes only. Custom Python or mGear Shifter engine.</p></li>
     </ol>
+    <div class="breakdown">
+      <div class="breakdown-pair">
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/demo-guides-to-rig-poster.webp" type="image/webp">
+              <img src="assets/video/demo-guides-to-rig-poster.jpg" width="1280" height="664" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="664" aria-label="From guides to a built rig. AutoRig builds Freya from guides.">
+              <source src="assets/video/demo-guides-to-rig.webm" type="video/webm">
+              <source src="assets/video/demo-guides-to-rig.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">From guides to a built rig</figcaption>
+        </figure>
+        <figure class="breakdown-clip">
+          <div class="breakdown-frame">
+            <picture>
+              <source srcset="assets/video/demo-character-manager-poster.webp" type="image/webp">
+              <img src="assets/video/demo-character-manager-poster.jpg" width="1280" height="664" alt="" loading="lazy">
+            </picture>
+            <video muted loop playsinline preload="none" width="1280" height="664" aria-label="Character Manager. The AutoRig UI, with Edward's thumbnail visible.">
+              <source src="assets/video/demo-character-manager.webm" type="video/webm">
+              <source src="assets/video/demo-character-manager.mp4" type="video/mp4">
+            </video>
+          </div>
+          <figcaption class="mono">Character Manager</figcaption>
+          <p class="model-credit mono">Edward model: Jordi Soriano</p>
+        </figure>
+      </div>
+    </div>
     <ul class="stack" aria-label="Software and tools">
       <li>Maya</li><li>Python</li><li>Maya API 2.0</li><li>PySide6</li><li>mGear</li><li>ngSkinTools2</li><li>AdonisFX</li><li>Bifrost</li><li>Houdini · Vellum</li><li>Git</li>
     </ul>
@@ -207,41 +238,6 @@
   <p class="mono muted">© 2026 Laia Peris Arantzamendi · Character Rigger / Rigging TD</p>
   <a class="mono" href="#top">Back to top ↑</a>
 </footer>
-<!--
-  breakdown-template
-  Hidden until a character has real with-controls / without-controls clips.
-  Paste this inside that character's <article class="card">, replace the
-  source and poster paths, and do not leave example files in the repo.
-  assets/breakdown.js plays a clip only while it is on screen, and does not
-  autoplay when the visitor prefers reduced motion.
-
-  <div class="breakdown" data-view="both">
-    <div class="breakdown-head">
-      <h3>Breakdown</h3>
-      <div class="breakdown-toggle" role="group" aria-label="Clip view">
-        <button type="button" data-breakdown="both" aria-pressed="true">Both</button>
-        <button type="button" data-breakdown="controls" aria-pressed="false">With controls</button>
-        <button type="button" data-breakdown="plain" aria-pressed="false">Without controls</button>
-      </div>
-    </div>
-    <div class="breakdown-pair">
-      <figure class="breakdown-clip" data-variant="controls">
-        <video muted loop playsinline preload="none" poster="assets/breakdown/POSTER.jpg">
-          <source src="assets/breakdown/CLIP-with-controls.webm" type="video/webm">
-          <source src="assets/breakdown/CLIP-with-controls.mp4" type="video/mp4">
-        </video>
-        <figcaption class="mono">With controls</figcaption>
-      </figure>
-      <figure class="breakdown-clip" data-variant="plain">
-        <video muted loop playsinline preload="none" poster="assets/breakdown/POSTER.jpg">
-          <source src="assets/breakdown/CLIP-without-controls.webm" type="video/webm">
-          <source src="assets/breakdown/CLIP-without-controls.mp4" type="video/mp4">
-        </video>
-        <figcaption class="mono">Without controls</figcaption>
-      </figure>
-    </div>
-  </div>
--->
 <script src="assets/reel.js" defer></script>
 <script src="assets/breakdown.js" defer></script>
 </body>
