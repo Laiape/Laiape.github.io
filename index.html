@@ -15,13 +15,14 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <a class="brand" href="#top" aria-label="Laia Peris, home"><span class="brand-mark">LP</span><span>Laia Peris</span></a>
+  <a class="brand" href="#top"><span class="brand-mark">LP</span><span>Laia Peris</span></a>
   <nav aria-label="Main">
     <a href="#reel">Reel</a>
     <a href="#characters">Characters</a>
@@ -72,8 +73,9 @@
         <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
         <span class="reel-cta">Play reel <span class="muted">· loads YouTube</span></span>
       </button>
-      <noscript><p><a href="https://youtu.be/B7hctd5SA2A">Watch the Demo Reel 2026 on YouTube</a></p></noscript>
     </div>
+    <p class="reel-fallback"><a href="https://www.youtube.com/watch?v=B7hctd5SA2A" target="_blank" rel="noopener noreferrer">Watch on YouTube<span class="sr-only"> (opens in a new tab)</span></a></p>
+    <noscript><p><a href="https://www.youtube.com/watch?v=B7hctd5SA2A" target="_blank" rel="noopener noreferrer">Watch on YouTube</a></p></noscript>
   </section>
 
   <section id="characters" aria-labelledby="chars-h">
@@ -192,6 +194,42 @@
   <p class="mono muted">© 2026 Laia Peris Arantzamendi · Character Rigger / Rigging TD</p>
   <a class="mono" href="#top">Back to top ↑</a>
 </footer>
+<!--
+  breakdown-template
+  Hidden until a character has real with-controls / without-controls clips.
+  Paste this inside that character's <article class="card">, replace the
+  source and poster paths, and do not leave example files in the repo.
+  assets/breakdown.js plays a clip only while it is on screen, and does not
+  autoplay when the visitor prefers reduced motion.
+
+  <div class="breakdown" data-view="both">
+    <div class="breakdown-head">
+      <h3>Breakdown</h3>
+      <div class="breakdown-toggle" role="group" aria-label="Clip view">
+        <button type="button" data-breakdown="both" aria-pressed="true">Both</button>
+        <button type="button" data-breakdown="controls" aria-pressed="false">With controls</button>
+        <button type="button" data-breakdown="plain" aria-pressed="false">Without controls</button>
+      </div>
+    </div>
+    <div class="breakdown-pair">
+      <figure class="breakdown-clip" data-variant="controls">
+        <video muted loop playsinline preload="none" poster="assets/breakdown/POSTER.jpg">
+          <source src="assets/breakdown/CLIP-with-controls.webm" type="video/webm">
+          <source src="assets/breakdown/CLIP-with-controls.mp4" type="video/mp4">
+        </video>
+        <figcaption class="mono">With controls</figcaption>
+      </figure>
+      <figure class="breakdown-clip" data-variant="plain">
+        <video muted loop playsinline preload="none" poster="assets/breakdown/POSTER.jpg">
+          <source src="assets/breakdown/CLIP-without-controls.webm" type="video/webm">
+          <source src="assets/breakdown/CLIP-without-controls.mp4" type="video/mp4">
+        </video>
+        <figcaption class="mono">Without controls</figcaption>
+      </figure>
+    </div>
+  </div>
+-->
 <script src="assets/reel.js" defer></script>
+<script src="assets/breakdown.js" defer></script>
 </body>
 </html>

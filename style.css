@@ -55,6 +55,9 @@ h1{font:700 clamp(2.2rem,5.6vw,5.2rem)/1.02 var(--display);letter-spacing:-.03em
 .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:var(--accent-ink);box-shadow:0 0 0 10px rgba(200,240,96,.18)}
 .reel-cta{position:absolute;left:16px;bottom:16px;background:rgba(14,15,12,.9);padding:8px 12px;font:500 .8rem var(--mono)}
 .reel-frame{position:absolute;inset:0;width:100%;height:100%;border:0}
+.reel-fallback{margin:12px 0 0}
+.reel-fallback a{display:inline-flex;align-items:center;min-height:44px;font:500 .82rem var(--mono);color:var(--accent)}
+.reel-fallback a:hover{color:var(--fg)}
 
 .group{border:1px solid var(--line);background:var(--bg2);padding:clamp(16px,2.5vw,28px);margin-bottom:24px}
 .group-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;margin-bottom:20px}
@@ -146,3 +149,20 @@ code{font-family:var(--mono);font-size:.9em;color:var(--fg)}
   .award-badges img{height:72px}
   .award-text{flex:1 1 12rem;font-size:.8rem}
 }
+
+/* Breakdown clips: unused until a character card includes .breakdown. */
+.breakdown{margin-top:18px}
+.breakdown-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.breakdown-head h3{margin:0;font:700 1.05rem var(--display)}
+.breakdown-toggle{display:flex;flex-wrap:wrap;gap:6px}
+.breakdown-toggle button{min-height:44px;padding:8px 12px;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 .75rem var(--mono);cursor:pointer}
+.breakdown-toggle button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent-ink);background:var(--accent)}
+.breakdown-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.breakdown-clip{margin:0}
+.breakdown-clip video{width:100%;height:auto;display:block;background:#000;aspect-ratio:16/9;object-fit:contain}
+.breakdown-clip figcaption{margin-top:6px;color:var(--muted);font-size:.75rem}
+.breakdown[data-view="controls"] .breakdown-clip[data-variant="plain"],
+.breakdown[data-view="plain"] .breakdown-clip[data-variant="controls"]{display:none}
+.breakdown[data-view="controls"] .breakdown-pair,
+.breakdown[data-view="plain"] .breakdown-pair{grid-template-columns:1fr}
+@media (max-width:640px){.breakdown-pair{grid-template-columns:1fr}}
