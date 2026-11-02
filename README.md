@@ -25,4 +25,4 @@ Images and videos retain their respective project and creator credits. Fonts are
 
 Originals, source records and review notes belong in ignored `.local-notes/`. Never commit working scenes, private documents or replacement reels without reviewing them first.
 
-Viewport animation requirements are recorded in `AGENTS.md` and `.cursor/rules/viewport-breakdowns.mdc`. Sprouts includes the supplied full film in an on-demand player, selected Freya/Mechanic final shots, and the recorded Freya guide-to-rig build demonstration.
+Viewport animation requirements are recorded in `AGENTS.md` and `.cursor/rules/viewport-breakdowns.mdc`. Sprouts includes selected Freya/Mechanic final shots, starting with Freya’s early close-up, and the recorded Freya guide-to-rig build demonstration. The complete Sprouts film must not be embedded; Laia has explicitly limited publication to the selected material.

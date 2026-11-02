@@ -43,7 +43,6 @@
     />
     <link rel="stylesheet" href="/style.css" />
     <script src="/assets/site.js" defer></script>
-    <script src="/assets/reel-player.js?v=sprouts1" defer></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -66,45 +65,23 @@
         <h1>Sprouts<span class="accent">.</span></h1>
         <p class="project-role">Custom facial rigs · Skinning</p>
       </section>
-      <button
-        type="button"
-        class="reel-link"
-        data-reel-player
-        data-video-id="XLcUHmhIxM8"
-        data-player-title="Sprouts — Full film"
-        aria-label="Play Sprouts in this page"
-        hidden
-      >
-        <picture class="reel-picture"
-          ><source
-            srcset="
-              /assets/images/sprouts-cover-640.webp  640w,
-              /assets/images/sprouts-cover.webp     1200w
-            "
-            sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1376px) calc(100vw - 96px), 1280px"
-            type="image/webp" />
-          <img
-            src="/assets/images/sprouts-cover.jpg"
-            width="1200"
-            height="675"
-            alt="Sprouts short film cover"
-            fetchpriority="high"
-            loading="eager"
-            decoding="async"
-        /></picture>
-        <span class="reel-shade" aria-hidden="true"></span
-        ><span class="play-icon" aria-hidden="true">▶</span
-        ><span class="reel-label">Watch Sprouts</span></button
-      ><noscript
-        ><iframe
-          class="reel-embed"
-          src="https://www.youtube.com/embed/XLcUHmhIxM8?rel=0"
-          title="Sprouts — Full film"
-          allow="encrypted-media; picture-in-picture; fullscreen"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin"
-        ></iframe
-      ></noscript>
+      <picture class="wide-art"
+        ><source
+          srcset="
+            /assets/images/sprouts-cover-640.webp  640w,
+            /assets/images/sprouts-cover.webp     1200w
+          "
+          sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1376px) calc(100vw - 96px), 1280px"
+          type="image/webp" />
+        <img
+          src="/assets/images/sprouts-cover.jpg"
+          width="1200"
+          height="675"
+          alt="Sprouts short film cover"
+          fetchpriority="high"
+          loading="eager"
+          decoding="async"
+      /></picture>
       <div class="project-intro-row">
         <h2>Freya &amp; Mechanic</h2>
         <p>
@@ -123,24 +100,24 @@
             loop
             playsinline
             preload="none"
-            poster="/assets/media/sprouts-final-shots-poster.jpg"
+            poster="/assets/media/sprouts-final-shots-poster.jpg?v=freya-intro"
             width="1280"
             height="720"
             aria-label="Freya and Mechanic — Final film shots"
           >
             <source
-              src="/assets/media/sprouts-final-shots.mp4"
+              src="/assets/media/sprouts-final-shots.mp4?v=freya-intro"
               type="video/mp4"
             />
-            <a href="/assets/media/sprouts-final-shots.mp4"
+            <a href="/assets/media/sprouts-final-shots.mp4?v=freya-intro"
               >Watch the final shots</a
             >
           </video>
           <figcaption>
             <h3>Freya & Mechanic</h3>
             <p>
-              Final shots · Sprouts / Node Studio<br />My contribution: facial
-              rigs, skinning and corrective blendshapes.
+              Freya close-up and selected final shots · Sprouts / Node Studio<br />My
+              contribution: facial rigs, skinning and corrective blendshapes.
             </p>
           </figcaption>
         </figure>
@@ -185,8 +162,7 @@
         </p>
         <p>
           The Maya recording demonstrates building Freya with my personal
-          rigging framework. It shows the guide-to-rig process; the full film is
-          available in the player above.
+          rigging framework. It shows the guide-to-rig process.
         </p>
       </details>
       <nav class="project-pagination" aria-label="Project navigation">
