@@ -1,315 +1,351 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Laia Peris — Character Rigger / Rigging TD</title>
-<meta name="description" content="Laia Peris Arantzamendi, Character Rigger / Rigging TD. Animation-ready character and creature rigs, skinning, CFX, and a Python autorig framework for Maya. Demo Reel 2026.">
-<link rel="canonical" href="https://laiape.github.io/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Laia Peris — Character Rigger / Rigging TD">
-<meta property="og:description" content="Animation-ready character rigs and the Python tools that build them. Demo Reel 2026.">
-<meta property="og:url" content="https://laiape.github.io/">
-<meta property="og:image" content="https://laiape.github.io/assets/og-card.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="627">
-<meta property="og:image:alt" content="Laia Peris, Character Rigger / Rigging TD">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Laia Peris — Character Rigger / Rigging TD">
-<meta name="twitter:description" content="Animation-ready character rigs and the Python tools that build them. Demo Reel 2026.">
-<meta name="twitter:image" content="https://laiape.github.io/assets/og-card.png">
-<meta name="theme-color" content="#0e0f0c">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="top">
-  <a class="brand" href="#top"><span class="brand-mark">LP</span><span>Laia Peris</span></a>
-  <nav aria-label="Main">
-    <a href="#reel">Reel</a>
-    <a href="#characters">Characters</a>
-    <a href="#tools">Tools</a>
-    <a href="#contact">Contact</a>
-    <a class="nav-cv" href="cv.pdf">CV <span class="mono">PDF</span></a>
-  </nav>
-</header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Character Rigger / Rigging TD — Laia Peris</title>
+    <meta
+      name="description"
+      content="Character rigs, creature deformation and the Python tools that build them. Explore Laia Peris’s reel and selected work."
+    />
+    <link rel="canonical" href="https://laiape.github.io/" />
+    <meta name="theme-color" content="#101112" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Character Rigger / Rigging TD — Laia Peris"
+    />
+    <meta
+      property="og:description"
+      content="Character rigs, creature deformation and the Python tools that build them. Explore Laia Peris’s reel and selected work."
+    />
+    <meta property="og:url" content="https://laiape.github.io/" />
+    <meta
+      property="og:image"
+      content="https://laiape.github.io/assets/og-card.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="Laia Peris — Character Rigger / Rigging TD"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
 
-<main id="main">
-  <section class="hero" id="top">
-   <div class="hero-grid">
-   <div>
-    <p class="label"><span class="dot" aria-hidden="true"></span>Character Rigger / Rigging TD</p>
-    <h1>I build animation&#8209;ready character rigs, and the Python tools that build&nbsp;them.</h1>
-    <div class="hero-meta">
-      <p class="name">Laia Peris Arantzamendi</p>
-      <a class="award" href="https://www.therookies.co/entries/52333" target="_blank" rel="noopener">
-        <span class="award-badges"><img src="assets/rookies-finalist-2026.png" width="176" height="184" alt="Official The Rookies badge: Rookie Awards 2026 Finalist">
-        <img src="assets/rookies-draft-selection-2026.png" width="176" height="184" alt="Official The Rookies badge: Rookie Awards 2026 Draft Selection"></span>
-        <span class="award-text"><span class="mono">The Rookies 2026 · Rookie of the Year Finalist</span><span class="mono muted">Also Draft Selection · View entry <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></span></span>
-      </a>
-    </div>
-    <div class="actions">
-      <a class="btn btn-primary" href="#reel">Watch Reel 2026</a>
-      <a class="btn" href="cv.pdf">Download CV (PDF)</a>
-      <a class="btn btn-ghost" href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
-    </div>
-   </div>
-   <dl class="spec" aria-label="Profile summary">
-     <div><dt class="mono">Focus</dt><dd>Rig quality and tooling</dd></div>
-     <div><dt class="mono">Builds</dt><dd>Procedural autorig framework: guide-based rebuilds, matrix-only constraints</dd></div>
-     <div><dt class="mono">Complement</dt><dd>CFX: AdonisFX, Vellum</dd></div>
-     <div><dt class="mono">Stack</dt><dd>Maya · Python 3 · Maya API 2.0 · Houdini</dd></div>
-   </dl>
-   </div>
-  </section>
-
-  <section class="reel" id="reel" aria-labelledby="reel-h">
-    <div class="sec-head">
-      <span class="mono idx">00</span>
-      <h2 id="reel-h">Demo Reel 2026</h2>
-      <span class="mono muted">Rigging TD · CFX</span>
-    </div>
-    <div class="reel-box">
-      <button class="reel-btn" type="button" data-yt="B7hctd5SA2A" data-title="Laia Peris — Demo Reel 2026">
-        <img src="assets/reel-poster.jpg" width="480" height="270" alt="Frame from the Demo Reel 2026: Sprouts characters, facial rigging">
-        <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-        <span class="reel-cta">Play reel <span class="muted">· loads YouTube</span></span>
-      </button>
-    </div>
-    <p class="reel-fallback"><a href="https://www.youtube.com/watch?v=B7hctd5SA2A" target="_blank" rel="noopener noreferrer">Watch on YouTube<span class="sr-only"> (opens in a new tab)</span></a></p>
-    <noscript><p><a href="https://www.youtube.com/watch?v=B7hctd5SA2A" target="_blank" rel="noopener noreferrer">Watch on YouTube</a></p></noscript>
-  </section>
-
-  <section id="characters" aria-labelledby="chars-h">
-    <div class="sec-head">
-      <span class="mono idx">01</span>
-      <h2 id="chars-h">Characters</h2>
-      <span class="mono muted">What I did on each rig</span>
-    </div>
-
-    <div class="group">
-      <div class="group-head">
-        <h3>Here Be Dragons</h3>
-        <p class="mono muted">Final degree project · 03/2025 – 07/2026</p>
-        <ul class="tags" aria-label="Project areas"><li>Body Mechanics</li><li>Facial Skinning</li><li>CFX</li></ul>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/assets/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Laia Peris home"
+          >Laia Peris<span class="brand-dot" aria-hidden="true"></span
+        ></a>
+        <nav aria-label="Main navigation">
+          <a href="#characters">Work</a><a href="#tools">Tools</a
+          ><a href="#about">About</a><a href="#contact">Contact</a>
+        </nav>
       </div>
-      <div class="grid">
-        <article class="card">
-          <picture class="shot shot-dragon">
-            <source srcset="assets/aychedral.webp" type="image/webp">
-            <img src="assets/aychedral.jpg" width="1200" height="676" alt="Aychedral, dragon from Here Be Dragons" loading="lazy">
-          </picture>
-          <div class="card-body">
-            <p class="mono kicker">Creature · Dragon</p>
-            <h4>Aychedral</h4>
-            <ul class="credits"><li>Skinning</li><li>AdonisFX muscle/fat sim</li><li>Vellum wing membrane sim</li></ul>
+    </header>
+    <main id="main" class="container">
+      <section class="intro" id="top" aria-labelledby="intro-title">
+        <div>
+          <p class="eyebrow">Character Rigger / Rigging TD</p>
+          <div class="intro-name">
+            <h1 id="intro-title">Laia Peris<span class="accent">.</span></h1>
+            <a class="hero-awards" href="https://www.therookies.co/entries/52333" target="_blank" rel="noopener noreferrer" aria-label="The Rookies 2026: Rookie of the Year Finalist and Draft Selection. View entry (opens in a new tab)">
+              <img src="/assets/rookies-finalist-2026.png" alt="Rookie Awards 2026 Finalist" width="176" height="184" loading="eager">
+              <img src="/assets/rookies-draft-selection-2026.png" alt="Rookie Awards 2026 Draft Selection" width="176" height="184" loading="eager">
+            </a>
           </div>
-        </article>
-        <article class="card">
-          <picture class="shot shot-dragon">
-            <source srcset="assets/varyndor.webp" type="image/webp">
-            <img src="assets/varyndor.jpg" width="1200" height="651" alt="Varyndor, dragon from Here Be Dragons" loading="lazy">
-          </picture>
-          <div class="card-body">
-            <p class="mono kicker">Creature · Dragon</p>
-            <h4>Varyndor</h4>
-            <ul class="credits"><li>Vellum wing membrane sim</li></ul>
-          </div>
-        </article>
-      </div>
-    </div>
-
-    <div class="grid grid-3">
-      <article class="card">
-        <picture class="shot shot-portrait">
-          <source srcset="assets/edward.webp" type="image/webp">
-          <img src="assets/edward.jpg" width="1200" height="1418" alt="Edward character render" loading="lazy">
-        </picture>
-        <p class="model-credit mono">Model: Jordi Soriano</p>
-        <div class="card-body">
-          <p class="mono kicker">Independent collaborative project · 08/2026 – present</p>
-          <h4>Edward</h4>
-          <ul class="credits"><li>Full code-built rig</li><li>Complete skinning</li><li>Bifrost wrinkles</li><li>Corrective blendshapes</li></ul>
         </div>
-      </article>
-      <article class="card">
-        <picture class="shot shot-dragon">
-          <source srcset="assets/oparaiso-cover.webp" type="image/webp">
-          <img src="assets/oparaiso-cover.jpg" width="1200" height="674" alt="O'Paraiso, final degree project cover" loading="lazy">
-        </picture>
-        <div class="card-body">
-          <p class="mono kicker">O'Paraiso · Final degree project · 01/2026 – 06/2026</p>
-          <h4>Thaiz</h4>
-          <ul class="credits"><li>Body + facial rig</li><li>Skinning</li><li>Custom matrix-based rig</li><li>First character built with my autorig</li></ul>
+        <p class="intro-statement">
+          I build animation-ready character rigs,<br class="desktop-break" />
+          and the Python tools that build them.
+        </p>
+      </section>
+      <section id="reel" class="reel-section" aria-label="Demo reel 2026">
+        <a
+          class="reel-link"
+          href="https://www.youtube.com/watch?v=B7hctd5SA2A"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Play reel 2026 on YouTube (opens in a new tab)"
+          ><picture class="reel-picture"
+            ><source
+              srcset="
+                /assets/images/reel-640.webp  640w,
+                /assets/images/reel.webp     1280w
+              "
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1376px) calc(100vw - 96px), 1280px"
+              type="image/webp" />
+            <img
+              src="/assets/images/reel.jpg"
+              width="1280"
+              height="720"
+              alt="Sprouts facial rigging from Laia Peris’s demo reel"
+              fetchpriority="high"
+              loading="eager"
+              decoding="async" /></picture
+          ><span class="reel-shade" aria-hidden="true"></span
+          ><span class="play-icon" aria-hidden="true">▶</span
+          ><span class="reel-label"
+            >Play reel <span aria-hidden="true">↗</span></span
+          ></a
+        >
+        <div class="media-caption">
+          <span>Demo reel / 2026</span
+          ><a
+            href="https://www.youtube.com/watch?v=B7hctd5SA2A"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Watch on YouTube <span aria-hidden="true">↗</span
+            ><span class="sr-only"> (opens in a new tab)</span></a
+          >
         </div>
-      </article>
-      <article class="card">
-        <picture class="shot shot-dragon">
-          <source srcset="assets/sprouts-cover.webp" type="image/webp">
-          <img src="assets/sprouts-cover.jpg" width="1200" height="675" alt="Sprouts, final degree project cover: “Who said vegetables can't be heroes?”" loading="lazy">
-        </picture>
-        <div class="card-body">
-          <p class="mono kicker">Sprouts · Final degree project · 11/2025 – 06/2026</p>
-          <h4>Sprouts — Leader &amp; Mechanic</h4>
-          <ul class="credits"><li>mGear-integrated custom facial rigs</li><li>Skinning</li><li>Corrective blendshapes</li></ul>
+      </section>
+      <section class="section" id="characters" aria-labelledby="work-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Rigging · Deformation · CFX</p>
+            <h2 id="work-title">Selected work</h2>
+          </div>
+          <a class="text-link" href="/portfolio.html"
+            >View all work <span aria-hidden="true">↗</span></a
+          >
         </div>
-      </article>
-    </div>
-
-    <div class="breakdown breakdown-edward">
-      <p class="model-credit mono">Model: Jordi Soriano</p>
-      <div class="breakdown-pair">
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame">
-            <picture>
-              <source srcset="assets/video/edward-ikfk-controls-poster.webp" type="image/webp">
-              <img src="assets/video/edward-ikfk-controls-poster.jpg" width="1280" height="720" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="IK/FK">
-              <source src="assets/video/edward-ikfk-controls.webm" type="video/webm">
-              <source src="assets/video/edward-ikfk-controls.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">IK/FK</figcaption>
-        </figure>
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame">
-            <picture>
-              <source srcset="assets/video/edward-stretch-controls-poster.webp" type="image/webp">
-              <img src="assets/video/edward-stretch-controls-poster.jpg" width="1280" height="720" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="Stretch">
-              <source src="assets/video/edward-stretch-controls.webm" type="video/webm">
-              <source src="assets/video/edward-stretch-controls.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">Stretch</figcaption>
-        </figure>
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame">
-            <picture>
-              <source srcset="assets/video/edward-space-switch-script-comp-controls-poster.webp" type="image/webp">
-              <img src="assets/video/edward-space-switch-script-comp-controls-poster.jpg" width="1280" height="720" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="Space switch (script compensation)">
-              <source src="assets/video/edward-space-switch-script-comp-controls.webm" type="video/webm">
-              <source src="assets/video/edward-space-switch-script-comp-controls.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">Space switch (script compensation)</figcaption>
-        </figure>
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame">
-            <picture>
-              <source srcset="assets/video/edward-idle-clean-poster.webp" type="image/webp">
-              <img src="assets/video/edward-idle-clean-poster.jpg" width="1280" height="720" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="720" aria-label="Idle">
-              <source src="assets/video/edward-idle-clean.webm" type="video/webm">
-              <source src="assets/video/edward-idle-clean.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">Idle</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <article class="card card-wide">
-      <div class="stat"><span class="stat-num">77%</span><span class="mono">shared code</span></div>
-      <div class="card-body">
-        <p class="mono kicker">Final degree thesis</p>
-        <h4>Quadruped rigging</h4>
-        <ul class="credits"><li>77% shared code</li></ul>
-      </div>
-    </article>
-  </section>
-
-  <section id="tools" aria-labelledby="tools-h">
-    <div class="sec-head">
-      <span class="mono idx">02</span>
-      <h2 id="tools-h">Autorig framework</h2>
-      <span class="mono muted">Python 3 · Maya API 2.0</span>
-    </div>
-    <p class="lede">My personal rigging framework for Maya. Every rig is rebuilt from scratch from data, so the same inputs always give the same rig.</p>
-    <ol class="flow">
-      <li><span class="mono step">A</span><h3>Character Manager</h3><p>One place per character: versioned guides, curves, models and skin weights.</p></li>
-      <li><span class="mono step">B</span><h3>Guides</h3><p>Locators placed in T&#8209;pose and mirrored, saved to JSON. If a guide exists, that part gets built.</p></li>
-      <li><span class="mono step">C</span><h3>Layered skinning</h3><p>Weights authored in ngSkinTools2 layers, stored in a sparse <code>.skc</code> format and reapplied on every build, with topology-independent transfer.</p></li>
-      <li><span class="mono step">D</span><h3>Builder</h3><p>Rebuilds the rig from zero: joints, controls, IK/FK and spaces, using matrix nodes only. Custom Python or mGear Shifter engine.</p></li>
-    </ol>
-    <div class="breakdown">
-      <div class="breakdown-pair">
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame frame-634">
-            <picture>
-              <source srcset="assets/video/demo-guides-to-rig-poster.webp" type="image/webp">
-              <img src="assets/video/demo-guides-to-rig-poster.jpg" width="1280" height="634" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="634" aria-label="From guides to a built rig. AutoRig builds Freya from guides.">
-              <source src="assets/video/demo-guides-to-rig.webm" type="video/webm">
-              <source src="assets/video/demo-guides-to-rig.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">From guides to a built rig</figcaption>
-        </figure>
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame frame-634">
-            <picture>
-              <source srcset="assets/video/demo-character-manager-poster.webp" type="image/webp">
-              <img src="assets/video/demo-character-manager-poster.jpg" width="1280" height="634" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="634" aria-label="Character Manager. The AutoRig UI, with Edward's thumbnail visible.">
-              <source src="assets/video/demo-character-manager.webm" type="video/webm">
-              <source src="assets/video/demo-character-manager.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">Character Manager</figcaption>
-          <p class="model-credit mono">Edward model: Jordi Soriano</p>
-        </figure>
-        <figure class="breakdown-clip">
-          <div class="breakdown-frame">
-            <picture>
-              <source srcset="assets/video/demo-thaiz-build-poster.webp" type="image/webp">
-              <img src="assets/video/demo-thaiz-build-poster.jpg" width="1280" height="664" alt="" loading="lazy">
-            </picture>
-            <video muted loop playsinline preload="none" width="1280" height="664" aria-label="One-click build: Thaiz. AutoRig builds Thaiz from start to a completed rig.">
-              <source src="assets/video/demo-thaiz-build.webm" type="video/webm">
-              <source src="assets/video/demo-thaiz-build.mp4" type="video/mp4">
-            </video>
-          </div>
-          <figcaption class="mono">One-click build: Thaiz</figcaption>
-        </figure>
-      </div>
-    </div>
-    <ul class="stack" aria-label="Software and tools">
-      <li>Maya</li><li>Python</li><li>Maya API 2.0</li><li>PySide6</li><li>mGear</li><li>ngSkinTools2</li><li>AdonisFX</li><li>Bifrost</li><li>Houdini · Vellum</li><li>Git</li>
-    </ul>
-  </section>
-
-  <section id="contact" class="contact" aria-labelledby="contact-h">
-    <div class="sec-head">
-      <span class="mono idx">03</span>
-      <h2 id="contact-h">Contact</h2>
-      <span class="mono muted">Available · 2026</span>
-    </div>
-    <a class="mail" href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
-    <div class="actions">
-      <a class="btn btn-primary" href="cv.pdf">Download CV (PDF)</a>
-      <a class="btn" href="https://www.linkedin.com/in/laiaperis" rel="me">LinkedIn</a>
-    </div>
-  </section>
-</main>
-
-<footer class="foot">
-  <p class="mono muted">© 2026 Laia Peris Arantzamendi · Character Rigger / Rigging TD</p>
-  <a class="mono" href="#top">Back to top ↑</a>
-</footer>
-<script src="assets/reel.js" defer></script>
-<script src="assets/breakdown.js" defer></script>
-</body>
+        <div class="work-grid">
+          <article class="work-card">
+            <a class="work-link" href="/projects/edward.html"
+              ><picture class="work-image edward"
+                ><source
+                  srcset="
+                    /assets/images/edward-640.webp  640w,
+                    /assets/images/edward.webp     1200w
+                  "
+                  sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+                  type="image/webp" />
+                <img
+                  src="/assets/images/edward.jpg"
+                  width="1200"
+                  height="1418"
+                  alt="Edward Scissorhands character, model by Jordi Soriano"
+                  loading="lazy"
+                  decoding="async"
+              /></picture>
+              <div class="work-caption">
+                <div>
+                  <h3>Edward</h3>
+                  <p>Code-built rig · Skinning</p>
+                </div>
+                <span class="work-arrow" aria-hidden="true">↗</span>
+              </div></a
+            >
+            <p class="thumbnail-credit">Model: Jordi Soriano</p>
+          </article>
+          <article class="work-card">
+            <a class="work-link" href="/projects/here-be-dragons.html"
+              ><picture class="work-image dragon"
+                ><source
+                  srcset="
+                    /assets/images/aychedral-640.webp  640w,
+                    /assets/images/aychedral.webp     1200w
+                  "
+                  sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+                  type="image/webp" />
+                <img
+                  src="/assets/images/aychedral.jpg"
+                  width="1200"
+                  height="676"
+                  alt="Aychedral in flight above a snowy forest"
+                  loading="lazy"
+                  decoding="async"
+              /></picture>
+              <div class="work-caption">
+                <div>
+                  <h3>Here Be Dragons</h3>
+                  <p>Creature skinning · Muscle & wing simulation</p>
+                </div>
+                <span class="work-arrow" aria-hidden="true">↗</span>
+              </div></a
+            >
+          </article>
+          <article class="work-card">
+            <a class="work-link" href="/projects/oparaiso.html"
+              ><picture class="work-image cover"
+                ><source
+                  srcset="
+                    /assets/images/oparaiso-cover-640.webp  640w,
+                    /assets/images/oparaiso-cover.webp     1200w
+                  "
+                  sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+                  type="image/webp" />
+                <img
+                  src="/assets/images/oparaiso-cover.jpg"
+                  width="1200"
+                  height="674"
+                  alt="O’Paraiso short film cover"
+                  loading="lazy"
+                  decoding="async"
+              /></picture>
+              <div class="work-caption">
+                <div>
+                  <h3>O’Paraiso</h3>
+                  <p>Body & facial rig · Skinning</p>
+                </div>
+                <span class="work-arrow" aria-hidden="true">↗</span>
+              </div></a
+            >
+          </article>
+          <article class="work-card">
+            <a class="work-link" href="/projects/sprouts.html"
+              ><picture class="work-image cover"
+                ><source
+                  srcset="
+                    /assets/images/sprouts-cover-640.webp  640w,
+                    /assets/images/sprouts-cover.webp     1200w
+                  "
+                  sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+                  type="image/webp" />
+                <img
+                  src="/assets/images/sprouts-cover.jpg"
+                  width="1200"
+                  height="675"
+                  alt="Sprouts short film cover"
+                  loading="lazy"
+                  decoding="async"
+              /></picture>
+              <div class="work-caption">
+                <div>
+                  <h3>Sprouts</h3>
+                  <p>Custom facial rigs · Skinning</p>
+                </div>
+                <span class="work-arrow" aria-hidden="true">↗</span>
+              </div></a
+            >
+          </article>
+        </div>
+      </section>
+      <section
+        class="section tools-section"
+        id="tools"
+        aria-labelledby="tools-title"
+      >
+        <a
+          class="tool-visual"
+          href="/projects/pipeline.html"
+          aria-label="Explore the autorig framework"
+          ><picture class="tool-picture"
+            ><source
+              srcset="
+                /assets/images/autorig-640.webp  640w,
+                /assets/images/autorig.webp     1280w
+              "
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+              type="image/webp" />
+            <img
+              src="/assets/images/autorig.jpg"
+              width="1280"
+              height="634"
+              alt="Maya guides and the built character rig"
+              loading="lazy"
+              decoding="async" /></picture
+        ></a>
+        <div class="tools-copy">
+          <p class="eyebrow">Built for the way I work</p>
+          <h2 id="tools-title">
+            The tools<br />
+            behind the rigs.
+          </h2>
+          <p>
+            A personal Python framework for Maya. From character guides to a
+            built rig, with a shared workflow for models, controls and skin
+            weights.
+          </p>
+          <a class="text-link" href="/projects/pipeline.html"
+            >Explore the autorig <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <section
+        class="section about-section"
+        id="about"
+        aria-labelledby="about-title"
+      >
+        <picture class="portrait"
+          ><source
+            srcset="/assets/images/portrait.webp 600w"
+            sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+            type="image/webp" />
+          <img
+            src="/assets/images/portrait.jpg"
+            width="600"
+            height="600"
+            alt="Portrait of Laia Peris"
+            loading="lazy"
+            decoding="async"
+        /></picture>
+        <div class="about-copy">
+          <p class="eyebrow">A little about me</p>
+          <h2 id="about-title">Made to move.</h2>
+          <p>
+            I’m a character rigger working at the intersection of animation and
+            code. I create rigs and deformation setups in Maya, develop Python
+            tools, and work with AdonisFX and Houdini for creature simulation.
+          </p>
+          <p>
+            My portfolio brings together collaborative short films and personal
+            rigging work. Each project shows my specific contribution, alongside
+            the people and tools behind it.
+          </p>
+          <a
+            class="award"
+            href="https://www.therookies.co/entries/52333"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span
+              ><strong>The Rookies 2026</strong
+              ><span
+                >Rookie of the Year Finalist<br />Draft Selection
+                <span aria-hidden="true">↗</span></span
+              ><span class="sr-only"> (opens in a new tab)</span></span
+            ></a
+          >
+        </div>
+      </section>
+      <section
+        class="section contact-section"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div>
+          <p class="eyebrow">Get in touch</p>
+          <h2 id="contact-title">Let’s make<br />characters move.</h2>
+        </div>
+        <div class="contact-links">
+          <a class="email" href="mailto:laia.peris03@gmail.com"
+            >laia.peris03@gmail.com <span aria-hidden="true">↗</span></a
+          ><a
+            class="text-link"
+            href="https://www.linkedin.com/in/laiaperis"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn <span aria-hidden="true">↗</span
+            ><span class="sr-only"> (opens in a new tab)</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer container">
+      <p>© 2026 Laia Peris Arantzamendi</p>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </footer>
+  </body>
 </html>

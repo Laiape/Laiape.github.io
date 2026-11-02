@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Edward — Laia Peris</title>
+    <meta
+      name="description"
+      content="A character rig built through my Python framework, with complete skinning. These demonstrations show the body controls, deformation and space switching in Maya."
+    />
+    <link
+      rel="canonical"
+      href="https://laiape.github.io/projects/edward.html"
+    />
+    <meta name="theme-color" content="#101112" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Edward — Laia Peris" />
+    <meta
+      property="og:description"
+      content="A character rig built through my Python framework, with complete skinning. These demonstrations show the body controls, deformation and space switching in Maya."
+    />
+    <meta
+      property="og:url"
+      content="https://laiape.github.io/projects/edward.html"
+    />
+    <meta
+      property="og:image"
+      content="https://laiape.github.io/assets/og-card.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="Laia Peris — Character Rigger / Rigging TD"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/assets/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Laia Peris home"
+          >Laia Peris<span class="brand-dot" aria-hidden="true"></span
+        ></a>
+        <nav aria-label="Main navigation">
+          <a href="/#characters" aria-current="page">Work</a
+          ><a href="/#tools">Tools</a><a href="/#about">About</a
+          ><a href="/#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="container project-page">
+      <section class="project-heading" id="top">
+        <a class="back-link" href="/portfolio.html">← All work</a>
+        <p class="eyebrow">Character rigging</p>
+        <h1>Edward<span class="accent">.</span></h1>
+        <p class="project-role">Code-built rig · Skinning</p>
+      </section>
+      <section
+        class="project-overview edward-overview"
+        aria-label="Edward project overview"
+      >
+        <figure>
+          <picture class="project-art edward"
+            ><source
+              srcset="
+                /assets/images/edward-640.webp  640w,
+                /assets/images/edward.webp     1200w
+              "
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1400px) 50vw, 640px"
+              type="image/webp" />
+            <img
+              src="/assets/images/edward.jpg"
+              width="1200"
+              height="1418"
+              alt="Edward Scissorhands character, model by Jordi Soriano"
+              loading="lazy"
+              decoding="async"
+          /></picture>
+          <figcaption>
+            Model:
+            <a
+              href="https://www.artstation.com/artwork/EzezLv"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Jordi Soriano <span aria-hidden="true">↗</span
+              ><span class="sr-only"> (opens in a new tab)</span></a
+            >
+          </figcaption>
+        </figure>
+        <div class="project-summary">
+          <h2>Built in code.<br />Ready to animate.</h2>
+          <p>
+            A character rig built through my Python framework, with complete
+            skinning. These demonstrations show the body controls, deformation
+            and space switching in Maya.
+          </p>
+          <ul class="tags">
+            <li>Maya</li>
+            <li>Python</li>
+            <li>Skinning</li>
+          </ul>
+        </div>
+      </section>
+      <section class="section breakdown-section" aria-labelledby="breakdowns">
+        <div class="section-heading">
+          <h2 id="breakdowns">Rig in motion</h2>
+          <span class="section-note">Model: Jordi Soriano</span>
+        </div>
+        <div class="clip-grid">
+          <figure class="clip" data-paired-video data-title="IK/FK">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="/assets/video/edward-ikfk-controls-poster.jpg"
+              width="1280"
+              height="720"
+              aria-label="IK/FK — Controls"
+            >
+              <source
+                src="/assets/video/edward-ikfk-controls.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              class="view-switch"
+              role="group"
+              aria-label="IK/FK view"
+              hidden
+            >
+              <button
+                type="button"
+                aria-pressed="false"
+                data-src="/assets/media/edward-ikfk-clean.mp4"
+                data-poster="/assets/media/edward-ikfk-clean-poster.jpg"
+              >
+                Clean</button
+              ><button
+                type="button"
+                aria-pressed="true"
+                data-src="/assets/video/edward-ikfk-controls.mp4"
+                data-poster="/assets/video/edward-ikfk-controls-poster.jpg"
+              >
+                Controls
+              </button>
+            </div>
+            <figcaption>
+              <h3>IK/FK</h3>
+              <p>Body rig demonstration</p>
+            </figcaption>
+            <p class="sr-only" role="status" aria-live="polite"></p>
+            <details class="clip-fallback">
+              <summary>Open video files</summary>
+              <a href="/assets/media/edward-ikfk-clean.mp4">Clean view</a> ·
+              <a href="/assets/video/edward-ikfk-controls.mp4">Controls view</a>
+            </details>
+          </figure>
+          <figure class="clip" data-paired-video data-title="Stretch">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="/assets/video/edward-stretch-controls-poster.jpg"
+              width="1280"
+              height="720"
+              aria-label="Stretch — Controls"
+            >
+              <source
+                src="/assets/video/edward-stretch-controls.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              class="view-switch"
+              role="group"
+              aria-label="Stretch view"
+              hidden
+            >
+              <button
+                type="button"
+                aria-pressed="false"
+                data-src="/assets/media/edward-stretch-clean.mp4"
+                data-poster="/assets/media/edward-stretch-clean-poster.jpg"
+              >
+                Clean</button
+              ><button
+                type="button"
+                aria-pressed="true"
+                data-src="/assets/video/edward-stretch-controls.mp4"
+                data-poster="/assets/video/edward-stretch-controls-poster.jpg"
+              >
+                Controls
+              </button>
+            </div>
+            <figcaption>
+              <h3>Stretch</h3>
+              <p>Deformation test</p>
+            </figcaption>
+            <p class="sr-only" role="status" aria-live="polite"></p>
+            <details class="clip-fallback">
+              <summary>Open video files</summary>
+              <a href="/assets/media/edward-stretch-clean.mp4">Clean view</a> ·
+              <a href="/assets/video/edward-stretch-controls.mp4"
+                >Controls view</a
+              >
+            </details>
+          </figure>
+          <figure class="clip" data-paired-video data-title="Space switch">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="/assets/video/edward-space-switch-script-comp-controls-poster.jpg"
+              width="1280"
+              height="720"
+              aria-label="Space switch — Controls"
+            >
+              <source
+                src="/assets/video/edward-space-switch-script-comp-controls.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div
+              class="view-switch"
+              role="group"
+              aria-label="Space switch view"
+              hidden
+            >
+              <button
+                type="button"
+                aria-pressed="false"
+                data-src="/assets/media/edward-space-switch-script-comp-clean.mp4"
+                data-poster="/assets/media/edward-space-switch-script-comp-clean-poster.jpg"
+              >
+                Clean</button
+              ><button
+                type="button"
+                aria-pressed="true"
+                data-src="/assets/video/edward-space-switch-script-comp-controls.mp4"
+                data-poster="/assets/video/edward-space-switch-script-comp-controls-poster.jpg"
+              >
+                Controls
+              </button>
+            </div>
+            <figcaption>
+              <h3>Space switch</h3>
+              <p>Script compensation</p>
+            </figcaption>
+            <p class="sr-only" role="status" aria-live="polite"></p>
+            <details class="clip-fallback">
+              <summary>Open video files</summary>
+              <a href="/assets/media/edward-space-switch-script-comp-clean.mp4"
+                >Clean view</a
+              >
+              ·
+              <a
+                href="/assets/video/edward-space-switch-script-comp-controls.mp4"
+                >Controls view</a
+              >
+            </details>
+          </figure>
+          <figure class="clip" data-paired-video data-title="Idle">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="/assets/video/edward-idle-clean-poster.jpg"
+              width="1280"
+              height="720"
+              aria-label="Idle — Clean"
+            >
+              <source
+                src="/assets/video/edward-idle-clean.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div class="view-switch" role="group" aria-label="Idle view" hidden>
+              <button
+                type="button"
+                aria-pressed="true"
+                data-src="/assets/video/edward-idle-clean.mp4"
+                data-poster="/assets/video/edward-idle-clean-poster.jpg"
+              >
+                Clean</button
+              ><button
+                type="button"
+                aria-pressed="false"
+                data-src="/assets/media/edward-idle-controls.mp4"
+                data-poster="/assets/media/edward-idle-controls-poster.jpg"
+              >
+                Controls
+              </button>
+            </div>
+            <figcaption>
+              <h3>Idle</h3>
+              <p>Animation test</p>
+            </figcaption>
+            <p class="sr-only" role="status" aria-live="polite"></p>
+            <details class="clip-fallback">
+              <summary>Open video files</summary>
+              <a href="/assets/video/edward-idle-clean.mp4">Clean view</a> ·
+              <a href="/assets/media/edward-idle-controls.mp4">Controls view</a>
+            </details>
+          </figure>
+        </div>
+        <details class="technical">
+          <summary>Technical details</summary>
+          <p>
+            The rig is built through my Python framework in Maya. These clips
+            demonstrate IK/FK, stretch and a space switch using script
+            compensation. The clean idle shows the result without visible
+            controls.
+          </p>
+        </details>
+      </section>
+      <nav class="project-pagination" aria-label="Project navigation">
+        <a class="text-link" href="/portfolio.html">← Back to work</a
+        ><a class="next-project" href="/projects/here-be-dragons.html"
+          ><span class="eyebrow">Next project</span
+          ><span>Here Be Dragons <span aria-hidden="true">↗</span></span></a
+        >
+      </nav>
+    </main>
+    <footer class="site-footer container">
+      <p>© 2026 Laia Peris Arantzamendi</p>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </footer>
+  </body>
+</html>

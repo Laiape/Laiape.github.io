@@ -1,468 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV | Laia Peris</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0a0a0a;
-            --fg: #f0ede8;
-            --accent: #c8f060;
-            --muted: #3a3a3a;
-            --subtle: #888;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--fg);
-            font-family: 'DM Sans', sans-serif;
-            font-weight: 300;
-            overflow-x: hidden;
-            cursor: none;
-        }
-
-        /* --- CURSOR (Igual al index) --- */
-        .cursor {
-            width: 10px; height: 10px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: scale 0.15s ease;
-        }
-        .cursor-follower {
-            width: 36px; height: 36px;
-            border: 1px solid rgba(200,240,96,0.35);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-        }
-        body:has(a:hover) .cursor, 
-        body:has(button:hover) .cursor { scale: 2.5; }
-
-        /* --- HEADER --- */
-        header {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            padding: 24px 48px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            mix-blend-mode: difference;
-        }
-        .logo-img {
-            height: 38px;
-            width: auto;
-            object-fit: contain;
-        }
-        .nav-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 40px;
-        }
-        nav { display: flex; align-items: center; gap: 36px; }
-        nav a {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--fg);
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        nav a:hover { opacity: 1; }
-
-        /* --- CV CONTENT --- */
-        .cv-main {
-            padding: 180px 48px 100px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .cv-grid {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-        }
-
-        /* Left Column */
-        .cv-sidebar h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(60px, 8vw, 120px);
-            line-height: 0.85;
-            margin-bottom: 40px;
-        }
-        .cv-sidebar h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--fg);
-        }
-        .contact-info {
-            margin-bottom: 60px;
-        }
-        .contact-item {
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--subtle);
-        }
-        .contact-item a { color: inherit; text-decoration: none; transition: color 0.2s; }
-        .contact-item a:hover { color: var(--accent); }
-        .contact-item img { height: 14px; opacity: 0.6; }
-
-        /* Right Column & Sections */
-        .section-label {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--muted);
-        }
-
-        .cv-section { margin-bottom: 80px; }
-        
-        .cv-item { margin-bottom: 40px; }
-        .cv-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 10px;
-        }
-        .cv-item h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            letter-spacing: 0.05em;
-        }
-        .cv-item .date {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--subtle);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        .cv-item .sub {
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-        .cv-item ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .cv-item ul li {
-            font-size: 0.95rem;
-            color: var(--subtle);
-            line-height: 1.6;
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 20px;
-        }
-        .cv-item ul li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-
-        /* Skills Layout */
-        .skills-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
-        .skill-group h4 {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--fg);
-            margin-bottom: 15px;
-        }
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .skill-tag {
-            font-size: 0.75rem;
-            padding: 6px 14px;
-            border: 1px solid var(--muted);
-            border-radius: 4px;
-            color: var(--subtle);
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--muted);
-            padding: 32px 48px;
-            text-align: center;
-        }
-        .footer-copy {
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--subtle);
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .cv-grid { grid-template-columns: 1fr; gap: 40px; }
-            .cv-main { padding: 140px 24px 60px; }
-            header { padding: 18px 20px; }
-            .skills-container { grid-template-columns: 1fr; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="follower"></div>
-
-    <header>
-        <a href="/index.html">
-            <img src="logo_LP.png" alt="Laia Peris Logo" class="logo-img">
-        </a>
-        <nav class="nav-center">
-            <a href="/portfolio.html" class="active">Portfolio</a>
-            <a href="/cv.html">CV</a>
-            <a href="/about.html" class="nav-cta">About Me</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Laia — Laia Peris</title>
+    <meta
+      name="description"
+      content="Laia Peris — Character Rigger / Rigging TD."
+    />
+    <link rel="canonical" href="https://laiape.github.io/cv.html" />
+    <meta name="theme-color" content="#101112" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contact Laia — Laia Peris" />
+    <meta
+      property="og:description"
+      content="Laia Peris — Character Rigger / Rigging TD."
+    />
+    <meta property="og:url" content="https://laiape.github.io/cv.html" />
+    <meta
+      property="og:image"
+      content="https://laiape.github.io/assets/og-card.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="Laia Peris — Character Rigger / Rigging TD"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/assets/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/assets/site.js" defer></script>
+    <meta http-equiv="refresh" content="0;url=/#contact" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Laia Peris home"
+          >Laia Peris<span class="brand-dot" aria-hidden="true"></span
+        ></a>
+        <nav aria-label="Main navigation">
+          <a href="/#characters">Work</a><a href="/#tools">Tools</a
+          ><a href="/#about">About</a><a href="/#contact">Contact</a>
         </nav>
+      </div>
     </header>
-
-    <main class="cv-main">
-        <div class="cv-grid">
-
-            <div class="page-header reveal">
-                <div class="section-label">Curriculum Vitae</div>
-            </div>
-            
-            <aside class="cv-sidebar">
-                <h1 class="reveal">LAIA<br><span>PERIS</span></h1>
-                
-                <div class="contact-info reveal reveal-delay-1">
-                    <div class="contact-item">
-                        <a href="mailto:laia.peris03@gmail.com">laia.peris03@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <img src="icons/linkedin.png" alt="">
-                        <a href="https://www.linkedin.com/in/laia-peris-arantzamendi-6b9809277" target="_blank">LinkedIn</a>
-                    </div>
-                    <div class="contact-item">
-                        <img src="icons/github.png" alt="">
-                        <a href="https://laiape.github.io" target="_blank">laiape.github.io</a>
-                    </div>
-                </div>
-
-                <div class="cv-section reveal reveal-delay-2">
-                    <div class="section-label">01 - Languages</div>
-                    <div class="skill-group">
-                        <p class="contact-item">Basque (Native)</p>
-                        <p class="contact-item">Catalan (Native)</p>
-                        <p class="contact-item">Spanish (Native)</p>
-                        <p class="contact-item">English (Fluent)</p>
-                    </div>
-                </div>
-            </aside>
-
-            <div class="cv-content">
-                
-                <section class="cv-section reveal">
-                    <div class="section-label">02 - Experience</div>
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3> Rigging Intern</h3>
-                            <span class="date">02/2026 - 06/2026</span>
-                        </div>
-                        <p class="sub">La Salle Ramon LLull (URL) | Barcelona</p>
-                            <ul>
-                                <li>Supported university-level rigging courses, assisting students with technical and practical workflows.</li>
-                                <li>Collaborated in the development and integration of new rigging systems for the academic pipeline.</li>
-                                <li>Gained experience with industry-standard tools, workflows, and production pipelines.</li>
-                            </ul>
-                    </div>
-
-                    <div class="section-label">03 - Project Experience</div>
-                    
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>DAVI - University Project</h3>
-                            <span class="date">2024 — 2025</span>
-                        </div>
-                        <p class="sub">Body Mechanics & Facial Skinning</p>
-                        <ul>
-                            <li>Responsible on Davi's character rig.</li>
-                            <li>mGear Framework + Facial custom rig.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>HERE BE DRAGONS - University Project</h3>
-                            <span class="date">2025 — 2026</span>
-                        </div>
-                        <p class="sub">Body Mechanics & Facial Skinning · CFX</p>
-                        <ul>
-                            <li>Aychedral: skinning + AdonisFX muscle/fat simulation.</li>
-                            <li>Vellum wing simulation in Houdini for both dragons, Aychedral and Varyndor.</li>
-                        </ul>
-                    </div>
-
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>SPROUTS - University Project</h3>
-                            <span class="date">2025 — 2026</span>
-                        </div>
-                        <p class="sub">Facial Skinning & Corrective Blendshapes</p>
-                        <ul>
-                            <li>Responsible on Mechanic's & Leader's characters rigs.</li>
-                            <li>mGear Framework + Facial custom rig.</li>
-                            <li>Corrective facial blendshapes.</li>
-                        </ul>
-                    </div>
-
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>O'PARAISO - University Project</h3>
-                            <span class="date">2025 — 2026</span>
-                        </div>
-                        <p class="sub">Facial Skinning & Corrective Blendshapes</p>
-                        <ul>
-                            <li>Responsible on Thaiz's character rig.</li>
-                            <li>Custom matrix based rig + Facial custom rig.</li>
-                            <li>Corrective facial blendshapes.</li>
-                        </ul>
-                    </div>
-
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>Automatic Rigging Tool</h3>
-                            <span class="date">Personal Project</span>
-                        </div>
-                        <p class="sub">Technical Artist / Developer</p>
-                        <ul>
-                            <li>Scripting for repetitive setup tasks for bipeds and quadrupeds.</li>
-                            <li>Optimization of existing rigs for personal pipeline efficiency.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="cv-section reveal">
-                    <div class="section-label">04 - Education</div>
-                    
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>Degree in 3D Animation & VFX</h3>
-                            <span class="date">2022 — 2026</span>
-                        </div>
-                        <p class="sub">La Salle Ramon Llull (URL) | Barcelona</p>
-                    </div>
-
-                    <div class="cv-item">
-                        <div class="cv-item-header">
-                            <h3>Multimedia Engineering</h3>
-                            <span class="date">2021 — 2022</span>
-                        </div>
-                        <p class="sub">La Salle Ramon Llull (URL) | Barcelona</p>
-                    </div>
-                </section>
-
-                <section class="cv-section reveal">
-                    <div class="section-label">05 - Technical Skills</div>
-                    <div class="skills-container">
-                        <div class="skill-group">
-                            <h4>Software</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Autodesk Maya</span>
-                                <span class="skill-tag">Houdini FX</span>
-                                <span class="skill-tag">Visual Studio Code</span>
-                            </div>
-                        </div>
-                        <div class="skill-group">
-                            <h4>Languages</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Python (Advanced)</span>
-                                <span class="skill-tag">Maya API</span>
-                                <span class="skill-tag">PyQt</span>
-                            </div>
-                        </div>
-                        <div class="skill-group">
-                            <h4>Specialization</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Facial/Body Rigging</span>
-                                <span class="skill-tag">Deformers</span>
-                                <span class="skill-tag">Modular Rigs</span>
-                                <span class="skill-tag">Muscle Systems</span>
-                            </div>
-                        </div>
-                        <div class="skill-group">
-                            <h4>Other</h4>
-                            <div class="skill-tags">
-                                <span class="skill-tag">Git / GitHub</span>
-                                <span class="skill-tag">Problem Solving</span>
-                                <span class="skill-tag">Team Collaboration</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-        </div>
+    <main id="main" class="container redirect-page">
+      <h1 id="top">Contact Laia</h1>
+      <p>
+        <a class="text-link" href="/#contact">Continue to contact laia ↗</a>
+      </p>
     </main>
-
-    <footer>
-        <p class="footer-copy">© 2026 Laia Peris</p>
+    <footer class="site-footer container">
+      <p>© 2026 Laia Peris Arantzamendi</p>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </footer>
-
-    <script>
-        // Cursor logic (Igual al index)
-        const cursor = document.getElementById('cursor');
-        const follower = document.getElementById('follower');
-        let fx = 0, fy = 0, mx = 0, my = 0;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            cursor.style.translate = `${mx}px ${my}px`;
-        });
-        (function animFollower() {
-            fx += (mx - fx) * 0.12;
-            fy += (my - fy) * 0.12;
-            follower.style.transform = `translate(${fx}px, ${fy}px) translate(-50%, -50%)`;
-            requestAnimationFrame(animFollower);
-        })();
-
-        // Scroll reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const io = new IntersectionObserver(entries => {
-            entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-            });
-        }, { threshold: 0.1 });
-        reveals.forEach(el => io.observe(el));
-    </script>
-</body>
+  </body>
 </html>

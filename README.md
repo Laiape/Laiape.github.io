@@ -1,11 +1,25 @@
-# Laiape.github.io
+# Laia Peris — Portfolio
 
-## Breakdown clips
+Static portfolio for a Character Rigger / Rigging TD. HTML, CSS and optional JavaScript; no framework or runtime dependencies.
 
-The Autorig section plays three demos from `assets/video/`. On wide screens they sit two per row, so the Maya UI stays readable; below 640px they stack. Each clip is a `<video muted loop playsinline preload="none">` with a WebM source and an MP4 fallback. The still is a `<picture>` (WebP, then JPG). The guides and Character Manager clips are 1280×634; the Thaiz build stays 1280×664. Edward's rig breakdown, under his card, is four 1280×720 clips in a 2×2 grid (one column below 640px).
+## Preview
 
-`assets/breakdown.js` uses `IntersectionObserver`: a clip plays only while it is on screen, so the media files are not requested on first paint. If the visitor prefers reduced motion, the poster stays up and a Play control is shown instead of autoplay.
+From this folder, run `python -m http.server 8765 --bind 127.0.0.1` and open <http://127.0.0.1:8765/>. The site uses root-relative URLs and needs an HTTP server.
 
-The same styles support a later with-controls / without-controls pair. Add `data-view="both"` on `.breakdown`, `data-variant="controls"` and `data-variant="plain"` on the figures, and the toggle buttons from `.breakdown-toggle` (`data-breakdown="both|controls|plain"`). Below 640px the pair stacks.
+## Check and publish
 
-Do not commit placeholder videos.
+Run `python .github/check_site.py` to check page links, image metadata, media controls and obsolete content. Add `--package` to collect the public site in `_site/`.
+
+GitHub Pages deploys from `main`. The workflow validates the site and uploads only the referenced public files. Changes are reviewed before merging; no deployment is triggered by the working branch.
+
+## Content
+
+- Home: current demo reel, four selected projects, autorig, about and contact.
+- Work: Edward, Here Be Dragons, O’Paraiso, Sprouts and DAVI.
+- Edward: synchronized clean/control views with native playback controls.
+- Here Be Dragons: production turnarounds from the supplied Canva, with Laia’s individual skinning and simulation credits.
+- The old About and CV URLs redirect to the corresponding home sections. A revised CV is not available yet, so no outdated PDF is offered.
+
+Images and videos retain their respective project and creator credits. Fonts are self-hosted under their included SIL Open Font License. Do not reuse portfolio artwork as stock content.
+
+Originals, source records and review notes belong in ignored `.local-notes/`. Never commit working scenes, private documents or replacement reels without reviewing them first.

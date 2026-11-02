@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://laiape.github.io/</loc>
-  </url>
-  <url>
-    <loc>https://laiape.github.io/portfolio.html</loc>
-  </url>
-  <url>
-    <loc>https://laiape.github.io/cv.html</loc>
-  </url>
-  <url>
-    <loc>https://laiape.github.io/about.html</loc>
-  </url>
-  <url>
-    <loc>https://laiape.github.io/cv.pdf</loc>
-  </url>
-  <url>
-    <loc>https://laiape.github.io/projects/pipeline.html</loc>
-  </url>
-  <url>
-    <loc>https://laiape.github.io/projects/davi.html</loc>
-  </url>
+  <url><loc>https://laiape.github.io/</loc></url>
+  <url><loc>https://laiape.github.io/portfolio.html</loc></url>
+  <url><loc>https://laiape.github.io/projects/edward.html</loc></url>
+  <url><loc>https://laiape.github.io/projects/here-be-dragons.html</loc></url>
+  <url><loc>https://laiape.github.io/projects/oparaiso.html</loc></url>
+  <url><loc>https://laiape.github.io/projects/sprouts.html</loc></url>
+  <url><loc>https://laiape.github.io/projects/davi.html</loc></url>
+  <url><loc>https://laiape.github.io/projects/pipeline.html</loc></url>
 </urlset>
