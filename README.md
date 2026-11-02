@@ -14,7 +14,7 @@ GitHub Pages deploys from `main`. The workflow validates the site and uploads on
 
 ## Content
 
-- Home: current demo reel, four selected projects, autorig, about and contact.
+- Home: current demo reel embedded in the page on Play, four selected projects, autorig, about and contact. The YouTube player is requested only after a click; without JavaScript, a standard embedded player remains available.
 - Work: Edward, Here Be Dragons, O’Paraiso, Sprouts and DAVI.
 - Edward: synchronized clean/control views with native playback controls.
 - Here Be Dragons: production turnarounds from the supplied Canva, with Laia’s individual skinning and simulation credits.

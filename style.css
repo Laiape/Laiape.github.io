@@ -1135,3 +1135,9 @@ nav a[aria-current] {
 @media(max-width:1100px) and (min-width:701px){.intro{align-items:start;flex-direction:column;gap:20px}.intro-statement{max-width:520px}}
 @media(max-width:700px){.intro-name{gap:12px}.intro-name h1{font-size:44px}.hero-awards{gap:6px}.hero-awards img{width:52px}}
 @media(max-width:380px){.intro-name h1{font-size:40px}.intro-name{gap:10px}.hero-awards{gap:4px}.hero-awards img{width:48px}}
+
+/* Reel plays in place; preserve the complete 16:9 frame. */
+.reel-link { width: 100%; padding: 0; border: 0; cursor: pointer; font: inherit; text-align: left; aspect-ratio: 16 / 9; }
+.reel-link[hidden] { display: none; }
+.reel-embed { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+.reel-picture img { transform: none; }
