@@ -17,7 +17,7 @@ GitHub Pages deploys from `main`. The workflow validates the site and uploads on
 - Home: current demo reel embedded in the page on Play, four selected projects, autorig, about and contact. The YouTube player is requested only after a click; without JavaScript, a standard embedded player remains available.
 - Work: Edward, Here Be Dragons, O’Paraiso, Sprouts and DAVI.
 - Edward: synchronized clean/control views with native playback controls.
-- Here Be Dragons: production turnarounds from the supplied Canva, with Laia’s individual skinning and simulation credits.
+- Here Be Dragons: three final Aychedral shots, the Varyndor cave-flight sequence, and three viewport excerpts from the current reel. Aychedral credits include rigging, skinning, AdonisFX muscle/fat simulation and Houdini wing simulation, following Laia’s explicit correction. Varyndor credits cover Houdini Vellum wings. Production turnarounds remain in disclosures.
 - The old About and CV URLs redirect to the corresponding home sections. A revised CV is not available yet, so no outdated PDF is offered.
 
 Images and videos retain their respective project and creator credits. Fonts are self-hosted under their included SIL Open Font License. Do not reuse portfolio artwork as stock content.

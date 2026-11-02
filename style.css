@@ -1128,16 +1128,142 @@ nav a[aria-current] {
     transform: scale(1.22);
   }
 }
-.intro-name{display:flex;align-items:center;gap:24px}
-.intro-name h1{white-space:nowrap}
-.hero-awards{display:flex;align-items:center;gap:8px;flex-shrink:0;text-decoration:none}
-.hero-awards img{width:64px;height:auto}
-@media(max-width:1100px) and (min-width:701px){.intro{align-items:start;flex-direction:column;gap:20px}.intro-statement{max-width:520px}}
-@media(max-width:700px){.intro-name{gap:12px}.intro-name h1{font-size:44px}.hero-awards{gap:6px}.hero-awards img{width:52px}}
-@media(max-width:380px){.intro-name h1{font-size:40px}.intro-name{gap:10px}.hero-awards{gap:4px}.hero-awards img{width:48px}}
+.intro-name {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.intro-name h1 {
+  white-space: nowrap;
+}
+.hero-awards {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.hero-awards img {
+  width: 64px;
+  height: auto;
+}
+@media (max-width: 1100px) and (min-width: 701px) {
+  .intro {
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .intro-statement {
+    max-width: 520px;
+  }
+}
+@media (max-width: 700px) {
+  .intro-name {
+    gap: 12px;
+  }
+  .intro-name h1 {
+    font-size: 44px;
+  }
+  .hero-awards {
+    gap: 6px;
+  }
+  .hero-awards img {
+    width: 52px;
+  }
+}
+@media (max-width: 380px) {
+  .intro-name h1 {
+    font-size: 40px;
+  }
+  .intro-name {
+    gap: 10px;
+  }
+  .hero-awards {
+    gap: 4px;
+  }
+  .hero-awards img {
+    width: 48px;
+  }
+}
 
 /* Reel plays in place; preserve the complete 16:9 frame. */
-.reel-link { width: 100%; padding: 0; border: 0; cursor: pointer; font: inherit; text-align: left; aspect-ratio: 16 / 9; }
-.reel-link[hidden] { display: none; }
-.reel-embed { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
-.reel-picture img { transform: none; }
+.reel-link {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  aspect-ratio: 16 / 9;
+}
+.reel-link[hidden] {
+  display: none;
+}
+.reel-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #000;
+}
+.reel-picture img {
+  transform: none;
+}
+
+/* Dragon studies: final shots first, then independently playable viewport clips. */
+.project-sections {
+  display: flex;
+  gap: 28px;
+  margin: 30px 0 56px;
+  font-size: 14px;
+}
+.project-sections a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+.dragon-work {
+  scroll-margin-top: 108px;
+}
+.dragon-work + .dragon-work {
+  margin-top: 100px;
+  padding-top: 60px;
+  border-top: 1px solid var(--line);
+}
+.dragon-heading {
+  margin-bottom: 32px;
+}
+.dragon-heading h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(32px, 4vw, 48px);
+  margin: 0 0 16px;
+}
+.dragon-heading > p:last-child {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 780px;
+}
+.final-shots .shot-lead {
+  grid-column: 1 / -1;
+}
+.breakdown-heading {
+  margin: 48px 0 24px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.dragon-extra {
+  margin-top: 32px;
+}
+.dragon-extra .clip {
+  margin: 24px 0 0;
+}
+@media (max-width: 700px) {
+  .dragon-work + .dragon-work {
+    margin-top: 64px;
+    padding-top: 40px;
+  }
+  .project-sections {
+    margin-bottom: 32px;
+  }
+}
