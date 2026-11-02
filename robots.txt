@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://laiape.github.io/sitemap.xml
