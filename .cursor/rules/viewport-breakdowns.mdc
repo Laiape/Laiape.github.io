@@ -10,6 +10,8 @@ alwaysApply: true
 - Present those stages in one playable video with smooth transitions and loop
   enabled. Preserve motion timing, camera, framing and FPS between stages.
 - Edward: controls, then clean. Apply this to each selected library animation.
+- Thaiz: body-only motion studies, controls then clean. Clothing and footwear
+  are excluded from these tests unless Laia explicitly requests them again.
 - Nini: skirt modules, controls, then clean. Show the actual setup under
   modules_GRP/NiniDress_Module_GRP, its collision capsules and driven chains.
 - Apply Smooth Mesh Preview to Nini in every stage, including the clean result.
