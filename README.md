@@ -15,11 +15,14 @@ GitHub Pages deploys from `main`. The workflow validates the site and uploads on
 ## Content
 
 - Home: current demo reel embedded in the page on Play, four selected projects, autorig, about and contact. The YouTube player is requested only after a click; without JavaScript, a standard embedded player remains available.
-- Work: Edward, Here Be Dragons, O’Paraiso, Sprouts and DAVI.
-- Edward: synchronized clean/control views with native playback controls.
+- Work: Edward, Nini, Here Be Dragons, O’Paraiso, Sprouts and DAVI.
+- Edward: Walking and Jump from the current character Animation Library, as continuous controls-to-clean looping breakdowns. Captured on the declared rig in an independent Maya process at 24 FPS; model credited to Jordi Soriano and source motion to Adobe Mixamo.
+- Nini: personal rigging project with a looping skirt breakdown. Walking and Run & fall each transition through the actual skirt module/collision display, animation controls and smoothed clean geometry. Every stage uses the same camera, timing and Smooth Mesh Preview level 2.
 - Here Be Dragons: three final Aychedral shots, the Varyndor cave-flight sequence, and three viewport excerpts from the current reel. Aychedral credits include rigging, skinning, AdonisFX muscle/fat simulation and Houdini wing simulation, following Laia’s explicit correction. Varyndor credits cover Houdini Vellum wings. Production turnarounds remain in disclosures.
 - The old About and CV URLs redirect to the corresponding home sections. A revised CV is not available yet, so no outdated PDF is offered.
 
 Images and videos retain their respective project and creator credits. Fonts are self-hosted under their included SIL Open Font License. Do not reuse portfolio artwork as stock content.
 
 Originals, source records and review notes belong in ignored `.local-notes/`. Never commit working scenes, private documents or replacement reels without reviewing them first.
+
+Viewport animation requirements are recorded in `AGENTS.md` and `.cursor/rules/viewport-breakdowns.mdc`. Sprouts includes the supplied full film in an on-demand player, selected Freya/Mechanic final shots, and the recorded Freya guide-to-rig build demonstration.

@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nini — Laia Peris</title>
+    <meta
+      name="description"
+      content="A personal character rig with a procedural skirt. A looping breakdown moves from skirt modules to controls and the smoothed clean character during a walking cycle."
+    />
+    <link rel="canonical" href="https://laiape.github.io/projects/nini.html" />
+    <meta name="theme-color" content="#101112" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nini — Laia Peris" />
+    <meta
+      property="og:description"
+      content="A personal character rig with a procedural skirt. A looping breakdown moves from skirt modules to controls and the smoothed clean character during a walking cycle."
+    />
+    <meta
+      property="og:url"
+      content="https://laiape.github.io/projects/nini.html"
+    />
+    <meta
+      property="og:image"
+      content="https://laiape.github.io/assets/og-card.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="Laia Peris — Character Rigger / Rigging TD"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/assets/fonts/inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Laia Peris home"
+          >Laia Peris<span class="brand-dot" aria-hidden="true"></span
+        ></a>
+        <nav aria-label="Main navigation">
+          <a href="/#characters" aria-current="page">Work</a
+          ><a href="/#tools">Tools</a><a href="/#about">About</a
+          ><a href="/#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="container project-page">
+      <section class="project-heading" id="top">
+        <a class="back-link" href="/portfolio.html">← All work</a>
+        <p class="eyebrow">Personal project · Rigging & procedural clothing</p>
+        <h1>Nini<span class="accent">.</span></h1>
+        <p class="project-role">Body rig · Skinning · Procedural skirt</p>
+      </section>
+      <p class="project-intro">
+        A personal rigging project showing Nini’s body deformation and
+        procedural skirt. The walking breakdown transitions from skirt modules
+        to controls and the smoothed clean character in a continuous loop.
+      </p>
+      <section aria-labelledby="walk-title">
+        <h2 id="walk-title" class="breakdown-heading">
+          Walking & skirt breakdown
+        </h2>
+        <figure class="clip">
+          <video
+            controls
+            loop
+            playsinline
+            preload="none"
+            poster="/assets/media/nini-skirt-breakdown-poster.jpg"
+            width="1280"
+            height="720"
+            aria-label="Nini skirt breakdown — Modules, controls and clean"
+          >
+            <source
+              src="/assets/media/nini-skirt-breakdown.mp4"
+              type="video/mp4"
+            />
+            <a href="/assets/media/nini-skirt-breakdown.mp4"
+              >Watch Nini’s skirt breakdown</a
+            >
+          </video>
+          <figcaption>
+            <p>
+              Continuous walking loop · Smooth preview enabled · Motion: Adobe
+              Mixamo
+            </p>
+          </figcaption>
+        </figure>
+      </section>
+      <section class="section" aria-labelledby="run-fall-title">
+        <div class="section-heading">
+          <h2 id="run-fall-title">Run & fall</h2>
+        </div>
+        <figure class="clip">
+          <video
+            controls
+            loop
+            playsinline
+            preload="none"
+            poster="/assets/media/nini-run-fall-breakdown-poster.jpg"
+            width="1280"
+            height="720"
+            aria-label="Nini running and falling — Skirt rig breakdown"
+          >
+            <source
+              src="/assets/media/nini-run-fall-breakdown.mp4"
+              type="video/mp4"
+            />
+            <a href="/assets/media/nini-run-fall-breakdown.mp4"
+              >Watch Nini running and falling</a
+            >
+          </video>
+          <figcaption>
+            <p>
+              Animation Library · Smooth preview enabled · Motion: BONES-SEED
+            </p>
+          </figcaption>
+        </figure>
+      </section>
+      <section class="section" aria-labelledby="skirt-title">
+        <div class="section-heading">
+          <h2 id="skirt-title">How the skirt follows</h2>
+        </div>
+        <ol class="contribution-list">
+          <li><span>01</span> Joint chains follow the hip around the skirt.</li>
+          <li>
+            <span>02</span> Leg capsules drive KeepOut contact as Nini walks.
+          </li>
+          <li>
+            <span>03</span> The solved joints deform the skirt over the body
+            motion.
+          </li>
+        </ol>
+      </section>
+      <details class="technical">
+        <summary>Setup details</summary>
+        <p>
+          The module stage reveals the actual skirt setup under
+          <code>rig_GRP / modules_GRP / NiniDress_Module_GRP</code>: leg
+          collision capsules and the driven skirt chains. The deformation chains
+          are under <code>skel_GRP / NiniDress_Chains_GRP</code>.
+        </p>
+        <p>
+          The skirt uses MayaMuscle KeepOut and matrix-driven joints. The stages
+          share matching cameras and timing at 24 fps, with Smooth Mesh Preview
+          enabled at level 2. The module stage uses X-ray display to reveal the
+          mechanism inside the smoothed character.
+        </p>
+        <p>
+          My contribution: rigging, skinning and the procedural skirt setup.
+          Source body motion: Adobe Mixamo, loaded from Nini’s Animation
+          Library. The Run & fall clip uses BONES-SEED source motion (<a
+            href="https://bones.studio/info/seed-license"
+            target="_blank"
+            rel="noopener noreferrer"
+            >source license<span class="sr-only"> (opens in a new tab)</span></a
+          >).
+        </p>
+      </details>
+      <nav class="project-pagination" aria-label="Project navigation">
+        <a class="text-link" href="/portfolio.html">← Back to work</a
+        ><a class="next-project" href="/projects/here-be-dragons.html"
+          ><span class="eyebrow">Next project</span
+          ><span>Here Be Dragons ↗</span></a
+        >
+      </nav>
+    </main>
+    <footer class="site-footer container">
+      <p>© 2026 Laia Peris Arantzamendi</p>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </footer>
+  </body>
+</html>

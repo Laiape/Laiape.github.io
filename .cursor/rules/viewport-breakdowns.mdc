@@ -1,0 +1,25 @@
+---
+description: Present every viewport animation as a controls and clean breakdown
+alwaysApply: true
+---
+
+# Viewport animation breakdowns
+
+- Every viewport animation published on this portfolio must include the real
+  animation controls and a clean character presentation.
+- Present those stages in one playable video with smooth transitions and loop
+  enabled. Preserve motion timing, camera, framing and FPS between stages.
+- Edward: controls, then clean. Apply this to each selected library animation.
+- Nini: skirt modules, controls, then clean. Show the actual setup under
+  modules_GRP/NiniDress_Module_GRP, its collision capsules and driven chains.
+- Apply Smooth Mesh Preview to Nini in every stage, including the clean result.
+- Use a plain dark viewport background for these rig demonstrations.
+- Keep playback user-initiated, pausable and available in full screen.
+- Do not replace the continuous breakdown with tabs or a clean-only clip unless
+  Laia explicitly requests that exception.
+- Keep source motion credits separate from Laia's rigging and deformation work.
+- Preserve production scenes and library clips; prepare captures on work copies.
+- This rule concerns viewport character-animation presentations. Final film
+  shots, the main reel and recorded build/UI tutorials retain their own format.
+
+Source: Laia's direct instructions in this chat, 2026-11-02.
