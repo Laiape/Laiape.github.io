@@ -10,7 +10,7 @@ document.querySelectorAll("[data-reel-player]").forEach((button) => {
         button.dataset.playerTitle || "Laia Peris — Demo reel 2026";
       player.src =
         "https://www.youtube.com/embed/" +
-        encodeURIComponent(button.dataset.videoId || "B7hctd5SA2A") +
+        encodeURIComponent(button.dataset.videoId || "bDlTtdf8p2I") +
         "?autoplay=1&rel=0";
       player.allow =
         "autoplay; encrypted-media; picture-in-picture; fullscreen";
